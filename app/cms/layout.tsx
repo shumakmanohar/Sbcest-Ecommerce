@@ -1,18 +1,27 @@
-import SideNavBar from "@/components/cms/SideNavBar";
+import NavBar from "@/components/cms/NavBar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { redirect } from "next/navigation";
+import { isAdmin } from "@/lib/isAdmin";
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default async function layout({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
+	if (!(await isAdmin())) {
+		redirect("/");
+	}
 	return (
-		<div className="min-h-screen flex gap-8">
-			<SideNavBar />
+		<div>
 			{/* Content */}
-			<div className="flex-1 container mx-auto">
+			<div className="container">
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="dark"
 					enableSystem
 					disableTransitionOnChange
 				>
+					<NavBar />
 					{children}
 				</ThemeProvider>
 			</div>

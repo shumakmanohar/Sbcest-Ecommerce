@@ -1,6 +1,7 @@
 import Header from "@/components/cms/Header";
 import SideNavBar from "@/components/cms/SideNavBar";
 import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 const Card = ({ name, total }: { name: string; total: number }) => {
 	return (

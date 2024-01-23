@@ -4,9 +4,11 @@ export const isAdmin = async () => {
 	const { userId } = auth();
 	const user = await currentUser();
 
-	console.log("userId", userId);
-	console.log("user", user);
-	if (userId && user?.publicMetadata.isAdmin) {
+	if (
+		userId &&
+		user?.publicMetadata.isAdmin &&
+		user?.privateMetadata.isPrivileged
+	) {
 		return true;
 	}
 	return false;
