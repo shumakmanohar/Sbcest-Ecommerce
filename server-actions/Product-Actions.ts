@@ -4,9 +4,18 @@ import { ServerResponse } from "@/util/Enums";
 import { ProductType, productSchema } from "@/util/Types";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { auth, currentUser } from "@clerk/nextjs";
+import { isAdmin } from "@/lib/isAdmin";
 
 export const AddProduct = async (product: ProductType) => {
 	//Todo : Check if loggedIn
+	if (!(await isAdmin())) {
+		return {
+			status: ServerResponse.Failure,
+			message: `Not Authenticated `,
+		};
+	}
+
 	const parseResult = productSchema.safeParse(product);
 	try {
 		if (!parseResult.success) throw Error("Data Parse Failed");
@@ -42,6 +51,12 @@ export const AddProduct = async (product: ProductType) => {
 
 export const DeleteProduct = async (id: string) => {
 	//Todo : Check if loggedIn
+	if (!(await isAdmin())) {
+		return {
+			status: ServerResponse.Failure,
+			message: `Not Authenticated `,
+		};
+	}
 	try {
 		await prisma.product.delete({ where: { id } });
 		revalidatePath("/cms/products");
@@ -64,6 +79,9 @@ export const GetAllProduct = async () => {
 			include: {
 				category: true,
 			},
+			orderBy: {
+				createdAt: "desc",
+			},
 		});
 		return {
 			status: ServerResponse.Success,
@@ -81,6 +99,12 @@ export const GetAllProduct = async () => {
 
 export const UpdateProduct = async (id: string, product: ProductType) => {
 	//Todo : Check if loggedIn
+	if (!(await isAdmin())) {
+		return {
+			status: ServerResponse.Failure,
+			message: `Not Authenticated `,
+		};
+	}
 	const parseResult = productSchema.safeParse(product);
 	try {
 		if (!parseResult.success) throw Error("Data Parse Failed");
