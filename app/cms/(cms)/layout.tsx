@@ -17,7 +17,7 @@ export default async function layout({
 			<div className="container mx-auto">
 				<ThemeProvider
 					attribute="class"
-					defaultTheme="light"
+					defaultTheme="dark"
 					enableSystem
 					disableTransitionOnChange
 				>
