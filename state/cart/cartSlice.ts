@@ -1,0 +1,46 @@
+import { StoreProduct } from "@/util/Types";
+import type { Product } from "@prisma/client";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+export interface CartItem {
+	product: StoreProduct;
+	quantity: number;
+}
+interface CartState {
+	items: CartItem[];
+}
+export const initialState: CartState = {
+	items: [],
+};
+
+const cartSlice = createSlice({
+	name: "cart",
+	initialState,
+	reducers: {
+		addToCart: (
+			state,
+			action: PayloadAction<{ product: StoreProduct; quantity: number }>
+		) => {
+			const { product, quantity } = action.payload;
+			const existingItemIndex = state.items.findIndex(
+				(item) => item.product?.id === product?.id
+			);
+
+			if (existingItemIndex !== -1) {
+				state.items[existingItemIndex].quantity += quantity;
+			} else {
+				state.items.push({ product, quantity });
+			}
+		},
+		removeFromCart: (state, action: PayloadAction<string>) => {
+			const productId = action.payload;
+			state.items = state.items.filter(
+				(item) => item.product?.id !== productId
+			);
+		},
+	},
+});
+
+export const { addToCart, removeFromCart } = cartSlice.actions;
+
+export default cartSlice.reducer;
