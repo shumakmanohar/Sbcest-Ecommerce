@@ -23,7 +23,6 @@ export default function RootLayout({
 			<ReduxProvider>
 				<html lang="en">
 					<body className={inter.className}>
-						<NavBar />
 						<Toaster position="top-right" reverseOrder={false} />
 						{children}
 					</body>

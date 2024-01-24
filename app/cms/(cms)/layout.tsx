@@ -14,10 +14,10 @@ export default async function layout({
 	return (
 		<div>
 			{/* Content */}
-			<div className="container">
+			<div className="container mx-auto">
 				<ThemeProvider
 					attribute="class"
-					defaultTheme="dark"
+					defaultTheme="light"
 					enableSystem
 					disableTransitionOnChange
 				>
