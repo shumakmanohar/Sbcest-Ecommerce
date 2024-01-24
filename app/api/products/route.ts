@@ -10,6 +10,8 @@ export async function GET() {
 		});
 		return Response.json(data);
 	} catch (error) {
-		return Response.json({ error: "Something went Wrong" + error });
+		return new Response(`Something Went Wrong ${error}`, {
+			status: 400,
+		});
 	}
 }

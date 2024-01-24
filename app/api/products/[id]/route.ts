@@ -10,9 +10,11 @@ export async function GET(
 		const data: StoreProduct = await prisma.product.findFirst({
 			where: { id: params.id },
 		});
-
+		if (data === null) throw Error("No Data Found");
 		return Response.json(data);
 	} catch (error) {
-		return Response.json({ error: "Something went Wrong" + error });
+		return new Response(`Something Went Wrong ${error}`, {
+			status: 400,
+		});
 	}
 }
