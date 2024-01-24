@@ -4,17 +4,31 @@ import Wrapper from "@/components/store/Wrapper";
 import { RootState } from "@/state/store";
 import Image from "next/image";
 import Link from "next/link";
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const page = () => {
-	const dispatch = useDispatch();
 	const cartItems = useSelector((state: RootState) => state.cart.items);
+
+	const totalPrice = useMemo(() => {
+		let calculatedTotalPrice = 0;
+
+		cartItems.forEach((item) => {
+			console.log("product", item.product?.price);
+			const price = item.product?.isOnOffer
+				? item.product.offerPrice
+				: item.product?.price;
+			calculatedTotalPrice += price! * item.quantity;
+		});
+
+		return calculatedTotalPrice;
+	}, [cartItems]);
+	console.log(totalPrice);
 
 	return (
 		<div className="w-full md:py-20">
-			"Data"{JSON.stringify(cartItems)}
 			<Wrapper>
-				{cartItems?.length > 0 && (
+				{cartItems.length > 0 && (
 					<>
 						{/* HEADING AND PARAGRAPH START */}
 						<div className="text-center max-w-[800px] mx-auto mt-8 md:mt-0">
@@ -29,8 +43,8 @@ const page = () => {
 							{/* CART ITEMS START */}
 							<div className="flex-[2]">
 								<div className="text-lg font-bold">Cart Items</div>
-								{cartItems.map((product) => (
-									<CartItem />
+								{cartItems.map(({ product, quantity }) => (
+									<CartItem product={product} quantity={quantity} />
 								))}
 							</div>
 							{/* CART ITEMS END */}
@@ -45,7 +59,7 @@ const page = () => {
 											Subtotal
 										</div>
 										<div className="text-md md:text-lg font-medium text-black">
-											"Sub Total"
+											SAR {totalPrice}
 										</div>
 									</div>
 									<div className="text-sm md:text-md py-5 border-t mt-5">
@@ -67,7 +81,7 @@ const page = () => {
 						{/* CART CONTENT END */}
 					</>
 				)}
-				{JSON.stringify(cartItems)}
+
 				{/* This is empty screen */}
 				{cartItems?.length < 1 && (
 					<div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">

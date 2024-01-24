@@ -33,36 +33,11 @@ export default function Home() {
 			updatedAt: "2024-01-20T16:24:20.098Z",
 		},
 	};
-	const cartItems = useSelector((state: RootState) => state.cart.items);
-	const dispatch = useDispatch();
 
-	const handleAddToCart = (product: StoreProduct, quantity: number) => {
-		dispatch(addToCart({ product, quantity }));
-	};
 	return (
 		<main>
 			<HeroBanner />
 			<UserButton afterSignOutUrl="/" />
-			<p className="text-4xl">{JSON.stringify(cartItems)}</p>
-
-			<button
-				onClick={() => {
-					console.log("use clicked");
-					handleAddToCart(tempItem, 1);
-				}}
-				className="bg-red-600"
-			>
-				Add
-			</button>
-			<button
-				onClick={() => {
-					console.log("use clicked");
-					dispatch(addToCart(tempItem));
-				}}
-				className="bg-red-600"
-			>
-				Remove
-			</button>
 		</main>
 	);
 }

@@ -1,3 +1,4 @@
+import AddToCart from "@/components/store/AddToCart";
 import ProductDetailsCarousel from "@/components/store/ProductDetailsCarousel";
 import Wrapper from "@/components/store/Wrapper";
 import { getDiscountedPricePercentage } from "@/util/Price";
@@ -64,9 +65,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 						</div>
 
 						{/* ADD TO CART BUTTON START */}
-						<button className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75">
-							Add to Cart
-						</button>
+						<AddToCart product={product} />
 						{/* ADD TO CART BUTTON END */}
 
 						<div>
