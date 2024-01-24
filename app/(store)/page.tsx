@@ -1,12 +1,5 @@
-"use client";
 import HeroBanner from "@/components/store/HeroBanner";
-import NavBar from "@/components/store/NavBar";
-import { addToCart } from "@/state/cart/cartSlice";
-import { RootState } from "@/state/store";
-import { StoreProduct } from "@/util/Types";
 
-import { UserButton } from "@clerk/nextjs";
-import { useDispatch, useSelector } from "react-redux";
 export default function Home() {
 	const tempItem = {
 		id: "65abf3fd3214982434e1221b8a",
@@ -37,7 +30,6 @@ export default function Home() {
 	return (
 		<main>
 			<HeroBanner />
-			<UserButton afterSignOutUrl="/" />
 		</main>
 	);
 }

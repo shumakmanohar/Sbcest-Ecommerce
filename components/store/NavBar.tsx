@@ -9,6 +9,7 @@ import { BsCart } from "react-icons/bs";
 import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import { useSelector } from "react-redux";
+
 import {
 	Command,
 	CommandEmpty,
@@ -19,6 +20,7 @@ import {
 	CommandSeparator,
 } from "@/components/ui/command";
 import CartIcon from "./CartIcon";
+import DynamicUserIcon from "./DynamicUserIcon";
 
 const NavBar = () => {
 	const [mobileMenu, setMobileMenu] = useState(false);
@@ -89,11 +91,7 @@ const NavBar = () => {
 							<IoMdSearch className="text-[19px] md:text-[24px]" />
 						</div>
 						<CartIcon />
-						<Link href="/dashboard">
-							<div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
-								<IoMdPerson className="text-[19px] md:text-[24px]" />
-							</div>
-						</Link>
+						<DynamicUserIcon />
 						<div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">
 							{mobileMenu ? (
 								<VscChromeClose
