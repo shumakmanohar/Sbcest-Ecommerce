@@ -3,12 +3,13 @@ import HeroBanner from "@/components/store/HeroBanner";
 import NavBar from "@/components/store/NavBar";
 import { addToCart } from "@/state/cart/cartSlice";
 import { RootState } from "@/state/store";
+import { StoreProduct } from "@/util/Types";
 
 import { UserButton } from "@clerk/nextjs";
 import { useDispatch, useSelector } from "react-redux";
 export default function Home() {
 	const tempItem = {
-		id: "65abf3fd3214982434e13b8a",
+		id: "65abf3fd3214982434e1221b8a",
 		title:
 			"LENOVO 16 inch ThinkPad E16 Gen 1 i5 1335U RAM 8GB 512GB M.2 - BLACK",
 		description: "",
@@ -34,9 +35,12 @@ export default function Home() {
 	};
 	const cartItems = useSelector((state: RootState) => state.cart.items);
 	const dispatch = useDispatch();
+
+	const handleAddToCart = (product: StoreProduct, quantity: number) => {
+		dispatch(addToCart({ product, quantity }));
+	};
 	return (
 		<main>
-			<NavBar />
 			<HeroBanner />
 			<UserButton afterSignOutUrl="/" />
 			<p className="text-4xl">{JSON.stringify(cartItems)}</p>
@@ -44,7 +48,7 @@ export default function Home() {
 			<button
 				onClick={() => {
 					console.log("use clicked");
-					dispatch(addToCart(tempItem));
+					handleAddToCart(tempItem, 1);
 				}}
 				className="bg-red-600"
 			>

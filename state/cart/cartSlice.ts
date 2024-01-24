@@ -10,18 +10,22 @@ interface CartState {
 	items: CartItem[];
 }
 export const initialState: CartState = {
-	items: [],
+	items:
+		localStorage.getItem("cart") != null
+			? JSON.parse(localStorage.getItem("cart")!)["cart"]["items"]
+			: [],
 };
 
 const cartSlice = createSlice({
 	name: "cart",
-	initialState,
+	initialState: initialState,
 	reducers: {
 		addToCart: (
 			state,
 			action: PayloadAction<{ product: StoreProduct; quantity: number }>
 		) => {
 			const { product, quantity } = action.payload;
+			console.log(state.items);
 			const existingItemIndex = state.items.findIndex(
 				(item) => item.product?.id === product?.id
 			);
@@ -42,5 +46,6 @@ const cartSlice = createSlice({
 });
 
 export const { addToCart, removeFromCart } = cartSlice.actions;
+export const selectCartItems = (state: { cart: CartState }) => state.cart.items;
 
 export default cartSlice.reducer;

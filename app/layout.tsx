@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import ReduxProvider from "@/components/store/ReduxProvider";
+import NavBar from "@/components/store/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
 			<ReduxProvider>
 				<html lang="en">
 					<body className={inter.className}>
+						<NavBar />
 						<Toaster position="top-right" reverseOrder={false} />
 						{children}
 					</body>
