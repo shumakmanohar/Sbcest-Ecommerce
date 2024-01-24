@@ -1,6 +1,6 @@
 import * as z from "zod";
 import { ServerResponse } from "./Enums";
-import type { Categories } from "@prisma/client";
+import type { Categories, Product } from "@prisma/client";
 
 // ZOD -> PRODUCT SCHEMA
 export const productSchema = z.object({
@@ -31,6 +31,8 @@ export const productSchema = z.object({
 });
 
 export type ProductType = z.infer<typeof productSchema>;
+
+export type StoreProduct = Omit<Product, "createdAt" | "updatedAt"> | null;
 
 // ZOD -> Categories SCHEMA
 export const categorySchema = z.object({
