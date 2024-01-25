@@ -19,8 +19,8 @@ const SideMenuLink = ({
 		<Link
 			key={_indx}
 			href={link}
-			className={`w-full py-2.5 px-4 rounded  hover:bg-gray-700 transition duration-200 inline-flex gap-4 ${
-				link === pathname && "bg-gray-700"
+			className={`w-full py-2.5 px-4 rounded  hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 inline-flex gap-4 ${
+				link === pathname && "bg-gray-200 dark:bg-gray-600"
 			}`}
 		>
 			{icon}
