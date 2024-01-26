@@ -8,6 +8,13 @@ import CartIcon from "./CartIcon";
 import DynamicUserIcon from "./DynamicUserIcon";
 import { Search } from "lucide-react";
 import SearchContainer from "./SearchContainer";
+import { Separator } from "../ui/separator";
+
+const StoreNavLinks = [
+	{ label: "Products", link: "/products" },
+	{ label: "About", link: "/products" },
+	{ label: "Contact", link: "/products" },
+];
 
 const NavBar = () => {
 	return (
@@ -30,7 +37,22 @@ const NavBar = () => {
 					</div>
 				</Wrapper>
 			</nav>
-			{/* Secondary Nav */}
+			<Wrapper className="h-[60px]  flex-1 ">
+				{/* Search Container */}
+				<div className="pb-1 flex items-center gap-4">
+					{StoreNavLinks.map((navLink) => (
+						<Link
+							href={navLink.link}
+							className="font-semibold text-md hover:underline duration-200 transition-all"
+						>
+							{navLink.label}
+						</Link>
+					))}
+				</div>
+
+				<Separator />
+			</Wrapper>
+			{/* Secondary Nav For Search  */}
 			<Wrapper className="h-[60px] md:hidden flex justify-between items-center my-4 flex-1 ">
 				{/* Search Container */}
 				<div className="flex-1 basis-[500px] h-full md:flex items-center justify-center">

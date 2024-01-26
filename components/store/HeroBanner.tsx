@@ -6,7 +6,10 @@ import { CMS_CONFIG } from "@/cms.config";
 
 const HeroBanner = () => {
 	return (
-		<div className="relative text-white text-[20px] w-full max-w-[1360px] mx-auto">
+		<div
+			dir="ltr"
+			className="relative text-white text-[20px] w-full max-w-[1360px] mx-auto"
+		>
 			<Carousel
 				autoPlay={true}
 				interval={5000}

@@ -15,13 +15,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
+	params: { locale },
 }: {
 	children: React.ReactNode;
+	params: { locale: string };
 }) {
 	return (
 		<ClerkProvider>
 			<ReduxProvider>
-				<html lang="en">
+				<html lang={locale} dir="rtl">
 					<body className={inter.className}>
 						<Toaster position="top-right" reverseOrder={false} />
 						{children}
