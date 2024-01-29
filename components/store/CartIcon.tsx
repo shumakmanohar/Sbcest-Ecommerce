@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 const CartIcon = () => {
 	let cartItems = useSelector((state: RootState) => state.cart.items);
+	//https://stackoverflow.com/questions/55622768/uncaught-invariant-violation-rendered-more-hooks-than-during-the-previous-rende
 
 	useEffect(() => {
 		store.dispatch(initializeCartFromLocalStorage());
