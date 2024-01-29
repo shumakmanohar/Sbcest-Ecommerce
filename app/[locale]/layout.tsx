@@ -23,7 +23,7 @@ export default function RootLayout({
 	return (
 		<ClerkProvider>
 			<ReduxProvider>
-				<html lang={locale} dir="rtl">
+				<html lang={locale}>
 					<body className={inter.className}>
 						<Toaster position="top-right" reverseOrder={false} />
 						{children}

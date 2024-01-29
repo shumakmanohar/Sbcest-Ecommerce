@@ -1,8 +1,10 @@
-const Loader = () => {
+const Loader = ({ className }: { className?: string }) => {
 	return (
 		<div>
 			<svg
-				className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
+				className={`animate-spin -ml-1 mr-3  text-black ${
+					className ? className : "w-5 h-5"
+				}`}
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
 				viewBox="0 0 24 24"

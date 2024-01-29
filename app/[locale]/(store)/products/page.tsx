@@ -1,5 +1,8 @@
 import ProductCard from "@/components/store/ProductCard";
+import ProductList from "@/components/store/ProductList";
 import Wrapper from "@/components/store/Wrapper";
+import { GetCategories } from "@/server-actions/Category-Action";
+import { FetchStoreProducts } from "@/server-actions/Product-Actions";
 import { StoreProduct } from "@/util/Types";
 
 export async function generateStaticParams() {
@@ -25,15 +28,17 @@ const getProducts = async () => {
 };
 
 const page = async () => {
-	const products = await getProducts();
+	//const products = await getProducts();
+	const { products } = await FetchStoreProducts();
+	const { data: categoriesList } = await GetCategories();
+
 	return (
 		<Wrapper>
-			<button>Filter</button>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-7 px-5 md:px-0">
-				{products.map((product: StoreProduct) => (
-					<ProductCard key={product?.id} product={product} />
-				))}
-			</div>
+			<ProductList
+				key={Math.random()}
+				initialProducts={products}
+				categoriesList={categoriesList}
+			/>
 		</Wrapper>
 	);
 };

@@ -1,3 +1,4 @@
+import { CMS_CONFIG } from "@/cms.config";
 import { getDiscountedPricePercentage } from "@/util/Price";
 import { StoreProduct } from "@/util/Types";
 
@@ -12,25 +13,35 @@ const ProductCard = ({ product }: { product: StoreProduct }) => {
 					<Image
 						width={500}
 						height={500}
-						src={"/test2.webp"}
+						src={
+							product?.previewImg
+								? `${CMS_CONFIG.cdn.location}/${product?.previewImg}`
+								: "/sblogo.png"
+						}
 						alt={"product Image"}
 					/>
 					<div className="p-4 text-black/[0.9]">
-						<h2 className="text-lg font-medium">"Product Name"</h2>
+						<h2 className="text-lg font-medium">{product?.title}</h2>
 						<div className="flex items-center text-black/[0.5]">
-							<p className="mr-2 text-lg font-semibold">&#8377;{45}</p>
-							{2 && (
+							<p className="mr-2 text-lg font-semibold">
+								SAR {product?.isOnOffer ? product.offerPrice : product?.price}
+							</p>
+							{product?.isOnOffer && (
 								<>
 									<p className="text-base font-medium line-through">
-										&#8377;{5}
+										SAR {product.price}
 									</p>
 									<p className="ml-auto text-base font-medium text-green-500">
-										{getDiscountedPricePercentage(10000, 40)}% off
+										{getDiscountedPricePercentage(
+											product.price,
+											product.offerPrice
+										)}
+										% off
 									</p>
 								</>
 							)}
 						</div>
-						<p className="text-sm text-gray-500">{"ehwdsfs"}</p>
+						<p className="text-sm text-gray-500">{product?.category.name}</p>
 					</div>
 				</div>
 			</Link>

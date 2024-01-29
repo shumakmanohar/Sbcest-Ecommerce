@@ -4,8 +4,40 @@ import { ServerResponse } from "@/util/Enums";
 import { ProductType, productSchema } from "@/util/Types";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { auth, currentUser } from "@clerk/nextjs";
 import { isAdmin } from "@/lib/isAdmin";
+
+export const FetchStoreProducts = async (page = 1) => {
+	// For Store Only
+	// LIMIT STORE SINGLE FETCH LIMIT IS 20 Products
+	const SINGLE_FETCH_LIMIT = 5;
+	try {
+		const skip = (page - 1) * SINGLE_FETCH_LIMIT;
+		const products = await prisma.product.findMany({
+			take: SINGLE_FETCH_LIMIT,
+			skip: skip,
+			orderBy: {
+				createdAt: "desc",
+			},
+			where: {
+				isArchived: false,
+			},
+			include: {
+				category: true,
+			},
+		});
+		return {
+			status: ServerResponse.Success,
+			message: "Store Products Fetched From DB",
+			products,
+		};
+	} catch (error) {
+		console.log(error);
+		return {
+			status: ServerResponse.Failure,
+			message: `Something went wrong in the server ${error}`,
+		};
+	}
+};
 
 export const AddProduct = async (product: ProductType) => {
 	//Todo : Check if loggedIn

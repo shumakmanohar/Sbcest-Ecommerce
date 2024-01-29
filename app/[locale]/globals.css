@@ -55,3 +55,7 @@
 	max-width: 700px;
 	aspect-ratio: 70/45;
 }
+
+.filter-btn {
+	@apply bg-[#F5F5F5] px-7 py-3 inline-flex gap-3 items-center rounded-3xl font-semibold text-sm;
+}
