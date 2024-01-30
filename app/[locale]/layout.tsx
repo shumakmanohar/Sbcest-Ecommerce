@@ -24,7 +24,7 @@ export default function RootLayout({
 		<ClerkProvider>
 			<ReduxProvider>
 				<html lang={locale}>
-					<body className={`${inter.className} pt-[200px] md:pt-[200px]`}>
+					<body className={`${inter.className} `}>
 						<Toaster position="top-right" reverseOrder={false} />
 						{children}
 					</body>

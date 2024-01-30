@@ -1,7 +1,7 @@
-import NavBar from "@/components/cms/NavBar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { redirect } from "next/navigation";
 import { isAdmin } from "@/lib/isAdmin";
+import SideNavBar from "@/components/cms/SideNavBar";
 
 export default async function layout({
 	children,
@@ -12,19 +12,17 @@ export default async function layout({
 		redirect("/");
 	}
 	return (
-		<div>
+		<div className="w-full min-h-screen flex">
 			{/* Content */}
-			<div className="container mx-auto">
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="dark"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<NavBar />
-					{children}
-				</ThemeProvider>
-			</div>
+			<ThemeProvider
+				attribute="class"
+				defaultTheme="light"
+				enableSystem
+				disableTransitionOnChange
+			>
+				<SideNavBar />
+				<div className="p-8 w-full">{children}</div>
+			</ThemeProvider>
 		</div>
 	);
 }

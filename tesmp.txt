@@ -114,3 +114,41 @@
 		--ring: 142.4 71.8% 29.2%;
 	}
 }
+
+
+export async function ListS3Files() {
+	//Todo : Check if loggedIn
+	if (!(await isAdmin())) {
+		return {
+			status: ServerResponse.Failure,
+			message: `Not Authenticated `,
+		};
+	}
+	const files: string[] = [];
+	const imageExtensions = [".jpg", ".jpeg", ".png", ".webp", ".bmp"];
+	const params = {
+		Bucket: process.env.AWS_BUCKET_NAME,
+	};
+	try {
+		const data = await s3Client.send(new ListObjectsV2Command(params));
+
+		// Extract file names from the response
+		if (data.Contents) {
+			for (const obj of data.Contents) {
+				console.log("My Object", obj.Key);
+				const key = obj.Key || "";
+				const extension = key.substring(key.lastIndexOf("."));
+				if (obj.Key && imageExtensions.includes(extension.toLowerCase())) {
+					files.push(obj.Key);
+				}
+			}
+		}
+		return {
+			status: ServerResponse.Success,
+			message: `Data Fetched `,
+			files,
+		};
+	} catch (err) {
+		console.error("Error listing objects", err);
+	}
+}

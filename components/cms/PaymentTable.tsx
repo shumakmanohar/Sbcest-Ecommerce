@@ -107,7 +107,7 @@ export function PaymentTable<TData, TValue>({
 					</Button>
 				</div>
 			</div>
-			<div className="rounded-md border border-muted-foreground">
+			<div className="rounded-md border">
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (

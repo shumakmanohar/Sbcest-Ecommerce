@@ -1,8 +1,13 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+	S3Client,
+	PutObjectCommand,
+	ListObjectsV2Command,
+} from "@aws-sdk/client-s3";
 import { ServerResponse } from "@/util/Enums";
 import { v4 as uuidv4 } from "uuid";
+import { isAdmin } from "@/lib/isAdmin";
 
 const s3Client = new S3Client({
 	region: process.env.AWS_REGION,
@@ -36,6 +41,13 @@ async function uploadFileToS3(
 }
 
 export async function S3ImageUpload(formData: FormData) {
+	//Todo : Check if loggedIn
+	if (!(await isAdmin())) {
+		return {
+			status: ServerResponse.Failure,
+			message: `Not Authenticated `,
+		};
+	}
 	const files = formData.getAll("file") as File[];
 
 	if (files.length > 5 || files.length == 0)
