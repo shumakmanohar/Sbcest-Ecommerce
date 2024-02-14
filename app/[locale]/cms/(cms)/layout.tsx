@@ -12,7 +12,7 @@ export default async function layout({
 		redirect("/");
 	}
 	return (
-		<div className="w-full min-h-screen flex">
+		<div className="">
 			{/* Content */}
 			<ThemeProvider
 				attribute="class"
@@ -20,8 +20,17 @@ export default async function layout({
 				enableSystem
 				disableTransitionOnChange
 			>
-				<SideNavBar />
-				<div className="p-8 w-full">{children}</div>
+				<div className="w-full min-h-screen flex">
+					<SideNavBar />
+					<div className="p-8 w-full">{children}</div>
+				</div>
+				<footer className="border text-sm text-center p-2">
+					© 2024{" "}
+					<a href="https://oflyne.co/" className="underline">
+						oflyne.co
+					</a>
+					. All rights reserved. | CMS by oflyne.co.
+				</footer>
 			</ThemeProvider>
 		</div>
 	);

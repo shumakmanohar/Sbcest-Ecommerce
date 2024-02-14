@@ -1,3 +1,4 @@
+import Footer from "@/components/store/Footer";
 import Footer2 from "@/components/store/Footer2";
 import NavBar from "@/components/store/NavBar";
 
@@ -10,7 +11,7 @@ export default async function layout({
 		<div>
 			<NavBar />
 			{children}
-			<Footer2 />
+			<Footer />
 		</div>
 	);
 }

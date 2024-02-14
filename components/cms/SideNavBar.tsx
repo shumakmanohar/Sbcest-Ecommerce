@@ -8,7 +8,7 @@ import {
 	ChevronRight,
 	BadgeInfo,
 	PackageSearch,
-	Image,
+	Store,
 } from "lucide-react";
 import { Nav } from "../ui/nav";
 import { useEffect, useState } from "react";
@@ -63,7 +63,7 @@ const SideNavBar = () => {
 						variant: "ghost",
 					},
 					{
-						title: "Ordrs",
+						title: "Orders",
 						href: "/cms/orders",
 						icon: Gift,
 						variant: "ghost",
@@ -71,8 +71,14 @@ const SideNavBar = () => {
 
 					{
 						title: "Info",
-						href: "/cms/settings",
+						href: "/cms/about",
 						icon: BadgeInfo,
+						variant: "ghost",
+					},
+					{
+						title: "Visit Store",
+						href: "/",
+						icon: Store,
 						variant: "ghost",
 					},
 				]}

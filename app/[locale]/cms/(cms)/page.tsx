@@ -40,13 +40,13 @@ const page = async () => {
 				<Card
 					name="Products"
 					total={totalProducts}
-					description={"Total Avaialable Products in Store"}
+					description={"Total  Products in Store"}
 					icon={<PackageSearch className="h-4 w-4 text-gray-400" />}
 				/>
 				<Card
 					name="Categories"
 					total={totalCategoires}
-					description={"Total Avaialable Categories in Store"}
+					description={"Total  Categories in Store"}
 					icon={<Box className="h-4 w-4 text-gray-400" />}
 				/>
 				<Card

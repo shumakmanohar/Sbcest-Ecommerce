@@ -7,46 +7,48 @@ import Link from "next/link";
 
 const ProductCard = ({ product }: { product: StoreProduct }) => {
 	return (
-		<div className="grid grid-cols-1 gap-5 my-14 px-5 md:px-0">
-			<Link href={`/products/${product?.id}`}>
-				<div className="transform overflow-hidden bg-white duration-200 hover:scale-105 cursor-pointer">
-					<Image
-						width={500}
-						height={500}
-						src={
-							product?.previewImg
-								? `${CMS_CONFIG.cdn.location}/${product?.previewImg}`
-								: "/sblogo.png"
-						}
-						alt={"product Image"}
-					/>
-					<div className="p-4 text-black/[0.9]">
-						<h2 className="text-lg font-medium">{product?.title}</h2>
-						<div className="flex items-center text-black/[0.5]">
-							<p className="mr-2 text-lg font-semibold">
-								SAR {product?.isOnOffer ? product.offerPrice : product?.price}
-							</p>
-							{product?.isOnOffer && (
-								<>
-									<p className="text-base font-medium line-through">
-										SAR {product.price}
-									</p>
-									<p className="ml-auto text-base font-medium text-green-500">
-										{getDiscountedPricePercentage(
-											product.price,
-											product.offerPrice
-										)}
-										% off
-									</p>
-								</>
-							)}
-						</div>
-						<p className="text-sm text-gray-500">{product?.category.name}</p>
-					</div>
+		<Link href={`/products/${product?.id}`}>
+			<div className=" w-full p-2 ">
+				<Image
+					width={500}
+					height={500}
+					src={
+						product?.previewImg
+							? `${CMS_CONFIG.cdn.location}/${product?.previewImg}`
+							: "/sblogo.png"
+					}
+					alt={"product Image"}
+				/>
+				<div className="flex flex-col items-start mt-4">
+					<h3 className="text-sm font-semibold">{product?.title}</h3>
+					<p className="text-xs text-gray-500 mt-2 w-3/4">
+						{product?.description}
+					</p>
+					<p className="mt-2 text-sm font-semibold">{`SR ${product?.offerPrice}`}</p>
+					<p className="text-xs font-medium line-through text-red-500">{`SR${product?.price}`}</p>
+					<p className="ml-auto text-xs font-medium text-green-500">
+						{getDiscountedPricePercentage(product?.price, product?.offerPrice)}%
+						off`
+					</p>
+					<p className="text-xs text-white bg-black rounded-full px-2">
+						{product?.category.name}
+					</p>
 				</div>
-			</Link>
-		</div>
+			</div>
+		</Link>
 	);
 };
 
 export default ProductCard;
+{
+	/* <Image
+	width={500}
+	height={500}
+	src={
+		product?.previewImg
+			? `${CMS_CONFIG.cdn.location}/${product?.previewImg}`
+			: "/sblogo.png"
+	}
+	alt={"product Image"}
+/>; */
+}

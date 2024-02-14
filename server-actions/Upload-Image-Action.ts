@@ -4,6 +4,7 @@ import {
 	S3Client,
 	PutObjectCommand,
 	ListObjectsV2Command,
+	DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { ServerResponse } from "@/util/Enums";
 import { v4 as uuidv4 } from "uuid";
@@ -85,4 +86,37 @@ export async function S3ImageUpload(formData: FormData) {
 		message: "File Uploaded",
 		UploadedFiles,
 	};
+}
+export async function S3ImagesDelete(objectKeys: string[]) {
+	//Todo : Check if loggedIn
+	if (!(await isAdmin())) {
+		return {
+			status: ServerResponse.Failure,
+			message: `Not Authenticated `,
+		};
+	}
+
+	try {
+		// Create delete object commands for each object key
+		const deleteCommands = objectKeys.map((key) => ({
+			Bucket: process.env.AWS_BUCKET_NAME,
+			Key: key,
+		}));
+
+		// Execute delete commands concurrently
+		await Promise.all(
+			deleteCommands.map(async (params) => {
+				const deleteCommand = new DeleteObjectCommand(params);
+				await s3Client.send(deleteCommand);
+				console.log(
+					`Object '${params.Key}' deleted successfully from bucket '${params.Bucket}'.`
+				);
+			})
+		);
+		console.log("All objects deleted successfully!");
+		return true;
+	} catch (error) {
+		console.error("Error deleting S3 objects:", error);
+		return false;
+	}
 }

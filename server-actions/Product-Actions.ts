@@ -38,6 +38,37 @@ export const FetchStoreProducts = async (page = 1) => {
 		};
 	}
 };
+export const FetchFeaturedProducts = async () => {
+	// For Store Only
+	// LIMIT STORE SINGLE FETCH LIMIT IS 20 Products
+	const SINGLE_FETCH_LIMIT = 6;
+	try {
+		const products = await prisma.product.findMany({
+			take: SINGLE_FETCH_LIMIT,
+			orderBy: {
+				createdAt: "desc",
+			},
+			where: {
+				isArchived: false,
+				isFeatured: true,
+			},
+			include: {
+				category: true,
+			},
+		});
+		return {
+			status: ServerResponse.Success,
+			message: "Store Products Fetched From DB",
+			products,
+		};
+	} catch (error) {
+		console.log(error);
+		return {
+			status: ServerResponse.Failure,
+			message: `Something went wrong in the server ${error}`,
+		};
+	}
+};
 
 export const AddProduct = async (product: ProductType) => {
 	//Todo : Check if loggedIn
@@ -139,7 +170,13 @@ export const UpdateProduct = async (id: string, product: ProductType) => {
 	}
 	const parseResult = productSchema.safeParse(product);
 	try {
-		if (!parseResult.success) throw Error("Data Parse Failed");
+		if (!parseResult.success) {
+			let errorMsg = "";
+			parseResult.error.issues.forEach((issue) => {
+				errorMsg = errorMsg + issue.path[0] + ": " + issue.message + ". ";
+			});
+			throw Error(errorMsg);
+		}
 		const data = await prisma.product.update({
 			where: {
 				id,

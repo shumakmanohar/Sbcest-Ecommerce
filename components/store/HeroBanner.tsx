@@ -8,7 +8,7 @@ const HeroBanner = () => {
 	return (
 		<div
 			dir="ltr"
-			className="relative text-white text-[20px] w-full max-w-[1360px] mx-auto"
+			className="relative text-white text-[20px] w-full max-w-[1500px] mx-auto"
 		>
 			<Carousel
 				autoPlay={true}

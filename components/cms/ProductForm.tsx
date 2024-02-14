@@ -94,14 +94,17 @@ export default function ProductForm({
 			: toast.error("Something Went Wrong. Check Console");
 	};
 
-	const updateProduct = async (e: React.MouseEvent<HTMLElement>) => {
-		e.preventDefault();
+	const updateProduct = async (e?: React.MouseEvent<HTMLElement>) => {
+		e?.preventDefault();
 		setLoading(true);
 		const updatedProduct = form.getValues();
+		console.log("newProduct", updatedProduct);
 		const response = await UpdateProduct(product?.id!, updatedProduct);
 		response.status == ServerResponse.Success
 			? toast.success("Product Updated Successfully")
-			: toast.error("Something Went Wrong. Check Console");
+			: (toast.error("Something Went Wrong. Check Console"),
+			  console.log(response.message));
+
 		setLoading(false);
 	};
 
@@ -112,12 +115,12 @@ export default function ProductForm({
 				<ImageUploader
 					onChange={(images) => {
 						form.setValue("images", images);
-						form.setValue("previewImg", images[0]);
+						form.setValue("previewImg", images[0] || "");
 					}}
 				/>
 			)}
 			{/* Display Uploaded Images */}
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-4 mt-10 ">
+			<div className="grid md:grid-cols-3 lg:grid-cols-6 grid-cols-1 gap-4 mt-10 ">
 				{/* Watch if the previewImages or not , if changed opt out the ImageUploader ,
 				 form.watch("") is required because it is outside the form element */}
 				{form.watch("previewImg") &&
@@ -125,9 +128,20 @@ export default function ProductForm({
 						<UploadedImage
 							img={img}
 							key={indx}
+							images={form.getValues("images")}
 							previewImg={form.getValues("previewImg")}
 							onChangePreviewImg={(img) => {
 								form.setValue("previewImg", img);
+							}}
+							onUploadedImageChange={(images) => {
+								form.setValue("images", images);
+								form.setValue("previewImg", images[0] || "");
+								// Then Update the product
+								if (product?.id) {
+									// update only when product id is available
+									// if no product id , then it means. Form is in the  Adding section
+									updateProduct();
+								}
 							}}
 						/>
 					))}

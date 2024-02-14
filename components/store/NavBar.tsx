@@ -11,7 +11,7 @@ import DefaultCategoriesList from "./DefaultCategoriesList";
 
 const NavBar = () => {
 	return (
-		<div className="pt-3 fixed z-50 bg-white w-full top-0 shadow-md">
+		<div className="sticky top-0 z-50 bg-white shadow-md mb-8 pt-4">
 			<nav
 				className={`w-full h-[50px] md:min-h-[80px] flex items-center justify-between   transition-transform duration-300 `}
 			>
