@@ -21,8 +21,8 @@ const NavBar = () => {
 						<img src="/sblogodes.png" className="w-[150px] " />
 					</Link>
 					{/* Search Container */}
-					<div className="flex-1 basis-[500px] h-full md:flex flex-col items-center justify-center hidden">
-						<SearchContainer />
+					<div className="flex-1 basis-[500px] h-full md:flex flex-col items-center justify-center hidden ">
+						<SearchContainer  />
 					</div>
 					<div className="flex items-center gap-5 text-black">
 						<CartIcon />

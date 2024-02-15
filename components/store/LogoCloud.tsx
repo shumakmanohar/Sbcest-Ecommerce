@@ -4,65 +4,66 @@ import Image from "next/image";
 const logos = [
 	{
 		id: 1,
-		logo: "/logo4.svg",
-		name: "Spotify",
+		logo:"/logo4.svg",
+		name:"Logitech"
 	},
 	{
 		id: 2,
-		logo: "/logo6.svg",
-		name: "Paypal Logo",
+		logo:"/logo6.svg",
+		name:"Xbox"
 	},
 	{
 		id: 3,
-		logo: "/logo17.svg",
-		name: "Spotify",
+		logo:"/logo17.svg",
+		name:"Corsair"
 	},
 	{
 		id: 4,
-		logo: "/logo18.svg",
-		name: "Spotify",
+		logo:"/logo18.svg",
+		name:"Razor"
 	},
 	{
 		id: 5,
-		logo: "/logo5.svg",
-		name: "Spotify",
+		logo:"/logo5.svg",
+		name:"EATON"
 	},
 	{
 		id: 6,
-		logo: "/logo16.svg",
-		name: "Spotify",
+		logo:"/logo16.svg",
+		name:"Zotac"
 	},
 	{
 		id: 7,
-		logo: "/logo13.svg",
-		name: "Spotify",
+		logo:"/logo13.svg",
+		name:"Tp-link"
 	},
 	{
 		id: 8,
-		logo: "/logo9.svg",
-		name: "Spotify",
+		logo:"/logo9.svg",
+		name:"AMD"
 	},
 	{
 		id: 9,
-		logo: "/logo20.svg",
-		name: "Spotify",
+		logo:"/logo20.svg",
+		name:"DELL"
 	},
 	{
 		id: 10,
-		logo: "/logo12.svg",
-		name: "AMD",
+		logo:"/intel-logo.svg",
+		name:"intel"
 	},
-];
+	
+	];
 
 const LogoItem = ({ logo, name }: { logo: string; name: string }) => {
 	return (
-		<div className="p-4 sm:p-5 rounded-lg border border-gray-100 dark:border-gray-900 group ">
+		<div className="p-4 sm:p-5 rounded-lg border border-black dark:border-gray-900 group">
 			<Image
 				src={`${CMS_CONFIG.staticImages.location}${logo}`}
 				width={80}
 				height={50}
 				alt={name}
-				className=" sm:h-8  ease-linear duration-300 grayscale group-hover:!grayscale-0 group-hover:scale-105"
+				className="sm:h-8  ease-linear duration-300 grayscale group-hover:!grayscale-0 group-hover:scale-105"
 			/>
 		</div>
 	);
@@ -77,9 +78,9 @@ const LogoCloud = () => {
 						Trusted by{" "}
 					</h1>
 				</div>
-				<div className="flex justify-center flex-wrap gap-4">
+				<div className="flex justify-center flex-wrap gap-4 h-auto">
 					{logos.map((logo) => (
-						<LogoItem key={logo.id} {...logo} />
+						<LogoItem key={logo.id} {...logo}  />
 					))}
 				</div>
 			</div>

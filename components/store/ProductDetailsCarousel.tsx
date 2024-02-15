@@ -2,18 +2,19 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
+
 const ProductDetailsCarousel = () => {
 	return (
 		<div
 			dir="ltr"
-			className="text-white text-[20px] w-full max-w-[1360px] mx-auto sticky top-[50px]"
+			className="text-white text-[20px] w-full max-w-[1460px] mx-auto sticky top-[50px]"
 		>
 			<Carousel
 				dir="ltr"
 				infiniteLoop={true}
 				showIndicators={false}
 				showStatus={false}
-				thumbWidth={60}
+				thumbWidth={70}
 				className="productCarousel"
 			>
 				{/* {images?.map((img) => (
@@ -28,7 +29,7 @@ const ProductDetailsCarousel = () => {
 				<img src="/test2.webp" />
 				<img src="/test2.webp" />
 				<img src="/test2.webp" />
-				<img src="/test2.webp" />
+				
 			</Carousel>
 		</div>
 	);

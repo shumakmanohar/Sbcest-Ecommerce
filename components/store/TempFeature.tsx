@@ -81,13 +81,14 @@ const TempFeature = () => {
 					{products.map((product, index) => (
 						<div
 							key={index}
-							className="flex flex-col items-start  transition-transform duration-500 hover:scale-105 cursor-pointer hover:shadow-lg"
+							className="flex flex-col items-start  "
 						>
 							<img
 								alt={product.name}
-								className="mb-4 transform aspect-square mx-auto"
-								src={"/sblogo.png"}
+								className="mb-4 transform aspect-square mx-auto transition-transform duration-500 hover:scale-105 cursor-pointer"
+								src={product.image}
 								style={{
+									aspectRatio: "16/14",
 									objectFit: "cover",
 									maxWidth: "272px",
 									maxHeight: "310px",

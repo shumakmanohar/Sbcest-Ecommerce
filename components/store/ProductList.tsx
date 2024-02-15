@@ -79,7 +79,7 @@ const ProductList = ({
 				</div>
 			</div>
 			{/* Main Product List  */}
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5 my-7 px-5 md:px-0">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 my-7 px-5 md:px-0">
 				{products?.map((product: StoreProduct) => (
 					<ProductCard key={product?.id} product={product} />
 				))}

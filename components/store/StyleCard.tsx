@@ -18,9 +18,9 @@ const StyleCard = () => {
 				/>
 				<div>
 					<h2 className="text-sm font-bold text-white">
-						STAYHOME AND CATCH BIG DEALS ON THE GAMES & CONSOLES
+						STAY HOME AND CATCH BIG DEALS ON THE GAMES & CONSOLES
 					</h2>
-					<p className="mt-2 text-yellow-500 font-bold flex items-center">
+					<p className="mt-2 text-cyan-300 font-bold flex items-center">
 						Shop now
 						<svg
 							className="h-6 w-6 ml-2"
@@ -39,10 +39,11 @@ const StyleCard = () => {
 					</p>
 				</div>
 			</Card>
-			<Card className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 bg-[#1e1e1e] p-4">
+
+			<Card className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 bg-[#1e1e1e] p-4">
 				<img
-					alt="Computer Setup"
-					className="h-20 w-30"
+					alt="Game Controller"
+					className="h-20 w-25"
 					height="100"
 					src={`${CMS_CONFIG.staticImages.location}/desktop.webp`}
 					style={{
@@ -51,10 +52,10 @@ const StyleCard = () => {
 					width="100"
 				/>
 				<div>
-					<h2 className="text-sm font-bold text-white">
-						SHOP THE HOTTEST PRODUCTS
+					<h2 className="text-sm font-bold text-white uppercase">
+					get the latest and trending products from our store
 					</h2>
-					<p className="mt-2 text-yellow-500 font-bold flex items-center">
+					<p className="mt-2 text-cyan-300 font-bold flex items-center">
 						Shop now
 						<svg
 							className="h-6 w-6 ml-2"
@@ -73,19 +74,23 @@ const StyleCard = () => {
 					</p>
 				</div>
 			</Card>
-			<Card className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 bg-[#1e1e1e] p-4">
+
+			<Card className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 bg-[#1e1e1e] p-4">
 				<img
-					alt="Tablets and Smartphones"
-					className="h-20 w-34 object-cover"
+					alt="Game Controller"
+					className="h-20 w-25"
 					height="100"
 					src={`${CMS_CONFIG.staticImages.location}/laptop.webp`}
+					style={{
+						objectFit: "cover",
+					}}
 					width="100"
 				/>
 				<div>
-					<h2 className="text-sm font-bold text-white">
-						Laptops, Tablets and many more
+					<h2 className="text-sm font-bold text-white uppercase">
+					Exciting offers on Laptops, Tablets and many more
 					</h2>
-					<p className="mt-2 text-yellow-500 font-bold flex items-center">
+					<p className="mt-2 text-cyan-300 font-bold flex items-center">
 						Shop now
 						<svg
 							className="h-6 w-6 ml-2"
@@ -104,6 +109,7 @@ const StyleCard = () => {
 					</p>
 				</div>
 			</Card>
+			
 		</div>
 	);
 };
