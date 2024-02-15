@@ -20,7 +20,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 	} catch (error) {
 		return (
 			<div>
-				<ErrorCms error={error} />
+				<ErrorCms />
 			</div>
 		);
 	}

@@ -27,7 +27,7 @@ import { Categories } from "@prisma/client";
 import Loader from "./Loader";
 import { useRouter } from "next/navigation";
 
-const CategoryForm = ({ categories }: { categories: Categories | null }) => {
+const CategoryForm = ({ categories }: { categories?: Categories | null }) => {
 	const [loading, setLoading] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
 	const router = useRouter();

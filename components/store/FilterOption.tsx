@@ -36,6 +36,7 @@ const FilterOption = ({
 						{filterList?.map((filter) => (
 							<DropdownMenuItem
 								className="my-4  justify-between"
+								key={filter.id}
 								onClick={() => {
 									handleChangeFilter(filter);
 								}}
@@ -67,6 +68,7 @@ const FilterOption = ({
 					<ScrollArea className="min-h-[80px] h-[350px] w-full ">
 						{categoriesList?.map((category) => (
 							<DropdownMenuItem
+								key={category?.id || Math.random()}
 								className="my-4  justify-between"
 								onClick={() => {
 									handleChangeCategory(category);

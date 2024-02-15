@@ -98,11 +98,11 @@ export default function ProductForm({
 		e?.preventDefault();
 		setLoading(true);
 		const updatedProduct = form.getValues();
-		console.log("newProduct", zodResolver(updatedProduct));
-		const response = await UpdateProduct(
-			product?.id!,
-			zodResolver(updatedProduct)
-		);
+		// Todo BugFix
+		updatedProduct.offerPrice = parseFloat(updatedProduct.offerPrice);
+		updatedProduct.price = parseFloat(updatedProduct.price);
+		console.log("newProduct", updatedProduct);
+		const response = await UpdateProduct(product?.id!, updatedProduct);
 		response.status == ServerResponse.Success
 			? toast.success("Product Updated Successfully")
 			: (toast.error("Something Went Wrong. Check Console"),
@@ -284,7 +284,7 @@ export default function ProductForm({
 							<div className="space-y-0.5">
 								<FormLabel>Archive The Products</FormLabel>
 								<FormDescription>
-									Archived Products Won't be shown in the store
+									Archived Products Won&apos;t be shown in the store
 								</FormDescription>
 							</div>
 							<FormControl>

@@ -6,16 +6,16 @@ import { FetchStoreProducts } from "@/server-actions/Product-Actions";
 import { EnumPriceFilter } from "@/util/Enums";
 import { StoreProduct } from "@/util/Types";
 
-export async function generateStaticParams() {
-	const res = await fetch(`${process.env.SITE_URL}/api/products`, {
-		next: { tags: ["products"] },
-	});
-	const products = await res.json();
+// export async function generateStaticParams() {
+// 	const res = await fetch(`${process.env.SITE_URL}/api/products`, {
+// 		next: { tags: ["products"] },
+// 	});
+// 	const products = await res.json();
 
-	return products.map((product: StoreProduct) => ({
-		id: product?.id,
-	}));
-}
+// 	return products.map((product: StoreProduct) => ({
+// 		id: product?.id,
+// 	}));
+// }
 
 const getProducts = async () => {
 	const res = await fetch(`${process.env.SITE_URL}/api/products`, {
@@ -59,8 +59,8 @@ const page = async ({
 				<div>
 					{searchQuery ? (
 						<h2 className="text-3xl md:text-4xl ">
-							Showing results for{" "}
-							<span className="font-bold">"{searchQuery}"</span>
+							Showing results for
+							<span className="font-bold">&quot;{searchQuery}&quot;</span>
 						</h2>
 					) : (
 						<h2 className="text-3xl md:text-4xl font-semibold">

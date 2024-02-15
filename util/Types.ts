@@ -16,11 +16,11 @@ export const productSchema = z.object({
 	ar_description: z.string().min(2, {
 		message: "Product Description must be at least 2 characters.",
 	}),
-	price: z.coerce.number().min(1, {
+	price: z.coerce.number().min(0, {
 		message: "Product Price  must be at least 1.",
 	}),
 	isOnOffer: z.boolean(),
-	offerPrice: z.coerce.number(),
+	offerPrice: z.coerce.number().optional(),
 	isArchived: z.boolean(),
 	images: z.array(z.string()),
 	previewImg: z.string(),

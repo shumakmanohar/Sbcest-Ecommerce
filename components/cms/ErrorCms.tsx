@@ -1,6 +1,6 @@
 import React from "react";
 
-const ErrorCms = ({ error }: { error: Error }) => {
+const ErrorCms = ({ error }: { error?: Error }) => {
 	return (
 		<div className="flex h-[calc(100vh-80px)] items-center justify-center p-5 w-full">
 			<div className="text-center">
@@ -35,7 +35,7 @@ const ErrorCms = ({ error }: { error: Error }) => {
 					free to contact us if the problem presists.
 				</p>
 				<p className="text-slate-600 mt-5 lg:text-lg">
-					{error.message || "Something Went Wrong"}
+					{error?.message || "Something Went Wrong"}
 				</p>
 			</div>
 		</div>

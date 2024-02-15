@@ -51,7 +51,13 @@ const NavBar = () => {
 				<h3 className="text-2xl font-bold">Sbcest / CMS</h3>
 				<div className="flex gap-3">
 					{sideMenuNavLinks.map(({ label, icon, link }, _indx) => (
-						<SideMenuLink label={label} icon={icon} link={link} _indx={_indx} />
+						<SideMenuLink
+							key={_indx}
+							label={label}
+							icon={icon}
+							link={link}
+							_indx={_indx}
+						/>
 					))}
 					<Sheet>
 						<SheetTrigger className="md:hidden">
@@ -69,6 +75,7 @@ const NavBar = () => {
 							<nav className=" flex gap-4 flex-col mt-16">
 								{sideMenuNavLinks.map(({ label, icon, link }, _indx) => (
 									<SideMenuLink
+										key={_indx}
 										label={label}
 										icon={icon}
 										link={link}
