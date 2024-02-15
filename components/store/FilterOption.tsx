@@ -7,52 +7,69 @@ import {
 import { ScrollArea } from "../ui/scroll-area";
 import { IoIosArrowDown } from "react-icons/io";
 import type { Categories } from "@prisma/client";
+import { FilterType } from "@/util/Types";
 
 const FilterOption = ({
 	categoriesList,
-	handleChangeCategory,
+	filterList,
 	selectedCategoryID,
+	selectedFilterID,
+	handleChangeCategory,
+	handleChangeFilter,
 }: {
 	categoriesList: Categories[] | undefined;
-	handleChangeCategory: (category: Categories) => void;
+	filterList: FilterType[];
 	selectedCategoryID: string | undefined;
+	selectedFilterID: string | undefined;
+	handleChangeCategory: (category: Categories) => void;
+	handleChangeFilter: (filter: FilterType) => void;
 }) => {
 	return (
-		<div className="flex items-center gap-4 mb-4">
+		<div className="flex items-center gap-4 mb-4 ">
 			<DropdownMenu>
 				<DropdownMenuTrigger className="filter-btn">
 					<span>Filter</span>
-					<IoIosArrowDown />
+					<IoIosArrowDown size={20} />
 				</DropdownMenuTrigger>
 				<DropdownMenuContent>
-					<DropdownMenuItem className="my-4 w-full justify-between">
-						<label htmlFor="css" className="text-[0.875rem]">
-							Price: low to high
-						</label>
-						<input
-							type="radio"
-							id="javascript"
-							name="fav_language"
-							value="JavaScript"
-							className="w-6 h-6"
-						></input>
-					</DropdownMenuItem>
+					<ScrollArea className=" w-full ">
+						{filterList?.map((filter) => (
+							<DropdownMenuItem
+								className="my-4  justify-between"
+								onClick={() => {
+									handleChangeFilter(filter);
+								}}
+							>
+								<label htmlFor="css" className="text-[0.875rem]">
+									{filter.name}
+								</label>
+								<input
+									type="radio"
+									id="javascript"
+									name="fav_language"
+									value="JavaScript"
+									className="w-6 h-6"
+									readOnly
+									checked={filter.id === selectedFilterID}
+								></input>
+							</DropdownMenuItem>
+						))}
+					</ScrollArea>
 				</DropdownMenuContent>
 			</DropdownMenu>
 			<DropdownMenu>
 				<DropdownMenuTrigger className="filter-btn">
 					<span>Categories</span>
-					<IoIosArrowDown />
+					<IoIosArrowDown size={20} />
 				</DropdownMenuTrigger>
 
 				<DropdownMenuContent>
-					<ScrollArea className="min-h-[80px] h-[400px] w-full ">
+					<ScrollArea className="min-h-[80px] h-[350px] w-full ">
 						{categoriesList?.map((category) => (
 							<DropdownMenuItem
 								className="my-4  justify-between"
 								onClick={() => {
 									handleChangeCategory(category);
-									console.log("u lickked", category);
 								}}
 							>
 								<label htmlFor="css" className="text-[0.875rem]">

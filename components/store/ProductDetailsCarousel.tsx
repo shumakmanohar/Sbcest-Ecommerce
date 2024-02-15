@@ -1,34 +1,25 @@
 "use client";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import { CMS_CONFIG } from "@/cms.config";
 
-const ProductDetailsCarousel = () => {
+const ProductDetailsCarousel = ({ images }: { images: string[] }) => {
 	return (
-		<div
-			dir="ltr"
-			className="text-white text-[20px] w-full max-w-[1360px] mx-auto sticky top-[50px]"
-		>
+		<div className="text-white text-[20px] w-full max-w-[1360px] mx-auto sticky top-[50px]">
+			{JSON.stringify(images)}
 			<Carousel
-				dir="ltr"
 				infiniteLoop={true}
 				showIndicators={false}
 				showStatus={false}
-				thumbWidth={60}
+				swipeable
+				emulateTouch
+				thumbWidth={70}
 				className="productCarousel"
 			>
-				{/* {images?.map((img) => (
-                    <img
-                        key={img.id}
-                        src={img.attributes.url}
-                        alt={img.attributes.name}
-                    />
-                ))} */}
-				<img src="/test2.webp" />
-				<img src="/test2.webp" />
-				<img src="/test2.webp" />
-				<img src="/test2.webp" />
-				<img src="/test2.webp" />
-				<img src="/test2.webp" />
+				<img src="/sblogo.png" />
+				<img src="/sblogo.png" />
+				<img src="/sblogo.png" />
+				<img src="/sblogo.png" />
 			</Carousel>
 		</div>
 	);

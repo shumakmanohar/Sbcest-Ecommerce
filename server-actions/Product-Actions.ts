@@ -6,10 +6,10 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { isAdmin } from "@/lib/isAdmin";
 
-export const FetchStoreProducts = async (page = 1) => {
+export const FetchStoreProducts = async (page = 1, name = "") => {
 	// For Store Only
 	// LIMIT STORE SINGLE FETCH LIMIT IS 20 Products
-	const SINGLE_FETCH_LIMIT = 5;
+	const SINGLE_FETCH_LIMIT = 105;
 	try {
 		const skip = (page - 1) * SINGLE_FETCH_LIMIT;
 		const products = await prisma.product.findMany({
@@ -19,7 +19,10 @@ export const FetchStoreProducts = async (page = 1) => {
 				createdAt: "desc",
 			},
 			where: {
-				isArchived: false,
+				title: {
+					contains: name,
+					mode: "insensitive",
+				},
 			},
 			include: {
 				category: true,

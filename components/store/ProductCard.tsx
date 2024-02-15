@@ -8,47 +8,55 @@ import Link from "next/link";
 const ProductCard = ({ product }: { product: StoreProduct }) => {
 	return (
 		<Link href={`/products/${product?.id}`}>
-			<div className=" w-full p-2 ">
-				<Image
-					width={500}
-					height={500}
-					src={
-						product?.previewImg
-							? `${CMS_CONFIG.cdn.location}/${product?.previewImg}`
-							: "/sblogo.png"
-					}
-					alt={"product Image"}
-				/>
-				<div className="flex flex-col items-start mt-4">
-					<h3 className="text-sm font-semibold">{product?.title}</h3>
-					<p className="text-xs text-gray-500 mt-2 w-3/4">
-						{product?.description}
+			<div className="relative flex flex-col bg-white  z-30 p-5 min-h-[460px] rounded-xl transform transition-transform duration-500 hover:scale-105 cursor-pointer">
+				{product?.isOnOffer && (
+					<p className="bg-green-600  p-2 text-center text-white absolute top-3 left-2 text-xs rounded-full">
+						On Sale
 					</p>
-					<p className="mt-2 text-sm font-semibold">{`SR ${product?.offerPrice}`}</p>
-					<p className="text-xs font-medium line-through text-red-500">{`SR${product?.price}`}</p>
-					<p className="ml-auto text-xs font-medium text-green-500">
-						{getDiscountedPricePercentage(product?.price, product?.offerPrice)}%
-						off`
+				)}
+				{product?.isArchived && (
+					<p className="bg-red-600 p-2 text-center text-white absolute top-3 left-2 text-xs rounded-full">
+						Out Of Stock
 					</p>
-					<p className="text-xs text-white bg-black rounded-full px-2">
-						{product?.category.name}
-					</p>
+				)}
+
+				<div className="aspect-square h-[auto] relative">
+					<Image
+						src={
+							product?.previewImg
+								? `${CMS_CONFIG.cdn.location}/${product?.previewImg}`
+								: "/sblogo.png"
+						}
+						alt=""
+						className="object-contain -z-20"
+						fill
+					/>
 				</div>
+				<h4 className="truncate">{product?.title}</h4>
+				<p className="self-start mb-3 mt-1 italic rounded-full text-xs  text-gray-500">
+					{product?.category.name}
+				</p>
+				<p className="text-xs my-2 line-clamp-1">{product?.description}</p>
+				<p className="font-bold ">SAR {product?.price}</p>
+				<p className="font-bold ">SAR OFFER {product?.offerPrice}</p>
+
+				{product?.isOnOffer && (
+					<>
+						<p className="font-bold text-xs line-through text-red-500">
+							SAR {product?.offerPrice}
+						</p>
+						<p className="font-bold text-xs text-right text-green-500 ">
+							{getDiscountedPricePercentage(
+								product?.price || 0,
+								product?.offerPrice || 0
+							)}
+							%
+						</p>
+					</>
+				)}
 			</div>
 		</Link>
 	);
 };
 
 export default ProductCard;
-{
-	/* <Image
-	width={500}
-	height={500}
-	src={
-		product?.previewImg
-			? `${CMS_CONFIG.cdn.location}/${product?.previewImg}`
-			: "/sblogo.png"
-	}
-	alt={"product Image"}
-/>; */
-}

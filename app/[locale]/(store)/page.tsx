@@ -1,6 +1,8 @@
 import AppleBanner from "@/components/store/AppleBanner";
 import Banner from "@/components/store/Banner";
 import FeaturedProducts from "@/components/store/FeaturedProducts";
+import GridLayout from "@/components/store/GridLayout";
+import Hero from "@/components/store/Hero";
 import HeroBanner from "@/components/store/HeroBanner";
 import LogoCloud from "@/components/store/LogoCloud";
 import MacVid from "@/components/store/MacVid";
@@ -13,14 +15,15 @@ export default function Home() {
 	const t = useTranslations("Index");
 	return (
 		<main>
-			<HeroBanner />
+			<Hero />
+			{/* <HeroBanner /> */}
 			<Banner />
+			<FeaturedProducts />
 			<LogoCloud />
 			<AppleBanner />
 			<MacVid />
-
-			<FeaturedProducts />
-			<TempFeature />
+			{/* <GridLayout /> */}
+			{/* <TempFeature /> */}
 
 			<StyleCard />
 			<Support />

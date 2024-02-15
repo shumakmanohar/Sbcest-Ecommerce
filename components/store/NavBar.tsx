@@ -11,7 +11,7 @@ import DefaultCategoriesList from "./DefaultCategoriesList";
 
 const NavBar = () => {
 	return (
-		<div className="sticky top-0 z-50 bg-white shadow-md mb-8 pt-4">
+		<div className="shadow-sm  mb-8 pt-4">
 			<nav
 				className={`w-full h-[50px] md:min-h-[80px] flex items-center justify-between   transition-transform duration-300 `}
 			>
@@ -31,10 +31,7 @@ const NavBar = () => {
 					</div>
 				</Wrapper>
 			</nav>
-			<Wrapper className="h-[60px] hidden flex-1 md:block ">
-				{/* Default Categories List */}
-				<DefaultCategoriesList />
-			</Wrapper>
+
 			{/* Secondary Nav For Search */}
 			<Wrapper className="h-[60px] md:hidden flex justify-between items-center my-4 flex-1 ">
 				{/* Search Container */}

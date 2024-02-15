@@ -56,13 +56,13 @@ const logos = [
 
 const LogoItem = ({ logo, name }: { logo: string; name: string }) => {
 	return (
-		<div className="p-4 sm:p-5 rounded-lg border border-gray-100 dark:border-gray-900 group ">
+		<div className="p-4 sm:p-5 rounded-lg border border-black dark:border-gray-900 group">
 			<Image
 				src={`${CMS_CONFIG.staticImages.location}${logo}`}
 				width={80}
 				height={50}
 				alt={name}
-				className=" sm:h-8  ease-linear duration-300 grayscale group-hover:!grayscale-0 group-hover:scale-105"
+				className="sm:h-8  ease-linear duration-300 grayscale group-hover:!grayscale-0 group-hover:scale-105"
 			/>
 		</div>
 	);

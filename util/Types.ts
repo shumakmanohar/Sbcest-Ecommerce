@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { ServerResponse } from "./Enums";
+import { EnumPriceFilter, ServerResponse } from "./Enums";
 import type { Categories, Product } from "@prisma/client";
 
 // ZOD -> PRODUCT SCHEMA
@@ -20,7 +20,7 @@ export const productSchema = z.object({
 		message: "Product Price  must be at least 1.",
 	}),
 	isOnOffer: z.boolean(),
-	offerPrice: z.coerce.number().optional(),
+	offerPrice: z.coerce.number(),
 	isArchived: z.boolean(),
 	images: z.array(z.string()),
 	previewImg: z.string(),
@@ -51,3 +51,5 @@ export type ServerGetProps = {
 	message: string;
 	data?: Object[] | Categories[] | undefined;
 };
+
+export type FilterType = { name: string; arName: string; id: EnumPriceFilter };
