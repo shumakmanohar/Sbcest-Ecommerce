@@ -53,6 +53,7 @@ const cartSlice = createSlice({
 		},
 		initializeCartFromLocalStorage: (state) => {
 			// Load initial cart data from localStorage
+			// todo do error check
 			state.items =
 				localStorage.getItem("cart") != null
 					? JSON.parse(localStorage.getItem("cart")!)["cart"]["items"]

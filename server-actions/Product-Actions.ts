@@ -41,6 +41,29 @@ export const FetchStoreProducts = async (page = 1, name = "") => {
 		};
 	}
 };
+
+export const FetchStoreInvoiceProducts = async (productIDs = [""]) => {
+	// For Store Only
+	try {
+		const products = await prisma.product.findMany({
+			where: {
+				id: { in: productIDs },
+			},
+		});
+		return {
+			status: ServerResponse.Success,
+			message: "Store Products Fetched From DB",
+			products,
+		};
+	} catch (error) {
+		console.log(error);
+		return {
+			status: ServerResponse.Failure,
+			message: `Something went wrong in the server ${error}`,
+		};
+	}
+};
+
 export const FetchFeaturedProducts = async () => {
 	// For Store Only
 	// LIMIT STORE SINGLE FETCH LIMIT IS 20 Products

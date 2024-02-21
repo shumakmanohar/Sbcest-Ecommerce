@@ -23,7 +23,6 @@ const page = () => {
 
 		return calculatedTotalPrice;
 	}, [cartItems]);
-	console.log(totalPrice);
 
 	return (
 		<div className="w-full md:py-20">
