@@ -10,6 +10,28 @@ import {
 import prisma from "@/lib/prisma";
 import { DeliveryStatus, Order, OrderedProducts } from "@prisma/client";
 
+export const GetSingleOrder = async (orderId = "") => {
+	// Check LoggedIn
+	try {
+		const order = await prisma.order.findFirst({
+			where: {
+				id: orderId,
+				paymentStatus: "PENDING",
+			},
+		});
+		return {
+			status: ServerResponse.Success,
+			message: "Order Fetched From DB",
+			orderId: order,
+		};
+	} catch (error) {
+		return {
+			status: ServerResponse.Failure,
+			message: `Something went wrong in the server ${error}`,
+		};
+	}
+};
+
 export const CreateOrder = async (checkout: {
 	amount: number;
 	orderedProducts: OrderedProducts[];
@@ -26,41 +48,35 @@ export const CreateOrder = async (checkout: {
 		orderedProducts: checkout.orderedProducts,
 	};
 	try {
-		await prisma.order.create({
-			data: {
-				amount: 263.85,
-				email: "hashteam00@gmail.com",
-				moyasarID: "",
-				shippingInformation: {
-					email: "hashteam00@gmail.com",
-					name: "test",
-					addl1: "wrwwe",
-					addl2: "dffd",
-					city: "fsf",
-					state: "dfsfsd",
-					postalCode: "sdf",
-					phone: "",
-				},
-				orderedProducts: [
-					{
-						productId: "65ce3db47d1d436a1c4c5bae",
-						quantity: 1,
-						title: "TEST PRODUCT FROM #1",
-						description: "fsdfsjdhfiusdhsud\nSDfsdfsdfsd",
-						ar_description: "sdfsdfsdfsd",
-						ar_title: "sdfsdfsdfsd",
-						previewImg: "ad0a74f0-c9c7-45dc-a2bc-4b42bb116b63-logo.png",
-						price: 199,
-					},
-				],
-			},
+		const dbPushedOrder = await prisma.order.create({
+			data: order,
 		});
+
 		return {
 			status: ServerResponse.Success,
 			message: "Order Added To DB",
+			orderId: dbPushedOrder.id,
 		};
 	} catch (error) {
 		console.log(error);
+		return {
+			status: ServerResponse.Failure,
+			message: `Something went wrong in the server ${error}`,
+		};
+	}
+};
+
+// CMS
+export const GetAllOrders = async () => {
+	//todo check loggedIn
+	try {
+		const order = await prisma.order.findMany();
+		return {
+			status: ServerResponse.Success,
+			message: "Order Fetched From DB",
+			orders: order,
+		};
+	} catch (error) {
 		return {
 			status: ServerResponse.Failure,
 			message: `Something went wrong in the server ${error}`,

@@ -1,3 +1,4 @@
+"use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,6 +22,7 @@ import Loader from "../cms/Loader";
 import { CreateOrder } from "@/server-actions/Order-Actions";
 import { ServerResponse } from "@/util/Enums";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const CheckoutForm = ({
 	email,
@@ -36,6 +38,7 @@ const CheckoutForm = ({
 	orderedProducts: OrderedProducts[];
 }) => {
 	const [loading, setLoading] = useState(false);
+	const router = useRouter();
 	const form = useForm<CheckoutType>({
 		resolver: zodResolver(CheckoutSchema),
 		defaultValues: {},
@@ -56,7 +59,7 @@ const CheckoutForm = ({
 			shippingInformation: data,
 		});
 		response.status == ServerResponse.Success
-			? console.log("Order Created")
+			? router.push(`/pay?id=${response.orderId}`)
 			: toast.error("Something Went Wrong. Pls Try Again.");
 		console.log(response.message);
 		setLoading(false);

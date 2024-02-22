@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const InvoiceCard = ({ product }: { product: OrderedProducts }) => {
 	return (
-		<div className="flex gap-4 items-center justify-between">
+		<div className="flex gap-4 items-center justify-between  w-full max-w-lg">
 			{/* Image */}
 			<div className="h-14 w-14 rounded-sm  relative">
 				<Image
@@ -19,14 +19,18 @@ const InvoiceCard = ({ product }: { product: OrderedProducts }) => {
 				/>
 			</div>
 			{/* Product Name  and Quantity*/}
-			<div>
-				<p className="text-lg">{product.title}</p>
-				<p className="text-md text-muted-foreground">
-					Qauntity : {product.quantity}
-				</p>
-			</div>
-			<div>
-				<p className="font-semibold">SAR {product.price}</p>
+			<div className="truncate  flex-1">
+				<div>
+					<p className="text-sm">{product.title}</p>
+					<p className="text-xs text-muted-foreground">
+						Qauntity : {product.quantity}
+					</p>
+				</div>
+				<div>
+					<p className="font-semibold text-sm text-right">
+						SAR {product.price}
+					</p>
+				</div>
 			</div>
 		</div>
 	);

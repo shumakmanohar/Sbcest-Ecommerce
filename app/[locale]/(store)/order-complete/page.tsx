@@ -1,5 +1,4 @@
 import PaymentSuccess from "@/components/store/PaymentSuccess";
-import React from "react";
 
 const page = () => {
 	// Get PAyment id form moyasar

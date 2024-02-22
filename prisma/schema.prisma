@@ -48,8 +48,8 @@ model Order {
   shippingInformation   Address
   moyasarID String
   orderedProducts OrderedProducts[]
-  
-  
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 type OrderedProducts {

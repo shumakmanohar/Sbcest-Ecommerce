@@ -1,14 +1,20 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useWindowSize } from "@react-hook/window-size";
 
 import Confetti from "react-confetti";
 
 const PaymentSuccess = () => {
 	const [width, height] = useWindowSize();
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
 	return (
 		<div>
-			<Confetti width={width} height={height} />
+			{mounted && <Confetti width={width} height={height} />}
+
 			<div className="bg-white p-6  md:mx-auto w-full max-w-lg">
 				<svg
 					viewBox="0 0 24 24"
