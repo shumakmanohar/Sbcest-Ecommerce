@@ -6,7 +6,7 @@ import { CMS_CONFIG } from "@/cms.config";
 const ProductDetailsCarousel = ({ images }: { images: string[] }) => {
 	return (
 		<div className="text-white text-[20px] w-full max-w-[1360px] mx-auto sticky top-[50px]">
-			{JSON.stringify(images)}
+			
 			<Carousel
 				infiniteLoop={true}
 				showIndicators={false}

@@ -9,7 +9,14 @@ const Footer = () => {
 					<div className="text-base sm:text-lg font-semibold">
 						Got questions? Call us 24/7!
 					</div>
-					<div className="text-lg sm:text-xl font-bold">+966 539740365</div>
+					<div className="text-lg sm:text-xl font-bold">
+						<h1 >Arabic Helpdesk</h1>
+						<Link className="text-[#00adb5] text-base" href={"tel:+966 539740365"}>+966 539740365</Link>
+					</div>
+					<div className="text-lg sm:text-xl font-bold">
+						<h1 >English Helpdesk</h1>
+						<Link className="text-[#00adb5] text-base" href={"tel:+966 539740365"}>+966 539740365</Link>
+					</div>
 					<div className="text-sm">
 						Waleed Centre,
 						<br className="hidden sm:inline" /> Khalid Waleed Street Jeddah,
@@ -66,7 +73,7 @@ const Footer = () => {
 			</div>
 			<div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center py-4 text-white">
 				<div className="text-sm">
-					© 2024 SBcest | All Rights Reserved | Designed By: Offlyne
+					© 2024 SBcest | All Rights Reserved | Developed & Desinged by: <Link href={'#'}>oflyne.co</Link>
 				</div>
 				<div className="flex space-x-2 sm:space-x-4 mt-4 lg:mt-0"></div>
 			</div>

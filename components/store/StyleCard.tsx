@@ -18,9 +18,9 @@ const StyleCard = () => {
 				/>
 				<div>
 					<h2 className="text-sm font-bold text-white">
-						STAYHOME AND CATCH BIG DEALS ON THE GAMES & CONSOLES
+						STAY HOME AND CATCH BIG DEALS ON THE GAMES & CONSOLES
 					</h2>
-					<p className="mt-2 text-yellow-500 font-bold flex items-center">
+					<p className="mt-2 text-[#00abd5] font-bold flex items-center hover:cursor-pointer">
 						Shop now
 						<svg
 							className="h-6 w-6 ml-2"
@@ -51,10 +51,10 @@ const StyleCard = () => {
 					width="100"
 				/>
 				<div>
-					<h2 className="text-sm font-bold text-white">
-						SHOP THE HOTTEST PRODUCTS
+					<h2 className="uppercase text-sm font-bold text-white ">
+					Discover SBCest's newest arrivals – redefine your shopping experience!
 					</h2>
-					<p className="mt-2 text-yellow-500 font-bold flex items-center">
+					<p className="mt-2 text-[#00abd5] font-bold flex items-center hover:cursor-pointer">
 						Shop now
 						<svg
 							className="h-6 w-6 ml-2"
@@ -82,10 +82,10 @@ const StyleCard = () => {
 					width="100"
 				/>
 				<div>
-					<h2 className="text-sm font-bold text-white">
-						Laptops, Tablets and many more
+					<h2 className="uppercase text-sm font-bold text-white">
+					EXCITING OFFERS ON LAPTOPS, TABLETS AND MANY MORE
 					</h2>
-					<p className="mt-2 text-yellow-500 font-bold flex items-center">
+					<p className="mt-2 text-[#00abd5] font-bold flex items-center hover:cursor-pointer">
 						Shop now
 						<svg
 							className="h-6 w-6 ml-2"

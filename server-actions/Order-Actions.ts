@@ -10,6 +10,7 @@ import {
 import prisma from "@/lib/prisma";
 import { DeliveryStatus, Order, OrderedProducts } from "@prisma/client";
 
+
 export const CreateOrder = async (checkout: {
 	amount: number;
 	orderedProducts: OrderedProducts[];
@@ -30,7 +31,7 @@ export const CreateOrder = async (checkout: {
 			data: {
 				amount: 263.85,
 				email: "hashteam00@gmail.com",
-				moyasarID: "",
+				moyasarID: "123255795",
 				shippingInformation: {
 					email: "hashteam00@gmail.com",
 					name: "test",
@@ -66,4 +67,28 @@ export const CreateOrder = async (checkout: {
 			message: `Something went wrong in the server ${error}`,
 		};
 	}
+
+
 };
+export const GetAllOrders = async () => {
+    try {
+        const data = await prisma.order.findMany({
+          
+        });
+        return {
+            status: ServerResponse.Success,
+            data,
+        };
+    } catch (error) {
+        console.error("Error fetching orders:", error);
+        return {
+            status: ServerResponse.Failure,
+            message: "Error fetching orders from the database",
+        };
+    }
+};
+
+
+  
+  
+  

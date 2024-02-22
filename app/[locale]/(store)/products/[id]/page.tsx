@@ -25,8 +25,8 @@ const page = async ({ params }: { params: { id: string } }) => {
 			<Wrapper>
 				<div className="flex flex-col lg:flex-row md:px-10 gap-[50px] lg:gap-[100px]">
 					{/* left column start */}
-					<div className="w-full md:w-auto flex flex-[1.5] max-w-[500px] lg:max-w-full mx-auto lg:mx-0">
-						<ProductDetailsCarousel images={product?.images || [""]} />
+					<div className="w-full md:w-auto flex-[1.5] max-w-[500px] lg:max-w-full mx-auto lg:mx-0">
+						<ProductDetailsCarousel />
 					</div>
 					{/* left column end */}
 
@@ -51,11 +51,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 										{product.price}
 									</p>
 									<p className="ml-auto text-base font-medium text-green-500">
-										{getDiscountedPricePercentage(
-											product?.price || 0,
-											product?.offerPrice || 0
-										)}
-										% off
+										{getDiscountedPricePercentage(100, 300)}% off
 									</p>
 								</>
 							)}
@@ -74,7 +70,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
 						<div>
 							<div className="text-lg font-bold mb-5">Product Details</div>
-							<div className="markdown text-md mb-5 display-linebreak">
+							<div className="markdown text-md mb-5">
 								<p>{product?.description}</p>
 							</div>
 						</div>

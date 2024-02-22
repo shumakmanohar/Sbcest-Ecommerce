@@ -3,8 +3,8 @@ import React from "react";
 
 const MacVid = () => {
 	return (
-		<div className="flex h-screen w-full max-w-[1460px] mx-auto flex-col bg-black text-white mt-2 ">
-			<div className="m-auto flex w-full max-w-4xl flex-col items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+		<div className="flex h-[90%] w-full max-w-[1460px] mx-auto flex-col bg-black text-white mt-2  ">
+			<div className="mt-4 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
 				<div className="mt-8 flex w-full items-center justify-between flex-col sm:flex-row">
 					<h1 className="text-2xl sm:text-base md:text-lg lg:text-xl text-left mb-4 sm:mb-2 font-bold">
 						<span className="text-[#00adb5] text-3xl"> SB</span>CEST brings you
