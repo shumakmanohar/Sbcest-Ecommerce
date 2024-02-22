@@ -92,8 +92,6 @@ const CheckoutForm = ({
 								<Input
 									placeholder="email"
 									{...field}
-									readOnly
-									disabled
 									defaultValue={field.value}
 								/>
 							</FormControl>

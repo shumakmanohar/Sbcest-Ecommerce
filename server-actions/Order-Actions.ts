@@ -70,7 +70,11 @@ export const CreateOrder = async (checkout: {
 export const GetAllOrders = async () => {
 	//todo check loggedIn
 	try {
-		const order = await prisma.order.findMany();
+		const order = await prisma.order.findMany({
+			orderBy: {
+				createdAt: "desc",
+			},
+		});
 		return {
 			status: ServerResponse.Success,
 			message: "Order Fetched From DB",
