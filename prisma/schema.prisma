@@ -38,3 +38,51 @@ model Product {
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
 }
+
+model Order {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  amount   Float
+  deliveryStatus DeliveryStatus @default(PENDING)
+  paymentStatus PaymentStatus @default(PENDING)
+  email String
+  shippingInformation   Address
+  moyasarID String
+  orderedProducts OrderedProducts[]
+  
+  
+}
+
+type OrderedProducts {
+  quantity Int
+  productId String 
+  title    String
+  description     String
+  ar_title  String  
+  ar_description String 
+  previewImg String  
+  price Int
+}
+
+type Address {
+  addl1 String
+  addl2   String
+  city   String
+  state String
+  name String
+  email String
+  phone String
+  postalCode String
+}
+
+enum DeliveryStatus {
+  PENDING
+  RECIEVED
+  TRANSIT
+  DELIVERED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}

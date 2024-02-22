@@ -1,20 +1,24 @@
 import { useSelector } from "react-redux";
 import { Separator } from "../ui/separator";
 import { RootState } from "@/state/store";
-import { useEffect, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { FetchStoreInvoiceProducts } from "@/server-actions/Product-Actions";
 import InvoiceCard from "./InvoiceCard";
-import { Product } from "@prisma/client";
+import { OrderedProducts, Product } from "@prisma/client";
 import { CartItem } from "@/state/cart/cartSlice";
 
-const Invoice = () => {
+const Invoice = ({
+	setOrderAmount,
+	setOrderedProducts,
+}: {
+	setOrderAmount: Dispatch<SetStateAction<number>>;
+	setOrderedProducts: Dispatch<SetStateAction<OrderedProducts[]>>;
+}) => {
 	const cartItems = useSelector((state: RootState) => state.cart.items);
 	const [serverFetchedProducts, setServerFetchedProducts] = useState<
 		Product[] | undefined
 	>([]);
-	const [invoiceProducts, setInvoiceProducts] = useState<
-		{ product: Product; quantity: number }[]
-	>([]);
+	const [invoiceProducts, setInvoiceProducts] = useState<OrderedProducts[]>([]);
 	const [VAT, setVAT] = useState(0);
 	const [subTotal, setSubTotal] = useState(0);
 	const DELIVERY_CHARGE = 35;
@@ -24,7 +28,7 @@ const Invoice = () => {
 
 	const totalPrice = useMemo(() => {
 		let calculatedTotalPrice = 0;
-		let _invoiceProducts: { product: Product; quantity: number }[] = [];
+		let _invoiceProducts: OrderedProducts[] = [];
 		console.log("Server Fetched Products  UseMemo", serverFetchedProducts);
 		serverFetchedProducts?.forEach((serverProduct) => {
 			cartItems.forEach((item) => {
@@ -37,12 +41,24 @@ const Invoice = () => {
 					// Pushing the Server Fetched  Products to Invoice Products with quantity.
 
 					_invoiceProducts.push({
-						product: serverProduct,
+						productId: serverProduct.id,
 						quantity: item.quantity,
+						title: serverProduct.title,
+						description: serverProduct.description,
+						ar_description: serverProduct.ar_description,
+						ar_title: serverProduct.ar_title,
+						previewImg: serverProduct.previewImg,
+						price,
 					});
 				}
 			});
 		});
+		/* 
+		Ordered Products are products that gonna be send to backend/server to create
+		order .Invoice Products are used to Update UI for the Invoice 
+		*/
+		// Setting Order Products
+		setOrderedProducts(_invoiceProducts);
 		// Setting Invoice Products
 		setInvoiceProducts(_invoiceProducts);
 		//Setting Sub Total
@@ -53,6 +69,8 @@ const Invoice = () => {
 		setVAT(_VAT);
 		calculatedTotalPrice += DELIVERY_CHARGE;
 		calculatedTotalPrice += _VAT;
+		//Setting Order Amount
+		setOrderAmount(calculatedTotalPrice);
 		return calculatedTotalPrice.toFixed(2);
 	}, [serverFetchedProducts]);
 
@@ -90,10 +108,7 @@ const Invoice = () => {
 				{/* Invoice Card */}
 				<div className="flex flex-col gap-3">
 					{invoiceProducts?.map((invoiceProducts) => (
-						<InvoiceCard
-							product={invoiceProducts.product}
-							quantity={invoiceProducts.quantity}
-						/>
+						<InvoiceCard product={invoiceProducts} />
 					))}
 				</div>
 				<Separator className="my-8" />

@@ -2,7 +2,7 @@ const Loader = ({ className }: { className?: string }) => {
 	return (
 		<div>
 			<svg
-				className={`animate-spin -ml-1 mr-3  text-black ${
+				className={`animate-spin -ml-1 mr-3  text-white ${
 					className ? className : "w-5 h-5"
 				}`}
 				xmlns="http://www.w3.org/2000/svg"

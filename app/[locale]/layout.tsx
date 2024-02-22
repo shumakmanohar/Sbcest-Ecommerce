@@ -24,6 +24,14 @@ export default function RootLayout({
 		<ClerkProvider>
 			<ReduxProvider>
 				<html lang={locale}>
+					<head>
+						<link
+							rel="stylesheet"
+							href="https://cdn.moyasar.com/mpf/1.13.0/moyasar.css"
+						/>
+						<script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
+						<script src="https://cdn.moyasar.com/mpf/1.13.0/moyasar.js"></script>
+					</head>
 					<body className={`${inter.className} `}>
 						<Toaster position="top-right" reverseOrder={false} />
 						{children}

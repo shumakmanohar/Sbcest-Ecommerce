@@ -1,6 +1,11 @@
 import * as z from "zod";
 import { EnumPriceFilter, ServerResponse } from "./Enums";
-import type { Categories, Product } from "@prisma/client";
+import {
+	DeliveryStatus,
+	type Categories,
+	type Product,
+	PaymentStatus,
+} from "@prisma/client";
 
 // ZOD -> PRODUCT SCHEMA
 export const productSchema = z.object({
@@ -43,7 +48,19 @@ export const categorySchema = z.object({
 		message: "Category  must be at least 1 characters.",
 	}),
 });
+// ZOD -> Checkout SCHEMA
+export const CheckoutSchema = z.object({
+	email: z.string().email(),
+	name: z.string(),
+	addl1: z.string(),
+	addl2: z.string(),
+	city: z.string(),
+	state: z.string(),
+	postalCode: z.string(),
+	phone: z.string(),
+});
 
+export type CheckoutType = z.infer<typeof CheckoutSchema>;
 export type CategoryType = z.infer<typeof categorySchema>;
 
 export type ServerGetProps = {
@@ -53,3 +70,34 @@ export type ServerGetProps = {
 };
 
 export type FilterType = { name: string; arName: string; id: EnumPriceFilter };
+
+export const orderSchema = z.object({
+	amount: z.number(),
+	deliveryStatus: z.nativeEnum(DeliveryStatus).default(DeliveryStatus.PENDING),
+	paymentStatus: z.nativeEnum(PaymentStatus).default(PaymentStatus.PENDING),
+	email: z.string().email(),
+	shippingInformation: z.object({
+		email: z.string().email(),
+		name: z.string(),
+		addl1: z.string(),
+		addl2: z.string(),
+		city: z.string(),
+		state: z.string(),
+		postalCode: z.string(),
+		phone: z.string(),
+	}),
+	moyasarID: z.string(),
+	orderedProducts: z.array(
+		z.object({
+			quantity: z.number(),
+			productId: z.string(),
+			title: z.string(),
+			description: z.string(),
+			previewImg: z.string(),
+			price: z.number(),
+			ar_title: z.string(),
+			ar_description: z.string(),
+		})
+	),
+});
+export type OrderType = z.infer<typeof orderSchema>;

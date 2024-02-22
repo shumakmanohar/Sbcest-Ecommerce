@@ -1,14 +1,8 @@
 import { CMS_CONFIG } from "@/cms.config";
-import { Product } from "@prisma/client";
+import { OrderedProducts, Product } from "@prisma/client";
 import Image from "next/image";
 
-const InvoiceCard = ({
-	product,
-	quantity,
-}: {
-	product: Product;
-	quantity: number;
-}) => {
+const InvoiceCard = ({ product }: { product: OrderedProducts }) => {
 	return (
 		<div className="flex gap-4 items-center justify-between">
 			{/* Image */}
@@ -27,12 +21,12 @@ const InvoiceCard = ({
 			{/* Product Name  and Quantity*/}
 			<div>
 				<p className="text-lg">{product.title}</p>
-				<p className="text-md text-muted-foreground">Qauntity : {quantity}</p>
+				<p className="text-md text-muted-foreground">
+					Qauntity : {product.quantity}
+				</p>
 			</div>
 			<div>
-				<p className="font-semibold">
-					SAR {product.isOnOffer ? product.offerPrice : product.price}
-				</p>
+				<p className="font-semibold">SAR {product.price}</p>
 			</div>
 		</div>
 	);

@@ -14,57 +14,56 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@clerk/nextjs";
-import { useEffect } from "react";
-const CheckoutSchema = z.object({
-	email: z.string().email(),
-	name: z.string().min(2, {
-		message: "Name must be at least 2 characters.",
-	}),
-	addl1: z.string().min(2, {
-		message: "Address must be at least 2 characters.",
-	}),
-	addl2: z.string().min(2, {
-		message: "Address must be at least 2 characters.",
-	}),
-	city: z.string().min(2, {
-		message: "City must be at least 2 characters.",
-	}),
-	state: z.string().min(2, {
-		message: "City must be at least 2 characters.",
-	}),
-	postalCode: z.coerce
-		.number()
-		.min(4, {
-			message: "Invalid",
-		})
-		.max(6, { message: "Invalid Post Code" }),
-	phone: z
-		.string()
-		.min(10, {
-			message: "Invalid phone",
-		})
-		.max(10, { message: "Invalid phone" }),
-});
+import { useEffect, useState } from "react";
+import { OrderedProducts, Product } from "@prisma/client";
+import { CheckoutSchema, CheckoutType } from "@/util/Types";
+import Loader from "../cms/Loader";
+import { CreateOrder } from "@/server-actions/Order-Actions";
+import { ServerResponse } from "@/util/Enums";
+import toast from "react-hot-toast";
+
 const CheckoutForm = ({
 	email,
 	fullname,
 	phone,
+	orderAmount,
+	orderedProducts,
 }: {
 	email: string;
 	fullname: string;
 	phone: string;
+	orderAmount: number;
+	orderedProducts: OrderedProducts[];
 }) => {
-	const form = useForm<z.infer<typeof CheckoutSchema>>({
+	const [loading, setLoading] = useState(false);
+	const form = useForm<CheckoutType>({
 		resolver: zodResolver(CheckoutSchema),
 		defaultValues: {},
 	});
-	function onSubmit(data: z.infer<typeof CheckoutSchema>) {}
 	const validate = (value: string) => {
 		const matches = value.match(
 			/^(?:0\.(?:0[0-9]|[0-9]\d?)|[0-9]\d*(?:\.\d{1,2})?)(?:e[+-]?\d+)?$/
 		);
 		return matches ? matches?.length > 0 || "Not a Number" : "Not a Number";
 	};
+	async function onSubmit(data: CheckoutType) {
+		setLoading(true);
+		const response = await CreateOrder({
+			amount: orderAmount,
+			orderedProducts,
+			email: data.email,
+			name: data.name,
+			shippingInformation: data,
+		});
+		response.status == ServerResponse.Success
+			? console.log("Order Created")
+			: toast.error("Something Went Wrong. Pls Try Again.");
+		console.log(response.message);
+		setLoading(false);
+
+		console.log();
+	}
+
 	useEffect(() => {
 		let defaults = {
 			name: fullname,
@@ -112,6 +111,7 @@ const CheckoutForm = ({
 									placeholder="Name"
 									{...field}
 									defaultValue={field.value}
+									disabled={loading}
 								/>
 							</FormControl>
 							<FormMessage />
@@ -130,6 +130,7 @@ const CheckoutForm = ({
 									placeholder="Phone"
 									{...field}
 									defaultValue={field.value}
+									disabled={loading}
 								/>
 							</FormControl>
 							<FormMessage />
@@ -148,7 +149,11 @@ const CheckoutForm = ({
 						render={({ field }) => (
 							<FormItem>
 								<FormControl>
-									<Input placeholder="Address line 1" {...field} />
+									<Input
+										placeholder="Address line 1"
+										{...field}
+										disabled={loading}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -161,7 +166,11 @@ const CheckoutForm = ({
 						render={({ field }) => (
 							<FormItem>
 								<FormControl>
-									<Input placeholder="Address line 2" {...field} />
+									<Input
+										placeholder="Address line 2"
+										{...field}
+										disabled={loading}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -174,7 +183,7 @@ const CheckoutForm = ({
 						render={({ field }) => (
 							<FormItem>
 								<FormControl>
-									<Input placeholder="City" {...field} />
+									<Input placeholder="City" {...field} disabled={loading} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -187,7 +196,7 @@ const CheckoutForm = ({
 						render={({ field }) => (
 							<FormItem>
 								<FormControl>
-									<Input placeholder="State" {...field} />
+									<Input placeholder="State" {...field} disabled={loading} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -200,15 +209,24 @@ const CheckoutForm = ({
 						render={({ field }) => (
 							<FormItem>
 								<FormControl>
-									<Input placeholder="Pin Code" {...field} type="tel" />
+									<Input
+										placeholder="Pin Code"
+										{...field}
+										type="tel"
+										disabled={loading}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
 						)}
 					/>
 				</div>
-				<Button type="submit" className="w-full text-lg">
-					Pay
+				<Button
+					type="submit"
+					className="w-full text-lg"
+					aria-disabled={loading}
+				>
+					{loading ? <Loader /> : `Pay ${orderAmount}`}
 				</Button>
 			</form>
 		</Form>
