@@ -26,8 +26,8 @@ const Moyasar = ({
 				language: "en",
 				description: orderId, // Pass the order ID to Moyasar or OrderID
 				metadata: { orderId },
-				publishable_api_key: "pk_test_CRDwq4EokXry8u3DBENb6pRaLtgoZB9fbr7SKqQv",
-				callback_url: "http://localhost:3000/api/testmo/",
+				publishable_api_key: "pk_test_GNLZsbL9QPjzk37YQYeKwSrSTUAhoah1KVxC3vWp",
+				callback_url: "http://localhost:3000/order-complete",
 				methods: ["creditcard", "stcpay", "applepay"],
 				apple_pay: {
 					country: "SA",
