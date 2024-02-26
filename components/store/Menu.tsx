@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Link from "next/link";
+import Link from 'next/link'
 import { BsChevronDown } from "react-icons/bs";
 
 const data = [

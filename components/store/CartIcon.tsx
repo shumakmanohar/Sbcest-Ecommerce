@@ -2,7 +2,7 @@
 
 import { initializeCartFromLocalStorage } from "@/state/cart/cartSlice";
 import { RootState, store } from "@/state/store";
-import Link from "next/link";
+import Link from 'next/link'
 import { useEffect, useState } from "react";
 import { BsCart } from "react-icons/bs";
 import { useSelector } from "react-redux";

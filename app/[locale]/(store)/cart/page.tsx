@@ -5,7 +5,9 @@ import { RootState } from "@/state/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
+// import { useUser } from "@clerk/nextjs";
+
 
 const page = () => {
 	const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -23,6 +25,22 @@ const page = () => {
 
 		return calculatedTotalPrice;
 	}, [cartItems]);
+
+	// const user = useUser();
+	// const login = "https://normal-skink-98.accounts.dev/sign-in"
+
+	// const handleCheckout = () => {
+    //     if (user && user.isSignedIn) {
+             
+    //         console.log("Proceeding to checkout...");
+	// 		return  "/checkout";
+    //     } else {
+            
+    //         console.log("User not signed in, redirecting to sign-in page or showing a message...");
+			
+	// 		return  login;
+    //     }
+    // };
 
 	return (
 		<div className="w-full md:py-20">
@@ -42,8 +60,8 @@ const page = () => {
 							{/* CART ITEMS START */}
 							<div className="flex-[2]">
 								<div className="text-lg font-bold">Cart Items</div>
-								{cartItems.map(({ product, quantity }) => (
-									<CartItem product={product} quantity={quantity} />
+								{cartItems.map(({ product, quantity,  }) => (
+									<CartItem product={product} quantity={quantity}/>
 								))}
 							</div>
 							{/* CART ITEMS END */}
@@ -70,9 +88,9 @@ const page = () => {
 								</div>
 
 								{/* BUTTON START */}
-								<button className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center">
+								<Link href={"/checkout"} className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center">
 									Checkout
-								</button>
+								</Link>
 								{/* BUTTON END */}
 							</div>
 							{/* SUMMARY END */}
@@ -85,7 +103,7 @@ const page = () => {
 				{cartItems?.length < 1 && (
 					<div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
 						<Image
-							src="/empty-cart.jpg"
+							src="/empty-cart.png"
 							alt="Empty Cart"
 							width={300}
 							height={300}
@@ -98,7 +116,7 @@ const page = () => {
 							Go ahead and explore top categories.
 						</span>
 						<Link
-							href="/"
+							href={'/'}
 							className="py-4 px-8 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75 mt-8"
 						>
 							Continue Shopping

@@ -1,7 +1,10 @@
-import Link from "next/link";
+import Link from 'next/link'
 import React from "react";
 
+
 const Footer = () => {
+	
+	
 	return (
 		<footer className="bg-black px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
 			<div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start lg:items-center border-b border-gray-200 pb-8 text-white">
@@ -9,7 +12,15 @@ const Footer = () => {
 					<div className="text-base sm:text-lg font-semibold">
 						Got questions? Call us 24/7!
 					</div>
-					<div className="text-lg sm:text-xl font-bold">+966 539740365</div>
+					<div className="text-lg sm:text-xl font-bold">
+						<h1 >Arabic Helpdesk</h1>
+						<a href="tel:+966 539740365" className='text-[#00adb5] text-base font-semibold'>+966 539740365</a>
+					</div>
+					
+					<div className="text-lg sm:text-xl font-bold">
+						<h1 >English Helpdesk</h1>
+						<a href="tel:+966 539740365" className='text-[#00adb5] text-base font-semibold'>+966 539740365</a>
+					</div>
 					<div className="text-sm">
 						Waleed Centre,
 						<br className="hidden sm:inline" /> Khalid Waleed Street Jeddah,
@@ -66,9 +77,9 @@ const Footer = () => {
 			</div>
 			<div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center py-4 text-white">
 				<div className="text-sm">
-					© 2024 SBcest | All Rights Reserved | Designed By: Offlyne
+					© 2024 SBcest | All Rights Reserved | Developed & Desinged by: <Link href={'#'}>oflyne.co</Link>
 				</div>
-				<div className="flex space-x-2 sm:space-x-4 mt-4 lg:mt-0"></div>
+				
 			</div>
 		</footer>
 	);

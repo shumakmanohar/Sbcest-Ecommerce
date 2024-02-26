@@ -1,4 +1,5 @@
 import AddToCart from "@/components/store/AddToCart";
+import ProductCarousel from "@/components/store/ProductCarousel";
 import ProductDetailsCarousel from "@/components/store/ProductDetailsCarousel";
 import Wrapper from "@/components/store/Wrapper";
 import { getDiscountedPricePercentage } from "@/util/Price";
@@ -19,14 +20,17 @@ const getProduct = async (id: string) => {
 
 const page = async ({ params }: { params: { id: string } }) => {
 	const product: StoreProduct = await getProduct(params.id);
+	const images = product?.images || [];
+
 
 	return (
-		<div className="w-full md:py-20">
+		<div className="w-full md:py-20 max-w-[1460px] mx-auto">
 			<Wrapper>
 				<div className="flex flex-col lg:flex-row md:px-10 gap-[50px] lg:gap-[100px]">
 					{/* left column start */}
-					<div className="w-full md:w-auto flex flex-[1.5] max-w-[500px] lg:max-w-full mx-auto lg:mx-0">
-						<ProductDetailsCarousel images={product?.images || [""]} />
+					<div className="w-full md:w-auto flex-[1.5] max-w-[500px] lg:max-w-full mx-auto lg:mx-0">
+						{/* <ProductDetailsCarousel images={images} /> */}
+						<ProductCarousel images ={images}/>
 					</div>
 					{/* left column end */}
 
@@ -37,8 +41,8 @@ const page = async ({ params }: { params: { id: string } }) => {
 							{product?.title}
 						</div>
 
-						{/* PRODUCT SUBTITLE */}
-						<div className="text-lg font-semibold mb-5">{"SUBTITLE"}</div>
+						{/* PRODUCT SUBTITLE
+						<div className="text-lg font-semibold mb-5">{product?.categoryId}</div> */}
 
 						{/* PRODUCT PRICE */}
 						<div className="flex items-center">
@@ -47,7 +51,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 							</p>
 							{product?.isOnOffer && (
 								<>
-									<p className="text-base  font-medium line-through">
+									<p className="text-base text-red-500 font-medium line-through">
 										{product.price}
 									</p>
 									<p className="ml-auto text-base font-medium text-green-500">

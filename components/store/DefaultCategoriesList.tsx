@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link'
 import { CiDesktopMouse1 } from "react-icons/ci";
 import { GiSmartphone } from "react-icons/gi";
 import { IoWatchOutline } from "react-icons/io5";

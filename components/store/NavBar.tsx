@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Wrapper from "./Wrapper";
-import Link from "next/link";
+import Link from 'next/link'
 import { LuLayoutDashboard } from "react-icons/lu";
 import CartIcon from "./CartIcon";
 import DynamicUserIcon from "./DynamicUserIcon";
 import SearchContainer from "./SearchContainer";
-import { Separator } from "../ui/separator";
-import DefaultCategoriesList from "./DefaultCategoriesList";
+import Image from "next/image";
+
 
 const NavBar = () => {
 	return (
@@ -18,7 +18,16 @@ const NavBar = () => {
 				{/* Main Nav */}
 				<Wrapper className="h-[60px] flex justify-between items-center gap-4 ">
 					<Link href="/">
-						<img src="/sblogodes.png" className="w-[150px] " />
+						<Image 
+							src="/sblogodes.png" 
+							alt=""
+							className="max-w-[145px] max-h-[50px] mx-auto object-contain" 
+							width={200} 
+							height={200} 
+							quality={100} 
+							sizes="145px"
+						/>
+						
 					</Link>
 					{/* Search Container */}
 					<div className="flex-1 basis-[500px] h-full md:flex flex-col items-center justify-center hidden">

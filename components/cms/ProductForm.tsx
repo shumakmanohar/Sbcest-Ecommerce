@@ -98,10 +98,11 @@ export default function ProductForm({
 		e?.preventDefault();
 		setLoading(true);
 		const updatedProduct = form.getValues();
-		console.log("newProduct", zodResolver(updatedProduct));
+		// console.log("newProduct", zodResolver(updatedProduct));
 		const response = await UpdateProduct(
 			product?.id!,
-			zodResolver(updatedProduct)
+			// zodResolver(updatedProduct)
+		updatedProduct
 		);
 		response.status == ServerResponse.Success
 			? toast.success("Product Updated Successfully")

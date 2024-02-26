@@ -4,7 +4,8 @@ import Image from "next/image";
 import debounce from "debounce";
 import Loader from "../cms/Loader";
 import { StoreProduct } from "@/util/Types";
-import Link from "next/link";
+import Link from 'next/link'
+import { CMS_CONFIG } from "@/cms.config";
 
 const SearchResultCard = ({
   item,
@@ -13,12 +14,14 @@ const SearchResultCard = ({
   item: StoreProduct;
   handleClear: () => void;
 }) => {
+  const productImageSrc = item?.images[0] ? `${CMS_CONFIG.cdn.location}/${item?.images[0]}` : '/sblogo.png';
   return (
     <Link href={`/products/${item?.id}`} onClick={handleClear}>
       <div className="w-full flex items-center justify-between p-1 hover:shadow-sm gap-2 hover:bg-gray-200">
         <div className="w-20 h-20 relative">
           <Image
-            src={"/sblogo.png"}
+            // src={`${CMS_CONFIG.cdn.location}/${item?.images[0]}`}
+            src={productImageSrc}
             alt="Product Image"
             sizes="10vw"
             fill

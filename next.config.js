@@ -17,6 +17,7 @@ const nextConfig = {
 				hostname: "mediacdn.sbcest.com",
 			},
 		],
+		
 	},
 };
 

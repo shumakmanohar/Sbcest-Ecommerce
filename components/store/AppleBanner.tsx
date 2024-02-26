@@ -1,5 +1,6 @@
 import { CMS_CONFIG } from "@/cms.config";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 const AppleBanner = () => {
 	return (
@@ -10,10 +11,16 @@ const AppleBanner = () => {
 			<div className="container mx-auto px-2 lg:px-8">
 				<div className="flex flex-col items-center justify-center py-10 lg:py-18">
 					<div className="text-center flex items-center">
-						<img
-							src={`${CMS_CONFIG.staticImages.location}/app_logo.png`}
-							alt="apple"
-							style={{ height: "22px" }}
+						
+						<Image
+						src={`${CMS_CONFIG.staticImages.location}/app_logo.png`}
+						alt="apple"
+						className="object-contain"
+						width={20}
+						height={20}
+						quality={100}
+						
+						
 						/>
 						<h1 className="text-white ml-1 font-bold text-2xl">Watch</h1>
 					</div>
@@ -30,13 +37,16 @@ const AppleBanner = () => {
 						</Button>
 					</div>
 					<div className=" lg:mt-0 flex justify-center w-full">
-						<img
-							alt="Watch Series 9"
-							src={`${CMS_CONFIG.staticImages.location}/iw1.jpg`}
-							style={{
-								objectFit: "cover",
-							}}
-						/>
+						
+						<Image 
+						src={`${CMS_CONFIG.staticImages.location}/iw1.jpg`} 
+						alt={"iWatch series 9"}
+						className="object-cover mx-auto"
+						quality={100}
+						width={1200}
+						height={200}
+						
+												/>
 					</div>
 				</div>
 			</div>

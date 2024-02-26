@@ -6,7 +6,7 @@ import Image from "next/image";
 import debounce from "debounce";
 import Loader from "../cms/Loader";
 import { StoreProduct } from "@/util/Types";
-import Link from "next/link";
+import Link from 'next/link'
 
 const SearchResultCard = ({
 	item,

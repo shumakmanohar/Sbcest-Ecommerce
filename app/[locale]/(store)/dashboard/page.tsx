@@ -1,9 +1,12 @@
 import Wrapper from "@/components/store/Wrapper";
 import React from "react";
+import MyOrders from "@/components/store/myorders";
 
 const page = () => {
 	return (
+		<>
 		<div className="">
+			
 			<Wrapper>
 				<div className="flex items-center gap-8 my-16">
 					<div>
@@ -15,11 +18,19 @@ const page = () => {
 						</h1>
 						<p className="text-sm mt-2">Welcome To Sbcest.</p>
 					</div>
+
+					
 				</div>
-				<h1 className="text-3xl font-normal">My Orders</h1>
-				<div></div>
+
+				
+				<MyOrders/>
 			</Wrapper>
+			
+			
 		</div>
+		
+		</>
+		
 	);
 };
 

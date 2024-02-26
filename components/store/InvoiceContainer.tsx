@@ -17,7 +17,7 @@ const InvoiceContainer = () => {
 					setOrderedProducts={setOrderedProducts}
 				/>
 			</div>
-			<div className="mt-10 md:mt-0 max-w-xl bg-white p-5 shadow-md">
+			<div className="mt-10 md:mt-0 max-w-xl bg-white p-5 shadow-md mb-4">
 				<p className="text-lg mb-4">Shipping Information</p>
 				<CheckoutForm
 					email={user?.emailAddresses[0]?.emailAddress || ""}
@@ -27,7 +27,7 @@ const InvoiceContainer = () => {
 					orderedProducts={orderedProducts}
 				/>
 			</div>
-			;
+			
 		</>
 	);
 };
