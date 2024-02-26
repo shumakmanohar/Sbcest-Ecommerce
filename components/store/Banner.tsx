@@ -1,5 +1,6 @@
 import { CMS_CONFIG } from "@/cms.config";
 import React from "react";
+import Image from "next/image";
 
 const Banner = () => {
 	return (
@@ -15,9 +16,12 @@ const Banner = () => {
 				</h2>
 				<div className="mt-12 grid grid-cols-1 gap-7 md:grid-cols-3">
 					<div className="flex flex-col items-center p-6 space-y-6 rounded-lg bg-white">
-						<img
+						<Image
 							src={`${CMS_CONFIG.staticImages.location}/shopping.svg`}
 							className=" h-32 w-32 transform transition-transform hover:scale-110"
+							alt=""
+							height={128}
+							width={128}		
 						/>
 						<h3 className="text-lg font-semibold text-gray-800">
 							Mobile shopping
@@ -28,10 +32,11 @@ const Banner = () => {
 						</p>
 					</div>
 					<div className="flex flex-col items-center p-6 space-y-6 rounded-lg bg-white">
-						<img
+						<Image
 							src={`${CMS_CONFIG.staticImages.location}/credit.svg`}
-							className="h-32 w-32 transform transition-transform hover:scale-110"
-						/>
+							className="h-32 w-32 transform transition-transform hover:scale-110" alt={""}	
+							height={128}
+							width={128}					/>
 						<h3 className="text-lg font-semibold text-gray-800">
 							Secure payments
 						</h3>
@@ -41,10 +46,11 @@ const Banner = () => {
 						</p>
 					</div>
 					<div className="flex flex-col items-center p-5 space-y-5 rounded-lg bg-white">
-						<img
+						<Image
 							src={`${CMS_CONFIG.staticImages.location}/package.svg`}
-							className=" h-32 w-32 transform transition-transform hover:scale-110"
-						/>
+							className=" h-32 w-32 transform transition-transform hover:scale-110" alt={""} 	
+							height={128}
+							width={128}					/>
 						<h3 className="text-lg font-bold text-gray-800">
 							Present packaging
 						</h3>

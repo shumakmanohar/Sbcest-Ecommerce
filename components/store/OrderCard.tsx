@@ -60,6 +60,7 @@ const OrderCard = ({ order }: { order: Order }) => {
 									<h3 className=" font-semibold ">{product.title}</h3>
 
 									<p className="text-sm font-semibold">SAR {product.price}</p>
+									<p className="text-xs mt-2">Quantity</p>
 									<div className="flex items-center mt-2">
 										<CheckCircleIcon className="text-green-500 mr-2" />
 										<span className="text-xs">Delivered </span>
@@ -69,14 +70,32 @@ const OrderCard = ({ order }: { order: Order }) => {
 							<div className="flex justify-end mt-2">
 								<div className="px-4 text-sm text-[#00adb5] font-bold">
 									<Link href={""}>View Product</Link>
-								</div>{" "}
-								|
-								<div className="px-4 text-sm text-[#00adb5] font-bold">
-									<Link href={""}>More Details</Link>
 								</div>
 							</div>
 						</Card>
+						
 					))}
+					 <Card className="p-4 bg-gray-200">
+            <div className="flex items-start gap-4">
+              <div className="flex-1 flex-col">
+                <h3 className=" font-semibold mb-4">Delivery Address:</h3>
+
+                <p className="text-sm break-normal mb-4">
+                  Muhammed Ranees Kommeri, +966 539740365, Unaizah, Dhahran, 23
+                  Halah Al-Fida Passage.
+                </p>
+                <p className="text-sm break-normal">
+                  محمد رنيس كوميري، +966 539740365، عنيزة، الظهران، ممر هالة
+                  الفدا رقم 23.
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-end mt-2">
+              <div className="px-4 text-sm text-[#00adb5] font-bold">
+                <Link href={""}>Manage Address</Link>
+              </div>{" "}
+            </div>
+          </Card>
 				</div>
 			</div>
 		</div>

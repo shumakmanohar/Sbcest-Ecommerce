@@ -5,7 +5,7 @@ import { RootState } from "@/state/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 const page = () => {
 	const cartItems = useSelector((state: RootState) => state.cart.items);

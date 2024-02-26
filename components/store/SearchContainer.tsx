@@ -5,6 +5,7 @@ import debounce from "debounce";
 import Loader from "../cms/Loader";
 import { StoreProduct } from "@/util/Types";
 import Link from "next/link";
+import { CMS_CONFIG } from "@/cms.config";
 
 const SearchResultCard = ({
   item,
@@ -13,12 +14,14 @@ const SearchResultCard = ({
   item: StoreProduct;
   handleClear: () => void;
 }) => {
+  const productImageSrc = item?.images[0] ? `${CMS_CONFIG.cdn.location}/${item?.images[0]}` : '/sblogo.png';
   return (
     <Link href={`/products/${item?.id}`} onClick={handleClear}>
       <div className="w-full flex items-center justify-between p-1 hover:shadow-sm gap-2 hover:bg-gray-200">
         <div className="w-20 h-20 relative">
           <Image
-            src={"/sblogo.png"}
+          
+            src={productImageSrc}
             alt="Product Image"
             sizes="10vw"
             fill
@@ -115,7 +118,7 @@ const SearchContainer = () => {
   }, []);
 
   return (
-    <div className={`w-full ${isBackdropActive ? 'fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40' : ''}`}>
+    <div className={`w-full ${isBackdropActive ? ' fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40' : ''}`}>
       {/* Search */}
       <div className="search-container w-full relative max-w-lg mx-auto bg-gray-100 h-[50px] flex items-center gap-2 rounded-2xl px-4">
         <input

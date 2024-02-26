@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { CMS_CONFIG } from "@/cms.config";
+import { JSX, SVGProps } from 'react';
+import Image from 'next/image';
 
 const Support = () => {
 	return (
@@ -29,16 +31,17 @@ const Support = () => {
 							Let's Chat
 						</Button>
 					</div>
-					<img
+					<Image
 						alt="Placeholder"
 						className="mt-6 sm:mt-2 mb-2 sm:ml-6 rounded-lg object-cover  transform transition-transform duration-500 hover:scale-105"
-						height={200}
+						height={250}
 						src={`${CMS_CONFIG.staticImages.location}/help1.webp`}
 						style={{
 							aspectRatio: "200/200",
-							objectFit: "cover",
+							objectFit: "contain",
 						}}
-						width={200}
+						width={250}
+						quality={100}
 					/>
 				</div>
 				<div className="bg-[#f8f8f8] p-6 rounded-lg flex flex-col sm:flex-row items-center">
@@ -56,16 +59,17 @@ const Support = () => {
 						</Button>
 						<div className="mt-4" />
 					</div>
-					<img
+					<Image
 						alt="Placeholder"
 						className="mt-6 sm:mt-2 mb-2 sm:ml-6 rounded-lg object-cover  transform transition-transform duration-500 hover:scale-105"
-						height={200}
+						height={250}
 						src={`${CMS_CONFIG.staticImages.location}/help2.webp`}
 						style={{
 							aspectRatio: "200/200",
-							objectFit: "cover",
+							objectFit: "contain",
 						}}
-						width={200}
+						quality={100}
+						width={250}
 					/>
 				</div>
 			</div>
@@ -102,27 +106,9 @@ const Support = () => {
 		</section>
 	);
 };
-function PlusIcon(props) {
-	return (
-		<svg
-			{...props}
-			xmlns="http://www.w3.org/2000/svg"
-			width="14"
-			height="14"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			strokeWidth="2"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-		>
-			<path d="M5 12h14" />
-			<path d="M12 5v14" />
-		</svg>
-	);
-}
 
-function ArrowRightIcon(props) {
+
+function ArrowRightIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
 	return (
 		<svg
 			{...props}

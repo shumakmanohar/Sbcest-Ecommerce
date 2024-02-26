@@ -3,7 +3,7 @@
 import { addToCart } from "@/state/cart/cartSlice";
 import { RootState } from "@/state/store";
 import { StoreProduct } from "@/util/Types";
-import toast from "react-hot-toast";
+import toast, { ToastPosition } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddToCart = ({ product }: { product: StoreProduct }) => {
@@ -12,7 +12,9 @@ const AddToCart = ({ product }: { product: StoreProduct }) => {
 
 	const handleAddToCart = (product: StoreProduct, quantity: number) => {
 		dispatch(addToCart({ product, quantity }));
-		toast.success("Product Added To Cart");
+		toast.success("Product Added To Cart",  {
+			position: "bottom-right" as ToastPosition, // Set the position to bottom-right
+		});
 	};
 	return (
 		<div>
