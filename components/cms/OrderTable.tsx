@@ -67,14 +67,25 @@ export function OrderTable<TData, TValue>({
 	return (
 		<>
 			<div className="flex justify-between py-4">
-				<Input
-					placeholder="Search by user email" // Updated placeholder
-					value={(table.getColumn("email")?.getFilterValue() as string) ?? ""} // Access email column for filtering
-					onChange={(
-						event // Filter data based on email field
-					) => table.getColumn("email")?.setFilterValue(event.target.value)}
-					className="max-w-sm"
-				/>
+				<div className="flex flex-1 gap-4">
+					<Input
+						placeholder="Search by user email" // Updated placeholder
+						value={(table.getColumn("email")?.getFilterValue() as string) ?? ""} // Access email column for filtering
+						onChange={(
+							event // Filter data based on email field
+						) => table.getColumn("email")?.setFilterValue(event.target.value)}
+						className="max-w-sm"
+					/>
+					<Input
+						placeholder="Search by order id" // Updated placeholder
+						value={(table.getColumn("id")?.getFilterValue() as string) ?? ""} // Access email column for filtering
+						onChange={(
+							event // Filter data based on order id field
+						) => table.getColumn("id")?.setFilterValue(event.target.value)}
+						className="max-w-sm"
+					/>
+				</div>
+
 				<div className="flex gap-4">
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>

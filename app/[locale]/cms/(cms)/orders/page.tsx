@@ -13,7 +13,7 @@ const page = async () => {
 		<div>
 			<Header heading={"Order"} description={"Manage your store orders"} />
 			{status === ServerResponse.Success ? (
-				<div className="container mx-auto py-10">
+				<div className=" mx-auto py-10">
 					<OrderTable columns={columns} data={orders!} />
 				</div>
 			) : (

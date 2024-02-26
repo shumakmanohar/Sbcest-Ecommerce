@@ -16,7 +16,7 @@ const page = async () => {
 				description={"Products Available in the Store"}
 			/>
 			{status === ServerResponse.Success ? (
-				<div className="container mx-auto py-10">
+				<div className="py-10">
 					<PaymentTable columns={columns} data={data!} />
 				</div>
 			) : (

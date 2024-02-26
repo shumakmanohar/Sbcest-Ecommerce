@@ -1,32 +1,9 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import {
-	PaymentStatus,
-	type Order,
-	type Product,
-	DeliveryStatus,
-} from "@prisma/client";
-
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-	ArrowsUpDownIcon,
-	CheckCircleIcon,
-	EllipsisHorizontalCircleIcon,
-	StarIcon,
-	XCircleIcon,
-} from "@heroicons/react/24/outline";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { CMS_CONFIG } from "@/cms.config";
+import { PaymentStatus, type Order, DeliveryStatus } from "@prisma/client";
 import Link from "next/link";
+import { Eye } from "lucide-react";
 
 export const columns: ColumnDef<Order>[] = [
 	{
@@ -41,6 +18,10 @@ export const columns: ColumnDef<Order>[] = [
 			const formatted = date.toLocaleDateString();
 			return <div>{formatted}</div>;
 		},
+	},
+	{
+		accessorKey: "name",
+		header: () => <div className="text-center">Name</div>,
 	},
 	{
 		accessorKey: "email",
@@ -98,12 +79,12 @@ export const columns: ColumnDef<Order>[] = [
 				case DeliveryStatus.TRANSIT:
 					// code block
 					txt = DeliveryStatus.TRANSIT;
-					clr = "border-green-600 text-green-600";
+					clr = "border-blue-600 text-blue-600";
 					break;
 				case DeliveryStatus.DELIVERED:
 					// code block
 					txt = DeliveryStatus.DELIVERED;
-					clr = "border-green-600 text-white bg-green-400";
+					clr = "border-green-600 text-green-600";
 					break;
 				default:
 					txt = PaymentStatus.PENDING;
@@ -125,8 +106,8 @@ export const columns: ColumnDef<Order>[] = [
 			const id = cell.row.original.id;
 			return (
 				<div>
-					<Link href={`/cms/orders/${id}`} className="text-blue-500 underline">
-						View More
+					<Link href={`/cms/orders/${id}`}>
+						<Eye />
 					</Link>
 				</div>
 			);

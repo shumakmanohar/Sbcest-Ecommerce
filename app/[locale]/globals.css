@@ -97,7 +97,13 @@
 .display-linebreak {
 	white-space: pre-line;
 }
-
+/* Order Form/DEtails  */
+.order-label {
+	@apply flex gap-4 text-lg;
+}
+.order-value {
+	@apply font-semibold;
+}
 /* Carousel Styling */
 .productCarousel.carousel-root {
 	display: flex;

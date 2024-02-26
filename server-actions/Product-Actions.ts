@@ -187,7 +187,7 @@ export const GetAllProduct = async () => {
 };
 
 export const UpdateProduct = async (id: string, product: ProductType) => {
-	//Todo : Check if loggedIn
+	// Check if loggedIn
 	if (!(await isAdmin())) {
 		return {
 			status: ServerResponse.Failure,

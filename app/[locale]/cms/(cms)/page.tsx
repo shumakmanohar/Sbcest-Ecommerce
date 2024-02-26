@@ -33,6 +33,7 @@ const Card = ({
 const page = async () => {
 	const totalProducts = (await prisma.product.findMany()).length;
 	const totalCategoires = (await prisma.categories.findMany()).length;
+	const totalOrders = (await prisma.order.findMany()).length;
 	return (
 		<div className="mt-16">
 			<Header description={"CMS Dashboard"} heading={"Overview"} />
@@ -51,7 +52,7 @@ const page = async () => {
 				/>
 				<Card
 					name="Order"
-					total={totalCategoires}
+					total={totalOrders}
 					description={"Total  Orders in Store"}
 					icon={<Box className="h-4 w-4 text-gray-400" />}
 				/>
