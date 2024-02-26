@@ -3,7 +3,7 @@ import React from "react";
 
 const page = () => {
 	return (
-		<div className="">
+		<div className="min-h-[80vh]">
 			<Wrapper>
 				<div className="flex items-center gap-8 my-16">
 					<div>
@@ -17,7 +17,9 @@ const page = () => {
 					</div>
 				</div>
 				<h1 className="text-3xl font-normal">My Orders</h1>
-				<div></div>
+				<div>
+					<div className="w-full max-w-lg">orderId</div>
+				</div>
 			</Wrapper>
 		</div>
 	);

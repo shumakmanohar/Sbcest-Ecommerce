@@ -4,15 +4,18 @@ declare global {
 		Moyasar: any;
 	}
 }
+import { Order } from "@prisma/client";
 import Head from "next/head";
 import Script from "next/script";
 import { useEffect, useState } from "react";
 
 const Moyasar = ({
 	orderId = "invalid",
+	order,
 	orderAmount,
 }: {
 	orderId: string;
+	order: Order;
 	orderAmount: number;
 }) => {
 	const [mounted, setMounted] = useState(false);
@@ -25,7 +28,12 @@ const Moyasar = ({
 				currency: "SAR",
 				language: "en",
 				description: orderId, // Pass the order ID to Moyasar or OrderID
-				metadata: { orderId },
+				metadata: {
+					orderId,
+					test: "yoofdosodsfdso",
+					shippingInformation: order.shippingInformation,
+					orderedProducts: order.orderedProducts,
+				},
 				publishable_api_key: "pk_test_GNLZsbL9QPjzk37YQYeKwSrSTUAhoah1KVxC3vWp",
 				callback_url: "http://localhost:3000/order-complete",
 				methods: ["creditcard", "stcpay", "applepay"],

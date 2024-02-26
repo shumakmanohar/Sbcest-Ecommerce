@@ -19,6 +19,7 @@ const page = async ({
 				<div className="container min-h-[80vh]">
 					{response.orderId ? (
 						<Moyasar
+							order={response.orderId}
 							orderId={response.orderId.id}
 							orderAmount={response.orderId.amount}
 						/>
