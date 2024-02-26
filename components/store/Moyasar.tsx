@@ -4,19 +4,21 @@ declare global {
 		Moyasar: any;
 	}
 }
-import { Order } from "@prisma/client";
+import { CheckoutType } from "@/util/Types";
+import { Order, OrderedProducts } from "@prisma/client";
 import Head from "next/head";
 import Script from "next/script";
 import { useEffect, useState } from "react";
 
 const Moyasar = ({
-	orderId = "invalid",
 	order,
-	orderAmount,
 }: {
-	orderId: string;
-	order: Order;
-	orderAmount: number;
+	order: {
+		userID: string;
+		orderAmount: number;
+		shippingInformation: CheckoutType;
+		orderedProducts: OrderedProducts[];
+	};
 }) => {
 	const [mounted, setMounted] = useState(false);
 	useEffect(() => {
@@ -24,13 +26,12 @@ const Moyasar = ({
 		if (typeof window !== "undefined" && window.Moyasar) {
 			window.Moyasar.init({
 				element: ".mysr-form",
-				amount: orderAmount * 100,
+				amount: order.orderAmount * 100,
 				currency: "SAR",
 				language: "en",
-				description: orderId, // Pass the order ID to Moyasar or OrderID
+				description: "Text", // Pass the order ID to Moyasar or OrderID
 				metadata: {
-					orderId,
-					test: "yoofdosodsfdso",
+					userID: order.userID,
 					shippingInformation: order.shippingInformation,
 					orderedProducts: order.orderedProducts,
 				},
@@ -70,7 +71,7 @@ const Moyasar = ({
 	}, []);
 
 	return (
-		<div>
+		<div className="">
 			<div className="mysr-form"></div>
 		</div>
 	);

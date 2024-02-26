@@ -7,6 +7,7 @@ import { OrderedProducts, Product } from "@prisma/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import InvoiceSkeleton from "./InvoiceSkeleton";
 import InvoiceFormSkeleton from "./InvoiceFormSkeleton";
+import Moyasar from "./Moyasar";
 
 const InvoiceContainer = () => {
 	const { isLoaded, isSignedIn, user } = useUser();
@@ -26,7 +27,7 @@ const InvoiceContainer = () => {
 				<InvoiceFormSkeleton />
 			) : (
 				<div className="my-10 md:mt-0 max-w-xl bg-white p-5 shadow-md">
-					<p className="text-lg mb-4">Shipping Information</p>
+					<p className="text-lg mb-4">Check Out</p>
 					<CheckoutForm
 						email={user?.emailAddresses[0]?.emailAddress || ""}
 						fullname={
