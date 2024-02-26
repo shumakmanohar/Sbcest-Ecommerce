@@ -51,19 +51,6 @@ const CheckoutForm = ({
 	};
 	async function onSubmit(data: CheckoutType) {
 		setLoading(true);
-		const response = await CreateOrder({
-			amount: orderAmount,
-			orderedProducts,
-			email: data.email,
-			name: data.name,
-			shippingInformation: data,
-		});
-		response.status == ServerResponse.Success
-			? router.push(`/pay?id=${response.orderId}`)
-			: toast.error("Something Went Wrong. Pls Try Again.");
-		console.log(response.message);
-		setLoading(false);
-
 		console.log();
 	}
 

@@ -38,12 +38,14 @@ const ProductCard = ({ product }: { product: StoreProduct }) => {
 					{product && (product as any).category.name}
 				</p>
 				<p className="text-xs my-2 line-clamp-1">{product?.description}</p>
-				<p className="font-bold ">SAR {product?.price}</p>
+				<p className="font-bold ">
+					SAR {product?.isOnOffer ? product?.offerPrice : product?.price}
+				</p>
 
 				{product?.isOnOffer && (
 					<>
 						<p className="font-bold text-xs line-through text-red-500">
-							SAR {product?.offerPrice}
+							SAR {product?.price}
 						</p>
 						<p className="font-bold text-xs text-right text-green-500 ">
 							{getDiscountedPricePercentage(

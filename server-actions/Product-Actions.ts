@@ -48,6 +48,7 @@ export const FetchStoreInvoiceProducts = async (productIDs = [""]) => {
 		const products = await prisma.product.findMany({
 			where: {
 				id: { in: productIDs },
+				isArchived: false,
 			},
 		});
 		return {

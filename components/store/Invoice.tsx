@@ -6,15 +6,20 @@ import { FetchStoreInvoiceProducts } from "@/server-actions/Product-Actions";
 import InvoiceCard from "./InvoiceCard";
 import { OrderedProducts, Product } from "@prisma/client";
 import { CartItem } from "@/state/cart/cartSlice";
+import InvoiceSkeleton from "./InvoiceSkeleton";
 
 const Invoice = ({
 	setOrderAmount,
 	setOrderedProducts,
+	setLoading,
 }: {
 	setOrderAmount: Dispatch<SetStateAction<number>>;
 	setOrderedProducts: Dispatch<SetStateAction<OrderedProducts[]>>;
+	setLoading: Dispatch<React.SetStateAction<boolean>>;
 }) => {
 	const cartItems = useSelector((state: RootState) => state.cart.items);
+	const [serverFetchStatus, setServerFetchStatus] = useState(false);
+	const [calculatingStatus, setCalculatingStatus] = useState(true);
 	const [serverFetchedProducts, setServerFetchedProducts] = useState<
 		Product[] | undefined
 	>([]);
@@ -33,20 +38,17 @@ const Invoice = ({
 		serverFetchedProducts?.forEach((serverProduct) => {
 			cartItems.forEach((item) => {
 				if (serverProduct.id === item.product?.id) {
-					console.log("matching product found");
 					const price = serverProduct.isOnOffer
 						? serverProduct.offerPrice
 						: serverProduct.price;
-					calculatedTotalPrice += price! * item.quantity;
+					calculatedTotalPrice +=
+						price! * (item.quantity > 0 ? item.quantity : 1);
 					// Pushing the Server Fetched  Products to Invoice Products with quantity.
 
 					_invoiceProducts.push({
 						productId: serverProduct.id,
 						quantity: item.quantity,
 						title: serverProduct.title,
-						description: serverProduct.description,
-						ar_description: serverProduct.ar_description,
-						ar_title: serverProduct.ar_title,
 						previewImg: serverProduct.previewImg,
 						price,
 					});
@@ -71,6 +73,10 @@ const Invoice = ({
 		calculatedTotalPrice += _VAT;
 		//Setting Order Amount
 		setOrderAmount(calculatedTotalPrice);
+		if (serverFetchStatus) {
+			setCalculatingStatus(false);
+			setLoading(false);
+		}
 		return calculatedTotalPrice.toFixed(2);
 	}, [serverFetchedProducts]);
 
@@ -91,6 +97,11 @@ const Invoice = ({
 			);
 			// todo do the server  error check
 			setServerFetchedProducts(_serverFetchedProducts.products);
+			if (_serverFetchedProducts.products) {
+				if (_serverFetchedProducts.products?.length > 0) {
+					setServerFetchStatus(true);
+				}
+			}
 			console.log("Yo serverfetched ", _serverFetchedProducts);
 		};
 
@@ -99,40 +110,46 @@ const Invoice = ({
 	}, []);
 
 	return (
-		<>
-			<div>
-				<span className="text-xl text-muted-foreground">Pay</span>
-				<p className="text-4xl font-semibold mt-2">SAR {totalPrice}</p>
-			</div>
-			<div className="mt-10">
-				{/* Invoice Card */}
-				<div className="flex flex-col gap-3">
-					{invoiceProducts?.map((invoiceProducts) => (
-						<InvoiceCard product={invoiceProducts} />
-					))}
-				</div>
-				<Separator className="my-8" />
-				<div className="flex flex-col gap-4">
-					<div className="font-medium flex items-center justify-between">
-						<p>Subtotal</p>
-						<p>SAR {subTotal}</p>
+		<div>
+			{calculatingStatus ? (
+				<InvoiceSkeleton />
+			) : (
+				<>
+					<div>
+						<span className="text-xl text-muted-foreground">Pay</span>
+						<p className="text-4xl font-semibold mt-2">SAR {totalPrice}</p>
 					</div>
-					<div className="text-muted-foreground flex items-center justify-between">
-						<p>Shipping</p>
-						<p>SAR 35</p>
+					<div className="mt-10">
+						{/* Invoice Card */}
+						<div className="flex flex-col gap-3">
+							{invoiceProducts?.map((invoiceProducts) => (
+								<InvoiceCard product={invoiceProducts} />
+							))}
+						</div>
+						<Separator className="my-8" />
+						<div className="flex flex-col gap-4">
+							<div className="font-medium flex items-center justify-between">
+								<p>Subtotal</p>
+								<p>SAR {subTotal}</p>
+							</div>
+							<div className="text-muted-foreground flex items-center justify-between">
+								<p>Shipping</p>
+								<p>SAR 35</p>
+							</div>
+							<div className="text-muted-foreground flex items-center justify-between">
+								<p>VAT {"(15%)"}</p>
+								<p>SAR {VAT.toFixed(2)}</p>
+							</div>
+						</div>
+						<Separator className="my-8" />
+						<div className="font-medium flex items-center justify-between">
+							<p>Total Due</p>
+							<p>SAR {totalPrice}</p>
+						</div>
 					</div>
-					<div className="text-muted-foreground flex items-center justify-between">
-						<p>VAT {"(15%)"}</p>
-						<p>SAR {VAT.toFixed(2)}</p>
-					</div>
-				</div>
-				<Separator className="my-8" />
-				<div className="font-medium flex items-center justify-between">
-					<p>Total Due</p>
-					<p>SAR {totalPrice}</p>
-				</div>
-			</div>
-		</>
+				</>
+			)}
+		</div>
 	);
 };
 
