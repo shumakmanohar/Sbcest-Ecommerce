@@ -45,6 +45,7 @@ model Order {
   deliveryStatus DeliveryStatus @default(PENDING)
   paymentStatus PaymentStatus 
   email String
+  userID String
   name String
   shippingInformation   Address
   moyasarID String

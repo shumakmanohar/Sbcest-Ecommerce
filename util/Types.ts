@@ -139,6 +139,7 @@ export interface MoyasarData {
 }
 
 export interface MoyasarMetadata {
+	userID: string;
 	orderedProducts: OrderedProducts;
 	shippingInformation: Address;
 }

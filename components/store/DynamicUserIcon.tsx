@@ -1,11 +1,13 @@
 "use client";
 import {
+	SignIn,
 	SignInButton,
 	SignedIn,
 	SignedOut,
 	UserButton,
 	useUser,
 } from "@clerk/nextjs";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoPersonOutline } from "react-icons/io5";
 
@@ -19,7 +21,11 @@ const DynamicUserIcon = () => {
 			{mounted && (
 				<>
 					<SignedIn>
-						<UserButton afterSignOutUrl="/" />
+						<Link href={"/dashboard"}>
+							<IoPersonOutline className="text-[19px] md:text-[24px]" />
+						</Link>
+
+						{/* <UserButton afterSignOutUrl="/" /> */}
 					</SignedIn>
 					<SignedOut>
 						<SignInButton>

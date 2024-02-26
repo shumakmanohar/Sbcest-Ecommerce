@@ -26,7 +26,6 @@ const NavBar = () => {
 					</div>
 					<div className="flex items-center gap-5 text-black">
 						<CartIcon />
-						<LuLayoutDashboard className="text-[15px] md:text-[20px]" />
 						<DynamicUserIcon />
 					</div>
 				</Wrapper>

@@ -1,4 +1,5 @@
 import { CreateOrder } from "@/server-actions/Order-Actions";
+import { ServerResponse } from "@/util/Enums";
 import { MoyasarWebHook } from "@/util/Types";
 import { DeliveryStatus, PaymentStatus } from "@prisma/client";
 import { NextResponse } from "next/server";
@@ -17,11 +18,14 @@ export async function POST(req: Request) {
 			}
 
 			const response = await CreateOrder(moyasarWebHook.data, paymentStatus);
+
+			if (response.status === ServerResponse.Failure) {
+				throw Error("Something went Wrong in Server");
+			}
+			return new NextResponse("WEBHOOK Payment ID  Added", { status: 200 });
 		} else {
 			throw Error("No Access");
 		}
-
-		return new NextResponse("WEBHOOK Payment ID  Added", { status: 200 });
 	} catch (error) {
 		console.log(error);
 		return new NextResponse("Something went wrong", { status: 400 });

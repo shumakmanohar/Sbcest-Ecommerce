@@ -1,6 +1,7 @@
 import { CMS_CONFIG } from "@/cms.config";
 import { getDiscountedPricePercentage } from "@/util/Price";
 import { StoreProduct } from "@/util/Types";
+import { Categories } from "@prisma/client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -34,11 +35,10 @@ const ProductCard = ({ product }: { product: StoreProduct }) => {
 				</div>
 				<h4 className="truncate">{product?.title}</h4>
 				<p className="self-start mb-3 mt-1 italic rounded-full text-xs  text-gray-500">
-					{product?.category.name}
+					{product && (product as any).category.name}
 				</p>
 				<p className="text-xs my-2 line-clamp-1">{product?.description}</p>
 				<p className="font-bold ">SAR {product?.price}</p>
-				<p className="font-bold ">SAR OFFER {product?.offerPrice}</p>
 
 				{product?.isOnOffer && (
 					<>
