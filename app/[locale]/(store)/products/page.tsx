@@ -60,7 +60,7 @@ const page = async ({
 					{searchQuery ? (
 						<h2 className="text-3xl md:text-4xl ">
 							Showing results for{" "}
-							<span className="font-bold">"{searchQuery}"</span>
+							<span className="font-bold">&quot;{searchQuery}&ldquo;</span>
 						</h2>
 					) : (
 						<h2 className="text-3xl md:text-4xl font-semibold">

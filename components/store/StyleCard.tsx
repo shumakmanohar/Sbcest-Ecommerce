@@ -53,7 +53,8 @@ const StyleCard = () => {
 				/>
 				<div>
 					<h2 className="uppercase text-sm font-bold text-white ">
-					Discover SBCest's newest arrivals – redefine your shopping experience!
+						Discover SBCest&apos;s newest arrivals – redefine your shopping
+						experience!
 					</h2>
 					<p className="mt-2 text-[#00adb5] font-bold flex items-center hover:cursor-pointer">
 						Shop now
@@ -84,7 +85,7 @@ const StyleCard = () => {
 				/>
 				<div>
 					<h2 className="uppercase text-sm font-bold text-white">
-					EXCITING OFFERS ON LAPTOPS, TABLETS AND MANY MORE
+						EXCITING OFFERS ON LAPTOPS, TABLETS AND MANY MORE
 					</h2>
 					<p className="mt-2 text-[#00adb5] font-bold flex items-center hover:cursor-pointer">
 						Shop now

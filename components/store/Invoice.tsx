@@ -122,8 +122,11 @@ const Invoice = ({
 					<div className="mt-10">
 						{/* Invoice Card */}
 						<div className="flex flex-col gap-3">
-							{invoiceProducts?.map((invoiceProducts) => (
-								<InvoiceCard product={invoiceProducts} />
+							{invoiceProducts?.map((invoiceProducts, _indx) => (
+								<InvoiceCard
+									product={invoiceProducts}
+									key={invoiceProducts.productId}
+								/>
 							))}
 						</div>
 						<Separator className="my-8" />

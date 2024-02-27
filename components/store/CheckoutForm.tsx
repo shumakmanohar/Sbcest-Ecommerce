@@ -76,7 +76,7 @@ const CheckoutForm = ({
 			phone,
 		};
 		form.reset(defaults);
-	}, [form.reset, fullname, email, phone]);
+	}, [form.reset, fullname, email, phone, form]);
 	return (
 		<div>
 			{paymentLoading && tempOrder ? (

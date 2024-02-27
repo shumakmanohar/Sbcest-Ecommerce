@@ -33,8 +33,9 @@ const FilterOption = ({
 				</DropdownMenuTrigger>
 				<DropdownMenuContent>
 					<ScrollArea className=" w-full ">
-						{filterList?.map((filter) => (
+						{filterList?.map((filter, _indx) => (
 							<DropdownMenuItem
+								key={_indx}
 								className="my-4  justify-between"
 								onClick={() => {
 									handleChangeFilter(filter);
@@ -65,8 +66,9 @@ const FilterOption = ({
 
 				<DropdownMenuContent>
 					<ScrollArea className="min-h-[80px] h-[350px] w-full ">
-						{categoriesList?.map((category) => (
+						{categoriesList?.map((category, _indx) => (
 							<DropdownMenuItem
+								key={`CatID${category.id}`}
 								className="my-4  justify-between"
 								onClick={() => {
 									handleChangeCategory(category);

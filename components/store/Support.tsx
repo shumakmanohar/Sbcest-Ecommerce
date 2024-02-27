@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { CMS_CONFIG } from "@/cms.config";
-import { JSX, SVGProps } from 'react';
-import Image from 'next/image';
+import { JSX, SVGProps } from "react";
+import Image from "next/image";
 
 const Support = () => {
 	return (
@@ -25,10 +25,10 @@ const Support = () => {
 						<h4 className="text-lg  mb-4">Your personal helpdesk.</h4>
 						<p className="text-gray-600 mb-4 text-xs w-1/2">
 							From finding the perfect product to quickly resolving queries,
-							we're always ready to help.
+							we&apos;re always ready to help.
 						</p>
 						<Button className=" bg-[#433e3e] hover:bg-[#00adb5] text-white text-xs py-1 px-2 rounded-full transition duration-300">
-							Let's Chat
+							Let&apos;s Chat
 						</Button>
 					</div>
 					<Image
@@ -107,8 +107,9 @@ const Support = () => {
 	);
 };
 
-
-function ArrowRightIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+function ArrowRightIcon(
+	props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
 	return (
 		<svg
 			{...props}

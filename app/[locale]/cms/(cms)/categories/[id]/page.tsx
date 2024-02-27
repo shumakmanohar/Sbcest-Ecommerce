@@ -2,6 +2,7 @@ import CategoryForm from "@/components/cms/CategoryForm";
 import ErrorCms from "@/components/cms/ErrorCms";
 import Header from "@/components/cms/Header";
 import prisma from "@/lib/prisma";
+import Error from "next/error";
 
 const page = async ({ params }: { params: { id: string } }) => {
 	try {
@@ -17,7 +18,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 				<CategoryForm categories={categories} />
 			</div>
 		);
-	} catch (error) {
+	} catch (error: any) {
 		return (
 			<div>
 				<ErrorCms error={error} />

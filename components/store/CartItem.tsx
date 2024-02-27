@@ -1,11 +1,19 @@
 "use client";
 import { removeFromCart, updateQuantity } from "@/state/cart/cartSlice";
+import { StoreProduct } from "@/util/Types";
+import { Product } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 
-const CartItem = ({ product, quantity }) => {
+const CartItem = ({
+	product,
+	quantity,
+}: {
+	product: StoreProduct;
+	quantity: number;
+}) => {
 	const dispatch = useDispatch();
 	const handleRemoveFromCart = (productId: string) => {
 		dispatch(removeFromCart(productId));
@@ -25,17 +33,18 @@ const CartItem = ({ product, quantity }) => {
 				<div className="flex flex-col md:flex-row justify-between">
 					{/* PRODUCT TITLE */}
 					<div className="text-lg md:text-2xl font-semibold text-black/[0.8]">
-						{product.title}
+						{product?.title}
 					</div>
 
 					{/* PRODUCT SUBTITLE */}
 					<div className="text-sm md:text-md font-medium text-black/[0.5] block md:hidden">
-						{product.category}
+						{"CATEGORY NAME"}
+						{/* {product && (product as any).category.name} */}
 					</div>
 
 					{/* PRODUCT PRICE */}
 					<div className="text-sm md:text-md font-bold text-black/[0.5] mt-2">
-						{product.isOnOffer ? product.offerPrice : product.price}
+						{product?.isOnOffer ? product?.offerPrice : product?.price}
 					</div>
 				</div>
 
@@ -51,7 +60,7 @@ const CartItem = ({ product, quantity }) => {
 							<select
 								className="hover:text-black"
 								onChange={(e) => {
-									handleUpdateQuantity(product.id, Number(e.target.value));
+									handleUpdateQuantity(product?.id!, Number(e.target.value));
 									console.log(e.target.value);
 								}}
 							>
@@ -65,7 +74,7 @@ const CartItem = ({ product, quantity }) => {
 					</div>
 					<RiDeleteBin6Line
 						onClick={() => {
-							handleRemoveFromCart(product.id);
+							handleRemoveFromCart(product?.id!);
 						}}
 						className="cursor-pointer text-black/[0.5] hover:text-black text-[16px] md:text-[20px]"
 					/>

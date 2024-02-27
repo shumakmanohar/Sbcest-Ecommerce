@@ -26,7 +26,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 				<ProductForm categories={categories} product={product} />
 			</div>
 		);
-	} catch (error) {
+	} catch (error: any) {
 		return (
 			<div>
 				<ErrorCms error={error} />

@@ -17,7 +17,15 @@ import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
-const Category = ({ id, name, ar_name }: Categories) => {
+const Category = ({
+	id,
+	name,
+	ar_name,
+}: {
+	id: string;
+	name: string;
+	ar_name: string;
+}) => {
 	return (
 		<>
 			<Card className="w-full max-w-md">

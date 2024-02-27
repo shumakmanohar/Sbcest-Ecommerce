@@ -5,6 +5,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import ReduxProvider from "@/components/store/ReduxProvider";
 import NavBar from "@/components/store/NavBar";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,8 +30,8 @@ export default function RootLayout({
 							rel="stylesheet"
 							href="https://cdn.moyasar.com/mpf/1.13.0/moyasar.css"
 						/>
-						<script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
-						<script src="https://cdn.moyasar.com/mpf/1.13.0/moyasar.js"></script>
+						<Script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></Script>
+						<Script src="https://cdn.moyasar.com/mpf/1.13.0/moyasar.js"></Script>
 					</head>
 					<body className={`${inter.className} `}>
 						<Toaster position="top-right" reverseOrder={false} />
