@@ -98,6 +98,9 @@ export default function ProductForm({
 		e?.preventDefault();
 		setLoading(true);
 		const updatedProduct = form.getValues();
+		//Converting String Value to number
+		updatedProduct.price = Number(updatedProduct.price);
+		updatedProduct.offerPrice = Number(updatedProduct.offerPrice);
 		const response = await UpdateProduct(product?.id!, updatedProduct);
 		response.status == ServerResponse.Success
 			? toast.success("Product Updated Successfully")

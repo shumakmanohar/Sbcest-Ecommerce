@@ -51,7 +51,9 @@ const OrderDetails = ({ order }: { order: Order | null }) => {
 			<div className="mt-10 flex flex-col gap-3">
 				<div className="order-label">
 					<p className="order-value">ORDER Date :</p>
-					<p>{JSON.stringify(order?.createdAt)}</p>
+					<p>
+						{order && new Date(order.createdAt).toLocaleDateString("en-GB")}
+					</p>
 				</div>
 				<div className="order-label">
 					<p className="order-value">Order ID :</p>

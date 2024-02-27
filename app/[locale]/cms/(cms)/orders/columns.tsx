@@ -15,7 +15,7 @@ export const columns: ColumnDef<Order>[] = [
 		header: () => <div className="text-center">Date </div>,
 		cell: ({ row }) => {
 			const date = new Date(row.getValue("updatedAt"));
-			const formatted = date.toLocaleDateString();
+			const formatted = date.toLocaleDateString("en-GB");
 			return <div>{formatted}</div>;
 		},
 	},

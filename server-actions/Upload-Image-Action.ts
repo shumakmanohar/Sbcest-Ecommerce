@@ -1,5 +1,4 @@
 "use server";
-import { revalidatePath } from "next/cache";
 import {
 	S3Client,
 	PutObjectCommand,
@@ -9,6 +8,7 @@ import {
 import { ServerResponse } from "@/util/Enums";
 import { v4 as uuidv4 } from "uuid";
 import { isAdmin } from "@/lib/isAdmin";
+import sharp from "sharp";
 
 const s3Client = new S3Client({
 	region: process.env.AWS_REGION,
@@ -23,7 +23,10 @@ async function uploadFileToS3(
 	fileName: string,
 	fileType: string
 ) {
-	const fileBuffer = file;
+	const fileBuffer = await sharp(file)
+		.jpeg({ quality: 70 })
+		.resize(500, 500)
+		.toBuffer();
 
 	const params = {
 		Bucket: process.env.AWS_BUCKET_NAME,
