@@ -21,7 +21,11 @@ export default authMiddleware({
 		}
 		return intlMiddleware(req);
 	},
-	publicRoutes: ["((?!^/cms/).*)", "((?!^/dashboard/).*)"],
+	publicRoutes: [
+		"((?!^/cms/).*)",
+		"((?!^/checkout/).*)",
+		"((?!^/dashboard/).*)",
+	],
 });
 
 export const config = {

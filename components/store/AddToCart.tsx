@@ -12,7 +12,7 @@ const AddToCart = ({ product }: { product: StoreProduct }) => {
 
 	const handleAddToCart = (product: StoreProduct, quantity: number) => {
 		dispatch(addToCart({ product, quantity }));
-		toast.success("Product Added To Cart",  {
+		toast.success("Product Added To Cart", {
 			position: "bottom-right" as ToastPosition, // Set the position to bottom-right
 		});
 	};
@@ -22,7 +22,7 @@ const AddToCart = ({ product }: { product: StoreProduct }) => {
 				onClick={() => {
 					handleAddToCart(product, 1);
 				}}
-				className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
+				className="w-full my-10 py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95  hover:opacity-75"
 			>
 				Add to Cart
 			</button>

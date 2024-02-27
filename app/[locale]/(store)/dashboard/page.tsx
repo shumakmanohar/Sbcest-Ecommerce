@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 import OrderCard from "@/components/store/OrderCard";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Info } from "lucide-react";
+import { PaymentStatus } from "@prisma/client";
 
 const page = async () => {
 	// Get the userId from auth() -- if null, the user is not logged in
@@ -13,12 +14,11 @@ const page = async () => {
 		// Query DB for user specific information or display assets only to logged in users
 		const user = await currentUser();
 		const orders = await prisma.order.findMany({
-			where: { userID: userId },
+			where: { userID: userId, paymentStatus: PaymentStatus.SUCCESS },
 			orderBy: {
 				createdAt: "desc",
 			},
 		});
-		console.log("my Orders", orders);
 		return (
 			<div className="min-h-[80vh]">
 				<Wrapper>

@@ -9,6 +9,7 @@ export async function GET(
 	try {
 		const data: StoreProduct = await prisma.product.findFirst({
 			where: { id: params.id },
+			include: { category: true },
 		});
 		if (data === null) throw Error("No Data Found");
 		return Response.json(data);

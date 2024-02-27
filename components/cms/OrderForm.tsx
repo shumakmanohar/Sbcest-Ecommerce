@@ -36,9 +36,9 @@ const orderSchema = z.object({
 const OrderForm = ({ orderID }: { orderID: string | undefined }) => {
 	const [loading, setLoading] = useState(false);
 	const deliveryStatusOptions = [
-		DeliveryStatus.CANCELLED,
-		DeliveryStatus.DELIVERED,
 		DeliveryStatus.TRANSIT,
+		DeliveryStatus.DELIVERED,
+		DeliveryStatus.CANCELLED,
 	];
 	const form = useForm<z.infer<typeof orderSchema>>({
 		resolver: zodResolver(orderSchema),

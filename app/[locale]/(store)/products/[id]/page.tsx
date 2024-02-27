@@ -1,14 +1,20 @@
 import AddToCart from "@/components/store/AddToCart";
 import ProductDetailsCarousel from "@/components/store/ProductDetailsCarousel";
 import Wrapper from "@/components/store/Wrapper";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getDiscountedPricePercentage } from "@/util/Price";
 import { StoreProduct } from "@/util/Types";
 import { notFound } from "next/navigation";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Info } from "lucide-react";
 
 const getProduct = async (id: string) => {
-	const res = await fetch(`${process.env.SITE_URL}/api/products/${id}`, {
-		next: { tags: [`products-${id}`] },
-	});
+	const res = await fetch(
+		`${process.env.PROD_SITE_URL || process.env.SITE_URL}/api/products/${id}`,
+		{
+			next: { tags: [`products-${id}`] },
+		}
+	);
 	console.log(res);
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
@@ -21,7 +27,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 	const product: StoreProduct = await getProduct(params.id);
 
 	return (
-		<div className="w-full md:py-20">
+		<div className="w-full md:py-20 min-h-[90vh]">
 			<Wrapper>
 				<div className="flex flex-col lg:flex-row md:px-10 gap-[50px] lg:gap-[100px]">
 					{/* left column start */}
@@ -37,8 +43,10 @@ const page = async ({ params }: { params: { id: string } }) => {
 							{product?.title}
 						</div>
 
-						{/* PRODUCT SUBTITLE */}
-						<div className="text-lg font-semibold mb-5">{"SUBTITLE"}</div>
+						{/* PRODUCT CATEGORY */}
+						<div className="text-lg font-semibold mb-5">
+							{product && (product as any).category.name}
+						</div>
 
 						{/* PRODUCT PRICE */}
 						<div className="flex items-center">
@@ -61,16 +69,22 @@ const page = async ({ params }: { params: { id: string } }) => {
 							)}
 						</div>
 
-						<div className="text-md font-medium text-black/[0.5]">
-							incl. of taxes
-						</div>
-						<div className="text-md font-medium text-black/[0.5] mb-20">
-							{`(Also includes all applicable duties)`}
-						</div>
+						{/* ADD TO CART BUTTON */}
+						{product?.isArchived ? (
+							<Alert className="my-16">
+								<Info className="h-4 w-4" />
 
-						{/* ADD TO CART BUTTON START */}
-						<AddToCart product={product} />
-						{/* ADD TO CART BUTTON END */}
+								<AlertTitle>Out Of Stock</AlertTitle>
+								<AlertDescription>
+									Due to an unexpectedly high number of orders, we no longer
+									have this product in stock. We know how disappointing this
+									news is, and we sincerely apologize for the inconvenience it
+									has caused.
+								</AlertDescription>
+							</Alert>
+						) : (
+							<AddToCart product={product} />
+						)}
 
 						<div>
 							<div className="text-lg font-bold mb-5">Product Details</div>

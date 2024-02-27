@@ -43,8 +43,8 @@ const SearchResultCard = ({
 const SearchContainer = () => {
 	const [items, setItems] = useState<StoreProduct[] | []>([]);
 	const [isSearching, setIsSearching] = useState<Boolean>(false);
-	const [isFocused, setIsFocused] = useState<Boolean>(false);
-	const [isBackdropActive, setIsBackdropActive] = useState<Boolean>(false);
+	//const [isFocused, setIsFocused] = useState<Boolean>(false);
+	//const [isBackdropActive, setIsBackdropActive] = useState<Boolean>(false);
 
 	const handleSearchName = debounce(async (event) => {
 		if (event.target.value === "") {
@@ -53,7 +53,7 @@ const SearchContainer = () => {
 		}
 
 		setIsSearching(true);
-		setIsBackdropActive(true);
+		//setIsBackdropActive(true);
 
 		try {
 			const response = await fetch(
@@ -75,22 +75,22 @@ const SearchContainer = () => {
 
 	const handleClear = () => {
 		setItems([]);
-		setIsBackdropActive(false);
+		//setIsBackdropActive(false);
 	};
 
 	const handleInputFocus = () => {
-		setIsFocused(true);
-		setIsBackdropActive(true);
+		//setIsFocused(true);
+		//setIsBackdropActive(true);
 	};
 
 	const handleInputBlur = () => {
-		setIsFocused(false);
+		//setIsFocused(false);
 	};
 
 	const handleEscape = (event: any) => {
 		if (event.key === "Escape") {
-			setIsFocused(false);
-			setIsBackdropActive(false);
+			//setIsFocused(false);
+			//setIsBackdropActive(false);
 			setItems([]);
 		}
 	};
@@ -98,8 +98,8 @@ const SearchContainer = () => {
 	useEffect(() => {
 		const handleClickOutside = (event: any) => {
 			if (!event.target.closest(".search-container")) {
-				setIsFocused(false);
-				setIsBackdropActive(false);
+				//setIsFocused(false);
+				//setIsBackdropActive(false);
 			}
 		};
 
@@ -119,13 +119,7 @@ const SearchContainer = () => {
 	}, []);
 
 	return (
-		<div
-			className={`w-full ${
-				isBackdropActive
-					? " fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40"
-					: ""
-			}`}
-		>
+		<div className={`w-full  `}>
 			{/* Search */}
 			<div className="search-container w-full relative max-w-lg mx-auto bg-gray-100 h-[50px] flex items-center gap-2 rounded-2xl px-4">
 				<input
