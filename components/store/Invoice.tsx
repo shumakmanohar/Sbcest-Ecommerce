@@ -7,6 +7,7 @@ import InvoiceCard from "./InvoiceCard";
 import { OrderedProducts, Product } from "@prisma/client";
 import { CartItem } from "@/state/cart/cartSlice";
 import InvoiceSkeleton from "./InvoiceSkeleton";
+import { useRouter } from "next/navigation";
 
 const Invoice = ({
 	setOrderAmount,
@@ -28,6 +29,8 @@ const Invoice = ({
 	const [subTotal, setSubTotal] = useState(0);
 	const DELIVERY_CHARGE = 35;
 	const VAT_PERCENTAGE = 15;
+
+	const router = useRouter();
 
 	// Redirect if no products in cart.
 
@@ -86,6 +89,9 @@ const Invoice = ({
 			localStorage.getItem("cart") != null
 				? JSON.parse(localStorage.getItem("cart")!)["cart"]["items"]
 				: [];
+		if (localCartItems.length === 0) {
+			router.push("/cart");
+		}
 		const fetchProductsByID = async () => {
 			console.log("Local Fethced Items", localCartItems);
 			const localStoredProducts = localCartItems.map((item) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { GrSearch } from "react-icons/gr";
 import Image from "next/image";
 import debounce from "debounce";
@@ -6,6 +6,7 @@ import Loader from "../cms/Loader";
 import { StoreProduct } from "@/util/Types";
 import Link from "next/link";
 import { CMS_CONFIG } from "@/cms.config";
+import { useRouter } from "next/navigation";
 
 const SearchResultCard = ({
 	item,
@@ -43,17 +44,25 @@ const SearchResultCard = ({
 const SearchContainer = () => {
 	const [items, setItems] = useState<StoreProduct[] | []>([]);
 	const [isSearching, setIsSearching] = useState<Boolean>(false);
-	//const [isFocused, setIsFocused] = useState<Boolean>(false);
-	//const [isBackdropActive, setIsBackdropActive] = useState<Boolean>(false);
+	const [searchParam, setSearchParam] = useState("");
+	const inputRef = useRef(null);
+	const router = useRouter();
+
+	const handleKeyDown = (event: any) => {
+		if (event.key === "Enter") {
+			router.push(`/products?s=${event.target.value}`);
+		}
+	};
 
 	const handleSearchName = debounce(async (event) => {
 		if (event.target.value === "") {
 			setItems([]);
+			setSearchParam("");
 			return;
 		}
 
 		setIsSearching(true);
-		//setIsBackdropActive(true);
+		setSearchParam(event.target.value);
 
 		try {
 			const response = await fetch(
@@ -75,65 +84,36 @@ const SearchContainer = () => {
 
 	const handleClear = () => {
 		setItems([]);
-		//setIsBackdropActive(false);
 	};
 
-	const handleInputFocus = () => {
-		//setIsFocused(true);
-		//setIsBackdropActive(true);
-	};
-
-	const handleInputBlur = () => {
-		//setIsFocused(false);
-	};
-
-	const handleEscape = (event: any) => {
-		if (event.key === "Escape") {
-			//setIsFocused(false);
-			//setIsBackdropActive(false);
+	useEffect(() => {
+		const closeSearch = (e: any) => {
 			setItems([]);
-		}
-	};
-
-	useEffect(() => {
-		const handleClickOutside = (event: any) => {
-			if (!event.target.closest(".search-container")) {
-				//setIsFocused(false);
-				//setIsBackdropActive(false);
-			}
 		};
 
-		document.addEventListener("mousedown", handleClickOutside);
+		document.body.addEventListener("click", closeSearch);
 
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, []);
-
-	useEffect(() => {
-		document.addEventListener("keydown", handleEscape);
-
-		return () => {
-			document.removeEventListener("keydown", handleEscape);
-		};
+		return () => document.removeEventListener("click", closeSearch);
 	}, []);
 
 	return (
-		<div className={`w-full  `}>
+		<div className={`w-full `}>
 			{/* Search */}
 			<div className="search-container w-full relative max-w-lg mx-auto bg-gray-100 h-[50px] flex items-center gap-2 rounded-2xl px-4">
 				<input
 					type="text"
 					className="w-full flex-1 h-[50px] outline-none bg-none bg-gray-100"
 					placeholder="What are you looking for ..."
+					ref={inputRef.current}
 					onChange={handleSearchName}
-					onFocus={handleInputFocus}
-					onBlur={handleInputBlur}
+					onKeyDown={handleKeyDown}
 				/>
 				{isSearching ? (
 					<Loader />
 				) : (
-					<GrSearch className="text-[15px] md:text-[20px] text-gray-500" />
+					<Link href={`/products?s=${searchParam}`}>
+						<GrSearch className="text-[15px] md:text-[20px] text-gray-500" />
+					</Link>
 				)}
 				{items?.length > 0 && (
 					<div className="mt-2 w-full h-auto absolute border bg-white rounded-lg top-[50px] z-50 right-0 p-4 overflow-auto">

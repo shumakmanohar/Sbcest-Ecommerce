@@ -79,6 +79,7 @@ const page = async ({
 				initialProducts={products}
 				categoriesList={categoriesList}
 				filterList={filterOptionsData}
+				searchQuery={searchQuery as string}
 			/>
 		</Wrapper>
 	);

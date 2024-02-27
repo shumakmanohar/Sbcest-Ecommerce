@@ -1,7 +1,7 @@
 "use client";
+import { CMS_CONFIG } from "@/cms.config";
 import { removeFromCart, updateQuantity } from "@/state/cart/cartSlice";
 import { StoreProduct } from "@/util/Types";
-import { Product } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -24,8 +24,21 @@ const CartItem = ({
 	return (
 		<div className="flex py-5 gap-3 md:gap-5 border-b">
 			{/* IMAGE START */}
-			<div className="shrink-0 aspect-square w-[50px] md:w-[120px]">
-				<Image src={"/test2.webp"} alt={""} width={120} height={120} />
+			<div className="">
+				<Image
+					src={
+						product?.previewImg
+							? `${CMS_CONFIG.cdn.location}/${product?.previewImg}`
+							: "/sblogo.png"
+					}
+					alt={""}
+					width={120}
+					height={120}
+					style={{
+						objectFit: "contain",
+					}}
+					priority
+				/>
 			</div>
 			{/* IMAGE END */}
 
@@ -48,20 +61,14 @@ const CartItem = ({
 					</div>
 				</div>
 
-				{/* PRODUCT SUBTITLE */}
-				<div className="text-md font-medium text-black/[0.5] hidden md:block">
-					Not Required
-				</div>
-
 				<div className="flex items-center justify-between mt-4">
 					<div className="flex items-center gap-2 md:gap-10 text-black/[0.5] text-sm md:text-md">
 						<div className="flex items-center gap-1">
 							<div className="font-semibold">Quantity:</div>
 							<select
 								className="hover:text-black"
-								onChange={(e) => {
+								onChange={(e: any) => {
 									handleUpdateQuantity(product?.id!, Number(e.target.value));
-									console.log(e.target.value);
 								}}
 							>
 								{Array.from({ length: 10 }, (_, i) => i + 1).map((q, i) => (

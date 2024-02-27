@@ -9,7 +9,7 @@ import { isAdmin } from "@/lib/isAdmin";
 export const FetchStoreProducts = async (page = 1, name = "") => {
 	// For Store Only
 	// LIMIT STORE SINGLE FETCH LIMIT IS 20 Products
-	const SINGLE_FETCH_LIMIT = 105;
+	const SINGLE_FETCH_LIMIT = 5;
 	try {
 		const skip = (page - 1) * SINGLE_FETCH_LIMIT;
 		const products = await prisma.product.findMany({

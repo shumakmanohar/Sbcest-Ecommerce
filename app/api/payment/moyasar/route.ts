@@ -14,21 +14,10 @@ export async function PUT(req: Request) {
 		// moysasar id ->  moyasarData.payment.id
 		// amount ->  moyasarData.payment.amount
 		// OrderedPRoducts ->  moyasarData.metadata.OrderedProducts
-		console.log("TempOrder", {
-			amount: moyasarData.payment.amount as number,
-			email: moyasarData.metadata.shippingInformation.email as string,
-			userID: userId as string,
-			name: moyasarData.metadata.shippingInformation.name as string,
-			shippingInformation: moyasarData.metadata.shippingInformation as Address,
-			moyasarID: moyasarData.payment.id as string,
-			moyasarFee: moyasarData.payment.fee as number,
-			currency: moyasarData.payment.currency as string,
-			orderedProducts: moyasarData.metadata
-				.orderedProducts as OrderedProducts[],
-		});
+
 		const order = await prisma.order.create({
 			data: {
-				amount: moyasarData.payment.amount as number,
+				amount: (moyasarData.payment.amount as number) / 100,
 				email: moyasarData.metadata.shippingInformation.email as string,
 				userID: userId as string,
 				name: moyasarData.metadata.shippingInformation.name as string,

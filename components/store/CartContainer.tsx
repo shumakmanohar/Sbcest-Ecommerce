@@ -1,4 +1,5 @@
 "use client";
+import { CMS_CONFIG } from "@/cms.config";
 import CartItem from "@/components/store/CartItem";
 import Wrapper from "@/components/store/Wrapper";
 import { RootState } from "@/state/store";
@@ -91,7 +92,7 @@ const CartContainer = () => {
 				{cartItems?.length < 1 && (
 					<div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
 						<Image
-							src="/empty-cart.jpg"
+							src={`${CMS_CONFIG.cdn.location}/static/empty-cart.png`}
 							alt="Empty Cart"
 							width={300}
 							height={300}

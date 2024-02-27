@@ -16,13 +16,15 @@ const ProductList = ({
 	initialProducts,
 	categoriesList,
 	filterList,
+	searchQuery,
 }: {
 	initialProducts: Product[] | undefined;
 	categoriesList: Categories[] | undefined;
 	filterList: FilterType[];
+	searchQuery: string;
 }) => {
-	const [products, setProducts] = useState(initialProducts);
-	const [fetchedProducts, setFetchedProducts] = useState(initialProducts);
+	const [displayProducts, setDisplayProducts] = useState(initialProducts);
+	const [allProducts, setAllProducts] = useState(initialProducts);
 	const [selectedCategory, setSelectedCategory] = useState<Categories | null>();
 	const [selectedPriceFilter, setSelectedPriceFilter] =
 		useState<FilterType | null>(null);
@@ -31,51 +33,84 @@ const ProductList = ({
 	const [page, setPage] = useState(1);
 	const [ref, inView] = useInView();
 
+	// Filter PRoducts , First param to filter the product based on Category
+	// Secong Param is to do filtering based on provided Filters .
+	// The Available Filter Type for second param is High To low , Low to High,
 	const filterProducts = useCallback(
-		(category?: Categories | null, filter?: FilterType | null) => {
-			if (fetchedProducts) {
-				setLoading(true);
-				let updatedProducts;
-				updatedProducts = [...fetchedProducts];
-				// For Category Filtering
-				if (category) {
-					console.log("categories filtering");
-					updatedProducts = updatedProducts.filter(
-						(product) => product.categoryId === category?.id
-					);
-				}
-				//For General Filtering [Price filtering]
-				if (filter) {
-					if (filter?.id === EnumPriceFilter.lTh) {
-						updatedProducts.sort((a, b) => a.price - b.price);
-					} else if (filter?.id === EnumPriceFilter.hTl) {
-						updatedProducts.sort((a, b) => b.price - a.price);
-					}
-				}
-				//Setting the New/Filtered Products
-				setProducts(updatedProducts);
-				setLoading(false);
+		(
+			productsToFilter: Product[],
+			category?: Categories | null,
+			filter?: FilterType | null
+		) => {
+			let updatedProducts = [...productsToFilter];
+			// For Category Filtering
+			if (category) {
+				updatedProducts = updatedProducts.filter(
+					(product) => product.categoryId === category?.id
+				);
 			}
+			//For General Filtering [Price filtering]
+			if (filter) {
+				if (filter?.id === EnumPriceFilter.lTh) {
+					updatedProducts.sort((a, b) => a.price - b.price);
+				} else if (filter?.id === EnumPriceFilter.hTl) {
+					updatedProducts.sort((a, b) => b.price - a.price);
+				}
+			}
+			return updatedProducts;
+			// if (products) {
+			// 	setLoading(true);
+			// 	let updatedProducts;
+			// 	updatedProducts = [...products];
+
+			// 	//Setting the New/Filtered Products
+			// 	setProducts(updatedProducts);
+			// 	setLoading(false);
+			// }
 		},
-		[fetchedProducts, selectedCategory]
+		[displayProducts]
 	);
 
 	const loadMoreProducts = useCallback(async () => {
 		setLoading(true);
 		const next = page + 1;
-		const { products } = await FetchStoreProducts(next);
+		// To Load More Products. Pass The next page. for pagination and also pass in
+		// the search query /products?s=query , if the query is available.
+		// Query is pass down from the parent component.
+		const { products } = await FetchStoreProducts(next, searchQuery);
 		if (products?.length) {
-			setPage(next);
-			// todo filter
-			setFetchedProducts((prev) => [
-				...(prev?.length ? prev : []),
-				...products,
-			]);
-			if (selectedCategory || selectedPriceFilter) {
-				console.log("Yoooo I am filtering");
-				filterProducts(selectedCategory, selectedPriceFilter);
+			//This Contains all the products
+			setAllProducts((prev) => [...(prev?.length ? prev : []), ...products]);
+
+			if (displayProducts) {
+				let updatedProducts = [...displayProducts, ...products];
+				updatedProducts = filterProducts(
+					updatedProducts,
+					selectedCategory,
+					selectedPriceFilter
+				);
+				setDisplayProducts(updatedProducts);
 			}
-			setProducts((prev) => [...(prev?.length ? prev : []), ...products]);
+			setPage(next);
+
+			// setDisplayProducts((prev) => [
+			// 	...(prev?.length ? prev : []),
+			// 	...products,
+			// ]);
+			// if (displayProducts) {
+			// 	let updatedProducts = [...displayProducts];
+			// 	updatedProducts = filterProducts(
+			// 		updatedProducts,
+			// 		selectedCategory,
+			// 		selectedPriceFilter
+			// 	);
+			// 	setProducts(updatedProducts);
+			// }
+			// if (selectedCategory || selectedPriceFilter) {
+			// 	console.log("Yoooo I am filtering");
+			// 	filterProducts([], selectedCategory, selectedPriceFilter);
+			// }
+			// setProducts((prev) => [...(prev?.length ? prev : []), ...products]);
 		} else {
 			// Every Products is Fetched
 			setStopLoading(true);
@@ -83,17 +118,37 @@ const ProductList = ({
 		setLoading(false);
 	}, [page, selectedCategory, selectedPriceFilter]);
 
-	const handleChangeCategory = useCallback((category: Categories) => {
-		setSelectedCategory(category);
-		// Filter products immediately when category changes
-		filterProducts(category);
-	}, []);
+	const handleChangeCategory = useCallback(
+		(category: Categories) => {
+			setSelectedCategory(category);
+			// Filter products immediately when category changes
+			if (displayProducts) {
+				const filteredProducts = filterProducts(
+					displayProducts,
+					category,
+					selectedPriceFilter
+				);
+				setDisplayProducts(filteredProducts);
+			}
+		},
+		[displayProducts]
+	);
 
-	const handleChangeFilter = useCallback((filter: FilterType | null) => {
-		setSelectedPriceFilter(filter);
-		// Apply price filter if set
-		filterProducts(null, filter);
-	}, []);
+	const handleChangeFilter = useCallback(
+		(filter: FilterType | null) => {
+			setSelectedPriceFilter(filter);
+			// Apply price filter if set
+			if (displayProducts) {
+				const filteredProducts = filterProducts(
+					displayProducts,
+					selectedCategory,
+					filter
+				);
+				setDisplayProducts(filteredProducts);
+			}
+		},
+		[displayProducts]
+	);
 
 	useEffect(() => {
 		if (inView) {
@@ -123,7 +178,9 @@ const ProductList = ({
 								className="cursor-pointer"
 								onClick={() => {
 									setSelectedCategory(null);
-									filterProducts(null, selectedPriceFilter);
+									if (allProducts) {
+										filterProducts(allProducts, null, selectedPriceFilter);
+									}
 								}}
 							/>
 						</div>
@@ -136,7 +193,9 @@ const ProductList = ({
 								className="cursor-pointer"
 								onClick={() => {
 									setSelectedPriceFilter(null);
-									filterProducts(selectedCategory, null);
+									if (displayProducts) {
+										filterProducts(displayProducts, selectedCategory, null);
+									}
 								}}
 							/>
 						</div>
@@ -145,7 +204,7 @@ const ProductList = ({
 			</div>
 			{/* Main Product List  */}
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-5 my-7 px-5 md:px-0">
-				{products?.map((product: StoreProduct) => (
+				{displayProducts?.map((product: StoreProduct) => (
 					<ProductCard key={product?.id} product={product} />
 				))}
 			</div>
@@ -154,9 +213,7 @@ const ProductList = ({
 
 			{/* Infinite Scroll Trigger */}
 			{!stopLoading && (
-				<div ref={ref} className=" flex items-center justify-center">
-					<Loader className="w-10 h-10 my-10" />
-				</div>
+				<div ref={ref} className=" flex items-center justify-center"></div>
 			)}
 		</div>
 	);

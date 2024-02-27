@@ -32,7 +32,10 @@ const Hero = () => {
 							className="object-cover object-center w-full h-full rounded-full p-6"
 							poster="/video-poster.jpg" // Add a poster image for browsers that don't support video autoplay
 						>
-							<source src={`/herovid.mp4`} type="video/mp4" />
+							<source
+								src={`${CMS_CONFIG.cdn.location}/static/herovid.mp4`}
+								type="video/mp4"
+							/>
 							Your browser does not support the video tag.
 						</video>
 					</div>
