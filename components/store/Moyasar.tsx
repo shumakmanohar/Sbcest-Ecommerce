@@ -30,18 +30,41 @@ const Moyasar = ({
 				currency: "SAR",
 				language: "en",
 				description: "Text", // Pass the order ID to Moyasar or OrderID
-				metadata: {
-					userID: order.userID,
-					shippingInformation: order.shippingInformation,
-					// orderedProducts: order.orderedProducts,
-				},
 				publishable_api_key: "pk_test_GNLZsbL9QPjzk37YQYeKwSrSTUAhoah1KVxC3vWp",
-				callback_url: `http://localhost:3000/order-complete`,
+				callback_url: `http://localhost:3000/en/order-complete`,
 				methods: ["creditcard", "stcpay", "applepay"],
 				apple_pay: {
 					country: "SA",
 					label: "Sbcest Store",
 					validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
+				},
+				on_completed: function (payment: any) {
+					return new Promise(function (resolve, reject) {
+						const requestOptions = {
+							method: "PUT",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify({
+								payment,
+								metadata: {
+									orderedProducts: order.orderedProducts,
+									shippingInformation: order.shippingInformation,
+								},
+							}),
+						};
+						// savePayment is just an example, your usage may vary.
+						fetch("/api/payment/moyasar", requestOptions)
+							.then((response) => {
+								if (response.ok) {
+									resolve({});
+									//reject();
+								} else {
+									throw Error("Payment ID not saved");
+								}
+							})
+							.catch(() => {
+								reject();
+							});
+					});
 				},
 			});
 		}

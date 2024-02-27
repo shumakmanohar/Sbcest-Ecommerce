@@ -1,8 +1,9 @@
-import { CreateOrder } from "@/server-actions/Order-Actions";
 import { ServerResponse } from "@/util/Enums";
 import { MoyasarWebHook } from "@/util/Types";
 import { DeliveryStatus, PaymentStatus } from "@prisma/client";
 import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 
 export async function POST(req: Request) {
 	try {
@@ -17,12 +18,19 @@ export async function POST(req: Request) {
 				paymentStatus = PaymentStatus.FAILED;
 			}
 
-			const response = await CreateOrder(moyasarWebHook.data, paymentStatus);
+			//Update the order
+			await prisma.order.update({
+				where: {
+					moyasarID: moyasarWebHook.data.id,
+				},
+				data: {
+					paymentStatus,
+				},
+			});
 
-			if (response.status === ServerResponse.Failure) {
-				throw Error("Something went Wrong in Server");
-			}
-			return new NextResponse("WEBHOOK Payment ID  Added", { status: 200 });
+			return new NextResponse("WEBHOOK Updated Payment Status", {
+				status: 200,
+			});
 		} else {
 			throw Error("No Access");
 		}

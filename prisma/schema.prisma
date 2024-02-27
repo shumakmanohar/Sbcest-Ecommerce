@@ -43,12 +43,12 @@ model Order {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   amount   Float
   deliveryStatus DeliveryStatus @default(PENDING)
-  paymentStatus PaymentStatus 
+  paymentStatus PaymentStatus @default(PENDING)
   email String
   userID String
   name String
   shippingInformation   Address
-  moyasarID String
+  moyasarID String @unique
   moyasarFee Float
   currency String
   orderedProducts OrderedProducts[]

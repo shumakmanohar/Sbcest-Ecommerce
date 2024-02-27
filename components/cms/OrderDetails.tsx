@@ -2,12 +2,30 @@
 
 import { Address, DeliveryStatus, Order, PaymentStatus } from "@prisma/client";
 import React, { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import { ServerResponse } from "@/util/Enums";
+import { DeleteOrder } from "@/server-actions/Order-Actions";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Loader from "./Loader";
 
 const OrderDetails = ({ order }: { order: Order | null }) => {
 	const [mounted, setMounted] = useState(false);
+	const [deleteLoading, setDeleteLoading] = useState(false);
+	const router = useRouter();
 	useEffect(() => {
 		setMounted(true);
 	}, []);
+
+	const deleteOrder = async () => {
+		setDeleteLoading(true);
+		// delete the Images related as Well
+		const response = await DeleteOrder(order?.id);
+		response.status == ServerResponse.Success
+			? (toast.success("Product Deleted  Successfully"),
+			  router.push("/cms/orders/"))
+			: toast.error("Something Went Wrong. Check Console");
+	};
 
 	const renderKeyValuePairs = (obj: Address) => {
 		return Object.entries(obj).map(([key, value]) => {
@@ -31,6 +49,10 @@ const OrderDetails = ({ order }: { order: Order | null }) => {
 	return (
 		<div>
 			<div className="mt-10 flex flex-col gap-3">
+				<div className="order-label">
+					<p className="order-value">ORDER Date :</p>
+					<p>{JSON.stringify(order?.createdAt)}</p>
+				</div>
 				<div className="order-label">
 					<p className="order-value">Order ID :</p>
 					<p>{order?.id}</p>
@@ -95,6 +117,9 @@ const OrderDetails = ({ order }: { order: Order | null }) => {
 					</p>
 				</div>
 			</div>
+			<Button variant="destructive" className="mt" onClick={deleteOrder}>
+				{deleteLoading ? <Loader /> : "Delete order"}
+			</Button>
 		</div>
 	);
 };

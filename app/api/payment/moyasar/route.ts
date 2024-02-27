@@ -1,16 +1,47 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@clerk/nextjs";
+import { Address, OrderedProducts } from "@prisma/client";
 
 export async function PUT(req: Request) {
 	try {
-		const data = await req.json();
-		console.log("PUT REQUEST FROM MOYASAR", data);
-		await prisma.order.update({
-			where: { id: data.payment.description },
+		//Get User ID
+		const { userId } = auth();
+		if (!userId) {
+			return new NextResponse("Unauthorized", { status: 401 });
+		}
+		const moyasarData = await req.json();
+		// moysasar id ->  moyasarData.payment.id
+		// amount ->  moyasarData.payment.amount
+		// OrderedPRoducts ->  moyasarData.metadata.OrderedProducts
+		console.log("TempOrder", {
+			amount: moyasarData.payment.amount as number,
+			email: moyasarData.metadata.shippingInformation.email as string,
+			userID: userId as string,
+			name: moyasarData.metadata.shippingInformation.name as string,
+			shippingInformation: moyasarData.metadata.shippingInformation as Address,
+			moyasarID: moyasarData.payment.id as string,
+			moyasarFee: moyasarData.payment.fee as number,
+			currency: moyasarData.payment.currency as string,
+			orderedProducts: moyasarData.metadata
+				.orderedProducts as OrderedProducts[],
+		});
+		const order = await prisma.order.create({
 			data: {
-				moyasarID: data.payment.id,
+				amount: moyasarData.payment.amount as number,
+				email: moyasarData.metadata.shippingInformation.email as string,
+				userID: userId as string,
+				name: moyasarData.metadata.shippingInformation.name as string,
+				shippingInformation: moyasarData.metadata
+					.shippingInformation as Address,
+				moyasarID: moyasarData.payment.id as string,
+				moyasarFee: moyasarData.payment.fee as number,
+				currency: moyasarData.payment.currency as string,
+				orderedProducts: moyasarData.metadata
+					.orderedProducts as OrderedProducts[],
 			},
 		});
+
 		return new NextResponse("Payment ID  Added", { status: 200 });
 	} catch (error) {
 		console.log(error);

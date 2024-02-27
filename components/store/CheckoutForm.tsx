@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import { OrderedProducts, Product } from "@prisma/client";
 import { CheckoutSchema, CheckoutType } from "@/util/Types";
 import Loader from "../cms/Loader";
-import { CreateOrder } from "@/server-actions/Order-Actions";
+
 import { ServerResponse } from "@/util/Enums";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -60,6 +60,8 @@ const CheckoutForm = ({
 	async function onSubmit(data: CheckoutType) {
 		setLoading(true);
 		setPaymentLoading(true);
+		//  Create a Order
+
 		setTempOrder({
 			userID: "user_2bE8PaDOnG8hWh9ah9v32ciFJuK",
 			orderAmount,
