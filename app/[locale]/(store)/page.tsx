@@ -8,7 +8,6 @@ import LogoCloud from "@/components/store/LogoCloud";
 import MacVid from "@/components/store/MacVid";
 import StyleCard from "@/components/store/StyleCard";
 import Support from "@/components/store/Support";
-import TempFeature from "@/components/store/TempFeature";
 import { useTranslations } from "next-intl";
 
 export default function Home() {
@@ -23,7 +22,6 @@ export default function Home() {
 			<AppleBanner />
 			<MacVid />
 			{/* <GridLayout /> */}
-			{/* <TempFeature /> */}
 
 			<StyleCard />
 			<Support />
