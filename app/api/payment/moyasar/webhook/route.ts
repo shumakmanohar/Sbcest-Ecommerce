@@ -43,6 +43,6 @@ export async function POST(req: Request) {
 		//}
 	} catch (error) {
 		console.log(error);
-		return new NextResponse("Something went wrong", { status: 400 });
+		return new NextResponse("Something went wrong", { status: 500 });
 	}
 }
