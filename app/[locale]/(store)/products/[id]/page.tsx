@@ -7,21 +7,31 @@ import { StoreProduct } from "@/util/Types";
 import { notFound } from "next/navigation";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Info } from "lucide-react";
+import { cache } from "react";
+import prisma from "@/lib/prisma";
 
-const getProduct = async (id: string) => {
-	const res = await fetch(
-		`${process.env.PROD_SITE_URL || process.env.SITE_URL}/api/products/${id}`,
-		{
-			next: { tags: [`products-${id}`] },
-		}
-	);
-	console.log(res);
-	if (!res.ok) {
-		// This will activate the closest `error.js` Error Boundary
-		notFound();
-	}
-	return res.json();
-};
+const getProduct = cache(async (id: string) => {
+	const product = await prisma.product.findUnique({
+		where: { id },
+		include: { category: true },
+	});
+
+	if (!product) notFound();
+
+	return product;
+});
+
+export async function generateMetadata({
+	params: { id },
+}: {
+	params: { id: string };
+}) {
+	const product = await getProduct(id);
+
+	return {
+		title: product.title,
+	};
+}
 
 const page = async ({ params }: { params: { id: string } }) => {
 	const product: StoreProduct = await getProduct(params.id);

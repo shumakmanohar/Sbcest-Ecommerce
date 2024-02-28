@@ -5,14 +5,6 @@ import ProductForm from "@/components/cms/ProductForm";
 
 import ErrorCms from "@/components/cms/ErrorCms";
 
-// export async function generateStaticProps() {
-// 	const res = await fetch("/api/products");
-// 	const products = await res.json();
-// 	return products.map((product: Product) => ({
-// 		id: product.id,
-// 	}));
-// }
-
 const page = async ({ params }: { params: { id: string } }) => {
 	try {
 		const categories = await prisma.categories.findMany();

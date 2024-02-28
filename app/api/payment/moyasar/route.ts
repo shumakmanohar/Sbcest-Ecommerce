@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs";
 import { Address, OrderedProducts } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export async function PUT(req: Request) {
 	try {
@@ -30,7 +31,7 @@ export async function PUT(req: Request) {
 					.orderedProducts as OrderedProducts[],
 			},
 		});
-
+		revalidatePath("/cms/orders");
 		return new NextResponse("Payment ID  Added", { status: 200 });
 	} catch (error) {
 		console.log(error);

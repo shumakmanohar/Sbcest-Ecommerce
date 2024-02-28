@@ -11,6 +11,7 @@ import FilterOption from "./FilterOption";
 import { FetchStoreProducts } from "@/server-actions/Product-Actions";
 import { EnumPriceFilter } from "@/util/Enums";
 import SkeletonProductList from "./SkeletonProductList";
+import { Skeleton } from "../ui/skeleton";
 
 const ProductList = ({
 	initialProducts,
@@ -183,15 +184,17 @@ const ProductList = ({
 				{products?.map((product: StoreProduct) => (
 					<ProductCard key={product?.id} product={product} />
 				))}
+				{loading && (
+					<>
+						<Skeleton className=" h-[400px]  bg-gray-200" />
+						<Skeleton className=" h-[400px]  bg-gray-200" />
+						<Skeleton className=" h-[400px]  bg-gray-200" />
+					</>
+				)}
 			</div>
-
-			{loading && <SkeletonProductList />}
-
 			{/* Infinite Scroll Trigger */}
 			{!stopLoading && (
-				<div ref={ref} className=" flex items-center justify-center">
-					<Loader className="w-10 h-10 my-10" />
-				</div>
+				<div ref={ref} className=" flex items-center justify-center"></div>
 			)}
 		</div>
 	);

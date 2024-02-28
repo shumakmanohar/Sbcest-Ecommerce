@@ -27,7 +27,8 @@ export async function POST(req: Request) {
 					paymentStatus,
 				},
 			});
-
+			//Revalidate
+			revalidatePath("/cms/orders");
 			return new NextResponse("WEBHOOK Updated Payment Status", {
 				status: 200,
 			});

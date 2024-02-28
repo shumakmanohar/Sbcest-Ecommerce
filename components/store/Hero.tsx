@@ -1,4 +1,5 @@
 import { CMS_CONFIG } from "@/cms.config";
+import Link from "next/link";
 import React from "react";
 
 const Hero = () => {
@@ -17,9 +18,12 @@ const Hero = () => {
 							fugiat, eveniet nisi officiis ex voluptatem itaque deleniti id
 							neque voluptatibus? Repellat, provident possimus!
 						</p>
-						<button className="mt-10 px-8 py-3 rounded-full bg-cyan-500 text-white shadow-sm semibold">
+						<Link
+							href="/products"
+							className="mt-10 inline-block px-8 py-3 rounded-full bg-cyan-500 text-white shadow-sm semibold"
+						>
 							Shop Now
-						</button>
+						</Link>
 					</div>
 				</div>
 				{/* Video Container */}

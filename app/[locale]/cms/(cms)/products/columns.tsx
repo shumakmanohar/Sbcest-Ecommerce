@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { CMS_CONFIG } from "@/cms.config";
 import Link from "next/link";
+import { Eye } from "lucide-react";
 
 export const columns: ColumnDef<Product>[] = [
 	{
@@ -163,23 +164,12 @@ export const columns: ColumnDef<Product>[] = [
 		id: "actions",
 		cell: ({ row, cell }) => {
 			const id = cell.row.original.id;
-
 			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger>
-						<EllipsisHorizontalCircleIcon className="h-6 w-6 " />
-					</DropdownMenuTrigger>
-					<DropdownMenuContent>
-						<DropdownMenuLabel>Product</DropdownMenuLabel>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>
-							<Link href={`/cms/products/${id}`} className="w-full">
-								Edit
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem>Copy ID</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<div>
+					<Link href={`/cms/products/${id}`}>
+						<Eye />
+					</Link>
+				</div>
 			);
 		},
 	},

@@ -11,13 +11,7 @@ import {
 	productSchema,
 } from "@/util/Types";
 import prisma from "@/lib/prisma";
-import {
-	Address,
-	DeliveryStatus,
-	Order,
-	OrderedProducts,
-	PaymentStatus,
-} from "@prisma/client";
+import { DeliveryStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { isAdmin } from "@/lib/isAdmin";
 

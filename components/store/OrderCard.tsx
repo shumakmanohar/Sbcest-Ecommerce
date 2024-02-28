@@ -36,7 +36,9 @@ const OrderCard = ({ order }: { order: Order }) => {
 					<TableBody>
 						<TableRow>
 							<TableHead>{order.id}</TableHead>
-							<TableHead>{order.createdAt.toISOString()}</TableHead>
+							<TableHead>
+								{order && new Date(order.createdAt).toLocaleDateString("en-GB")}
+							</TableHead>
 							<TableHead>SAR {order.amount}</TableHead>
 						</TableRow>
 					</TableBody>

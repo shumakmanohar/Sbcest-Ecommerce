@@ -113,7 +113,7 @@ const Invoice = ({
 
 		fetchProductsByID();
 		//getTotal();
-	}, []);
+	});
 
 	return (
 		<div>

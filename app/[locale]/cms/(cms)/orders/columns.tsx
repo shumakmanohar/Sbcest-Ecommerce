@@ -4,6 +4,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { PaymentStatus, type Order, DeliveryStatus } from "@prisma/client";
 import Link from "next/link";
 import { Eye } from "lucide-react";
+import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
+import { Button } from "@/components/ui/button";
 
 export const columns: ColumnDef<Order>[] = [
 	{
@@ -12,7 +14,17 @@ export const columns: ColumnDef<Order>[] = [
 	},
 	{
 		accessorKey: "updatedAt",
-		header: () => <div className="text-center">Date </div>,
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+				>
+					Date
+					<ArrowsUpDownIcon className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
 		cell: ({ row }) => {
 			const date = new Date(row.getValue("updatedAt"));
 			const formatted = date.toLocaleDateString("en-GB");
@@ -29,7 +41,17 @@ export const columns: ColumnDef<Order>[] = [
 	},
 	{
 		accessorKey: "amount",
-		header: () => <div className="text-center">Amount</div>,
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+				>
+					Amount
+					<ArrowsUpDownIcon className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
 	},
 	{
 		accessorKey: "moyasarID",
