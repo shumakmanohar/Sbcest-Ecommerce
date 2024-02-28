@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 
 export async function POST(req: Request) {
 	try {
+		const origin = req.headers.get("origin");
 		const moyasarWebHook: MoyasarWebHook = await req.json();
 		//if (moyasarWebHook.secret_token === process.env.MOYASAR_SECRET) {
 		// check if the secrets Match
@@ -31,6 +32,10 @@ export async function POST(req: Request) {
 		revalidatePath("/cms/orders");
 		return new NextResponse("WEBHOOK Updated Payment Status", {
 			status: 200,
+			headers: {
+				"Access-Control-Allow-Origin": origin || "*",
+				"Content-Type": "application/json",
+			},
 		});
 		//}
 		//

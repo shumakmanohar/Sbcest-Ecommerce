@@ -12,6 +12,7 @@ const intlMiddleware = createMiddleware({
 
 export default authMiddleware({
 	beforeAuth: (req) => {
+		// Check the origin from the request
 		// Execute next-intl middleware before Clerk's auth middleware
 		if (
 			req.nextUrl.pathname.startsWith("/_next") ||
