@@ -8,8 +8,13 @@ export async function GET(request: Request) {
 	const moyasarID = searchParams.get("id");
 	const moyasarPaymentStatus = searchParams.get("status");
 	console.log("I GOT REQUEST", request);
-	return new Response(`Done`, {
+	return new Response("Hello, Next.js!", {
 		status: 200,
+		headers: {
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+			"Access-Control-Allow-Headers": "Content-Type, Authorization",
+		},
 	});
 }
 // const { searchParams } = new URL(request.url);
