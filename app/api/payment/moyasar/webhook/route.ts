@@ -8,33 +8,34 @@ import { revalidatePath } from "next/cache";
 export async function POST(req: Request) {
 	try {
 		const moyasarWebHook: MoyasarWebHook = await req.json();
-		if (moyasarWebHook.secret_token === process.env.MOYASAR_SECRET) {
-			// check if the secrets Match
-			console.log("WEBHOOK POST REQUEST FROM MOYASAR");
-			let paymentStatus;
-			if (moyasarWebHook.type === "payment_success") {
-				paymentStatus = PaymentStatus.SUCCESS;
-			} else {
-				paymentStatus = PaymentStatus.FAILED;
-			}
-
-			//Update the order
-			await prisma.order.update({
-				where: {
-					moyasarID: moyasarWebHook.data.id,
-				},
-				data: {
-					paymentStatus,
-				},
-			});
-			//Revalidate
-			revalidatePath("/cms/orders");
-			return new NextResponse("WEBHOOK Updated Payment Status", {
-				status: 200,
-			});
+		//if (moyasarWebHook.secret_token === process.env.MOYASAR_SECRET) {
+		// check if the secrets Match
+		console.log("WEBHOOK POST REQUEST FROM MOYASAR");
+		let paymentStatus;
+		if (moyasarWebHook.type === "payment_success") {
+			paymentStatus = PaymentStatus.SUCCESS;
 		} else {
-			throw Error("No Access");
+			paymentStatus = PaymentStatus.FAILED;
 		}
+
+		//Update the order
+		await prisma.order.update({
+			where: {
+				moyasarID: moyasarWebHook.data.id,
+			},
+			data: {
+				paymentStatus,
+			},
+		});
+		//Revalidate
+		revalidatePath("/cms/orders");
+		return new NextResponse("WEBHOOK Updated Payment Status", {
+			status: 200,
+		});
+		//}
+		//
+		//	throw Error("No Access");
+		//}
 	} catch (error) {
 		console.log(error);
 		return new NextResponse("Something went wrong", { status: 400 });
