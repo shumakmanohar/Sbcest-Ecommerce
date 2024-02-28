@@ -16,6 +16,10 @@ const nextConfig = {
 				protocol: "https",
 				hostname: "mediacdn.sbcest.com",
 			},
+		],
+	},
+	async headers() {
+		return [
 			{
 				source: "/api/payment/moyasar/webhook",
 				headers: [
@@ -32,7 +36,7 @@ const nextConfig = {
 					},
 				],
 			},
-		],
+		];
 	},
 };
 
