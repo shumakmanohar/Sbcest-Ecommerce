@@ -10,10 +10,6 @@ export async function GET(request: Request) {
 	console.log("I GOT REQUEST", request);
 	return new Response("Hello, Next.js!", {
 		status: 200,
-		headers: {
-			"Access-Control-Allow-Origin": "*",
-			"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-		},
 	});
 }
 // const { searchParams } = new URL(request.url);
