@@ -1,14 +1,16 @@
-import { authMiddleware } from "@clerk/nextjs";
-import createMiddleware from "next-intl/middleware";
+// import { authMiddleware } from "@clerk/nextjs";
+// import createMiddleware from "next-intl/middleware";
+
+import { NextRequest } from "next/server";
 
 // This example protects all routes including api/trpc routes
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 
-const intlMiddleware = createMiddleware({
-	locales: ["en", "ar"],
-	defaultLocale: "en",
-});
+// const intlMiddleware = createMiddleware({
+// 	locales: ["en", "ar"],
+// 	defaultLocale: "en",
+// });
 
 // export default authMiddleware({
 // 	beforeAuth: (req) => {
@@ -37,3 +39,5 @@ const intlMiddleware = createMiddleware({
 // 		"/(ar|en)/:path*",
 // 	],
 // };
+
+export async function middleware(request: NextRequest) {}
