@@ -5,7 +5,7 @@ const loading = () => {
 	return (
 		<div className="min-h-[90vh]">
 			<Wrapper>
-				<div className=" grid grid-cols-2 md:grid-cols-2 gap-3">
+				<div className=" grid grid-cols-1 md:grid-cols-2 gap-3">
 					<div className="">
 						<Skeleton className="w-full max-w-xl h-[500px] rounded-md bg-gray-300" />
 					</div>
