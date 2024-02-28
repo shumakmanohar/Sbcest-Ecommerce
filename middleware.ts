@@ -10,30 +10,30 @@ const intlMiddleware = createMiddleware({
 	defaultLocale: "en",
 });
 
-export default authMiddleware({
-	beforeAuth: (req) => {
-		// Check the origin from the request
-		// Execute next-intl middleware before Clerk's auth middleware
-		if (
-			req.nextUrl.pathname.startsWith("/_next") ||
-			req.nextUrl.pathname.includes("/api/")
-		) {
-			return;
-		}
-		return intlMiddleware(req);
-	},
-	publicRoutes: [
-		"((?!^/cms/).*)",
-		"((?!^/checkout/).*)",
-		"((?!^/dashboard/).*)",
-	],
-});
+// export default authMiddleware({
+// 	beforeAuth: (req) => {
+// 		// Check the origin from the request
+// 		// Execute next-intl middleware before Clerk's auth middleware
+// 		if (
+// 			req.nextUrl.pathname.startsWith("/_next") ||
+// 			req.nextUrl.pathname.includes("/api/")
+// 		) {
+// 			return;
+// 		}
+// 		return intlMiddleware(req);
+// 	},
+// 	publicRoutes: [
+// 		"((?!^/cms/).*)",
+// 		"((?!^/checkout/).*)",
+// 		"((?!^/dashboard/).*)",
+// 	],
+// });
 
-export const config = {
-	matcher: [
-		"/((?!.+\\.[\\w]+$|_next).*)",
-		"/",
-		"/(api|trpc)(.*)",
-		"/(ar|en)/:path*",
-	],
-};
+// export const config = {
+// 	matcher: [
+// 		"/((?!.+\\.[\\w]+$|_next).*)",
+// 		"/",
+// 		"/(api|trpc)(.*)",
+// 		"/(ar|en)/:path*",
+// 	],
+// };
