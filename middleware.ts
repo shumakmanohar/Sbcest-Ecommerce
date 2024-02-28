@@ -1,7 +1,7 @@
 // import { authMiddleware } from "@clerk/nextjs";
 // import createMiddleware from "next-intl/middleware";
 
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 // This example protects all routes including api/trpc routes
 // Please edit this to allow other routes to be public as needed.
@@ -39,5 +39,37 @@ import { NextRequest } from "next/server";
 // 		"/(ar|en)/:path*",
 // 	],
 // };
+const allowedOrigins = [
+	"https://www.google.com",
+	"https://yoursite.com",
+	"http://localhost:3000",
+	"https://reqbin.com/",
+	"https://moyasar.com/",
+	"https://api.moyasar.com/",
+];
 
-export async function middleware(request: NextRequest) {}
+export function middleware(request: Request) {
+	const origin = request.headers.get("origin");
+	console.log(origin);
+
+	if (origin && !allowedOrigins.includes(origin)) {
+		return new NextResponse(null, {
+			status: 400,
+			statusText: "Bad Request",
+			headers: {
+				"Content-Type": "text/plain",
+			},
+		});
+	}
+
+	console.log("Middleware!");
+
+	console.log(request.method);
+	console.log(request.url);
+
+	return NextResponse.next();
+}
+
+export const config = {
+	matcher: "/api/:path*",
+};
