@@ -24,7 +24,7 @@ export default function RootLayout({
 	return (
 		<ClerkProvider>
 			<ReduxProvider>
-				<html lang={locale}>
+				<html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
 					<head>
 						<link
 							rel="stylesheet"

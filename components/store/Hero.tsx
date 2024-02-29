@@ -1,15 +1,17 @@
 import { CMS_CONFIG } from "@/cms.config";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
 
 const Hero = () => {
+	const t = useTranslations("Index");
 	return (
 		<div className="">
 			<div className="container min-h-[80vh] grid grid-cols-1 lg:grid-cols-4  ">
 				<div className=" lg:col-span-2 min-h-[80vh]  col-span-full flex items-center justify-center">
 					<div className="">
 						<h1 className="hero__title">
-							Welcome To <br />
+							{t("heroTitle")} <br />
 							SBCEST
 						</h1>
 						<p className="hero__subtitle">

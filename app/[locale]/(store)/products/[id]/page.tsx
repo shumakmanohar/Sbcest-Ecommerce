@@ -37,7 +37,9 @@ export async function generateMetadata({
 	};
 }
 
-const page = async ({ params }: { params: { id: string } }) => {
+const page = async ({ params }: { params: { id: string; locale: string } }) => {
+	console.log("I am Locale", params.locale);
+	const locale = params.locale;
 	const product: StoreProduct | undefined = await getProduct(params.id);
 	if (!product) {
 		return <div>Not Found Page</div>;
@@ -56,7 +58,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 					<div className="flex-[1] py-3">
 						{/* PRODUCT TITLE */}
 						<div className="text-[34px] font-semibold mb-2 leading-tight">
-							{product?.title}
+							{locale === "ar" ? product?.ar_title : product.title}
 						</div>
 
 						{/* PRODUCT CATEGORY */}
