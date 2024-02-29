@@ -11,14 +11,18 @@ import { cache } from "react";
 import prisma from "@/lib/prisma";
 
 const getProduct = cache(async (id: string) => {
-	const product = await prisma.product.findUnique({
-		where: { id },
-		include: { category: true },
-	});
+	try {
+		const product = await prisma.product.findUnique({
+			where: { id },
+			include: { category: true },
+		});
 
-	if (!product) notFound();
+		if (!product) notFound();
 
-	return product;
+		return product;
+	} catch (error) {
+		return undefined;
+	}
 });
 
 export async function generateMetadata({
@@ -29,13 +33,15 @@ export async function generateMetadata({
 	const product = await getProduct(id);
 
 	return {
-		title: product.title,
+		title: product?.title,
 	};
 }
 
 const page = async ({ params }: { params: { id: string } }) => {
-	const product: StoreProduct = await getProduct(params.id);
-
+	const product: StoreProduct | undefined = await getProduct(params.id);
+	if (!product) {
+		return <div>Not Found Page</div>;
+	}
 	return (
 		<div className="w-full md:py-20 min-h-[90vh]">
 			<Wrapper>

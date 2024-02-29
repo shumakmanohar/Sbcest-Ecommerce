@@ -1,5 +1,6 @@
 import { authMiddleware } from "@clerk/nextjs";
 import createMiddleware from "next-intl/middleware";
+import { NextResponse } from "next/server";
 
 const intlMiddleware = createMiddleware({
 	locales: ["en", "ar"],
@@ -13,17 +14,29 @@ export default authMiddleware({
 			req.nextUrl.pathname.startsWith("/_next") ||
 			req.nextUrl.pathname.includes("/api/")
 		) {
-			return;
+			return NextResponse.next();
 		}
 		return intlMiddleware(req);
 	},
 	publicRoutes: [
-		"((?!^/cms/).*)",
-		"((?!^/checkout/).*)",
-		"((?!^/dashboard/).*)",
+		"/:locale",
+		"/:locale/products",
+		"/:locale/cart",
+		"/:locale/products/:id",
 	],
 });
 
 export const config = {
-	matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(ar|en)/:path*"],
+	matcher: [
+		/*
+		 * Match all request paths except for the ones starting with:
+		 * - api (API routes)
+		 * - _next/static (static files)
+		 * - _next/image (image optimization files)
+		 * - favicon.ico (favicon file)
+		 */
+		"/((?!api|_next/static|_next/image|favicon.ico).*)",
+		"/",
+		"/:locale/",
+	],
 };

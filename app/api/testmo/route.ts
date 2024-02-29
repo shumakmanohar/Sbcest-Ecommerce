@@ -1,8 +1,3 @@
-import prisma from "@/lib/prisma";
-import { StoreProduct } from "@/util/Types";
-import { PaymentStatus } from "@prisma/client";
-import { NextResponse } from "next/server";
-
 export async function GET(request: Request) {
 	const { searchParams } = new URL(request.url);
 	const moyasarID = searchParams.get("id");
