@@ -24,11 +24,15 @@ export default authMiddleware({
 		"/:locale/cart",
 		"/:locale/products/:id",
 	],
+	ignoredRoutes: ["/api/testmo", "/api/payment/moyasar/webhook"],
 });
-
+// source: "/((?!api|_next/static|_next/image|favicon.ico).*)";
 export const config = {
-	matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/api/payment/moyasar"],
+	matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
+// export const config = {
+// 	matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/api/payment/moyasar"],
+// };
 // export const config = {
 // 	matcher: [
 // 		/*
@@ -38,7 +42,7 @@ export const config = {
 // 		 * - _next/image (image optimization files)
 // 		 * - favicon.ico (favicon file)
 // 		 */
-// 		"/((?!api|_next/static|_next/image|favicon.ico).*)",
+// 		"/((?!api/payment/moyasar|_next/static|_next/image|favicon.ico).*)",
 // 		"/",
 // 		"/:locale/",
 // 	],
