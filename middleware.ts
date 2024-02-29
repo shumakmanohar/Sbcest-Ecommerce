@@ -24,7 +24,7 @@ export default authMiddleware({
 		"/:locale/cart",
 		"/:locale/products/:id",
 	],
-	ignoredRoutes: ["/api/testmo", "/api/payment/moyasar/webhook"],
+	ignoredRoutes: ["/api/testmo", "/api/payment/moyasar/webhook", "/api/email"],
 });
 // source: "/((?!api|_next/static|_next/image|favicon.ico).*)";
 export const config = {
