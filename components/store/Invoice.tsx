@@ -81,7 +81,13 @@ const Invoice = ({
 			setLoading(false);
 		}
 		return calculatedTotalPrice.toFixed(2);
-	}, [serverFetchedProducts]);
+	}, [
+		serverFetchedProducts,
+		cartItems,
+		serverFetchStatus,
+		setLoading,
+		setOrderAmount,
+	]);
 
 	useEffect(() => {
 		//todo wrap arround error check
@@ -113,7 +119,7 @@ const Invoice = ({
 
 		fetchProductsByID();
 		//getTotal();
-	});
+	}, []);
 
 	return (
 		<div>

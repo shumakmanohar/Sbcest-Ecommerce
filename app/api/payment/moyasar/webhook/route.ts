@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 		// check if the secrets Match
 		console.log("WEBHOOK POST REQUEST FROM MOYASAR");
 		let paymentStatus;
-		if (moyasarWebHook.type === "payment_success") {
+		if (moyasarWebHook.type === "payment_paid") {
 			paymentStatus = PaymentStatus.SUCCESS;
 		} else {
 			paymentStatus = PaymentStatus.FAILED;
