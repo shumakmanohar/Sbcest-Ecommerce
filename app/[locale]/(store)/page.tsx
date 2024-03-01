@@ -11,22 +11,20 @@ import Support from "@/components/store/Support";
 import { useTranslations } from "next-intl";
 
 export default function Home() {
-	return (
-		<main>
-			{/* <h1>{t("title")}</h1>
-			{t("heroTitle")} */}
-			<Hero />
-			{/* <HeroBanner /> */}
-			<Banner />
-			<FeaturedProducts />
-			<LogoCloud />
-			<AppleBanner />
-			<MacVid />
-			{/* <GridLayout /> */}
+  return (
+    <main>
+      <Hero />
+      {/* <HeroBanner /> */}
+      <Banner />
+      <FeaturedProducts />
+      <LogoCloud />
+      <AppleBanner />
+      <MacVid />
+      {/* <GridLayout /> */}
 
-			<StyleCard />
-			<Support />
-			{/* <h1>{t("title")}</h1> */}
-		</main>
-	);
+      <StyleCard />
+      <Support />
+      {/* <h1>{t("title")}</h1> */}
+    </main>
+  );
 }
