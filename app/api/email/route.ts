@@ -10,37 +10,44 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request, res: Response) {
 	// Todo Add owner mail
 	try {
-		//Todo  authorization
+		const origin = request.headers.get("origin");
 		const moyasarWebHook: MoyasarWebHook = await request.json();
-		const order = await prisma.order.findFirst({
-			where: {
-				moyasarID: moyasarWebHook.data.id,
-			},
-		});
-		if (order) {
-			const { data, error } = await resend.emails.send({
-				from: "no-reply@store.sbcest.com",
-				to: [order.email],
-				subject: `Thank you . Your order #${order.id} has been successfully placed.`,
-				html: render(
-					SbcestReceiptEmail({
-						amount: order.amount,
-						email: order.email,
-						id: order.id,
-						orderedProducts: order.orderedProducts,
-						shippingInformation: order.shippingInformation,
-					})
-				),
+		if (moyasarWebHook.secret_token === process.env.MOYASAR_SECRET) {
+			//Find Order
+			const order = await prisma.order.findFirst({
+				where: {
+					moyasarID: moyasarWebHook.data.id,
+				},
 			});
-			if (error) {
+			//Send Email Only When Order is Found
+			if (order) {
+				const { data, error } = await resend.emails.send({
+					from: "no-reply@store.sbcest.com",
+					to: [order.email],
+					subject: `Thank you . Your order #${order.id} has been successfully placed.`,
+					html: render(
+						SbcestReceiptEmail({
+							amount: order.amount,
+							email: order.email,
+							id: order.id,
+							orderedProducts: order.orderedProducts,
+							shippingInformation: order.shippingInformation,
+						})
+					),
+				});
 				console.log(error);
-				throw error;
 			}
+			// Return 200 status code
+			return new NextResponse("Triggered For  Email", {
+				status: 200,
+				headers: {
+					"Access-Control-Allow-Origin": origin || "*",
+					"Content-Type": "application/json",
+				},
+			});
+		} else {
+			throw Error("Not Authentication");
 		}
-
-		return new NextResponse("Successful in RESEND EMAIL", {
-			status: 200,
-		});
 	} catch (error) {
 		return new NextResponse("Something went wrong in RESEND EMAIL", {
 			status: 500,

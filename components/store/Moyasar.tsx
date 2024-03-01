@@ -6,6 +6,7 @@ declare global {
 }
 import { CheckoutType } from "@/util/Types";
 import { Order, OrderedProducts } from "@prisma/client";
+import { useLocale } from "next-intl";
 import Head from "next/head";
 import Script from "next/script";
 import { useEffect, useState } from "react";
@@ -14,13 +15,13 @@ const Moyasar = ({
 	order,
 }: {
 	order: {
-		userID: string;
 		orderAmount: number;
 		shippingInformation: CheckoutType;
 		orderedProducts: OrderedProducts[];
 	};
 }) => {
 	const [mounted, setMounted] = useState(false);
+	const activeLocale = useLocale();
 	useEffect(() => {
 		// Initialize Moyasar once the component is mounted
 		if (typeof window !== "undefined" && window.Moyasar) {
@@ -28,8 +29,8 @@ const Moyasar = ({
 				element: ".mysr-form",
 				amount: order.orderAmount * 100,
 				currency: "SAR",
-				language: "en",
-				description: "Text", // Pass the order ID to Moyasar or OrderID
+				language: activeLocale === "en" ? "en" : "ar",
+				description: `Sbcest , payment of amount ${order.orderAmount}`,
 				publishable_api_key: "pk_test_GNLZsbL9QPjzk37YQYeKwSrSTUAhoah1KVxC3vWp",
 				callback_url: `http://localhost:3000/en/order-complete`,
 				methods: ["creditcard", "stcpay", "applepay"],

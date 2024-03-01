@@ -14,7 +14,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
 		return (
 			<div>
-				<Header heading={product?.title} description={product?.description} />
+				<Header heading={product?.title} description={product?.id} />
 				<ProductForm categories={categories} product={product} />
 			</div>
 		);

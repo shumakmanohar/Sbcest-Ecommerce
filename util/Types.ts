@@ -53,13 +53,19 @@ export const categorySchema = z.object({
 // ZOD -> Checkout SCHEMA
 export const CheckoutSchema = z.object({
 	email: z.string().email(),
-	name: z.string(),
-	addl1: z.string(),
-	addl2: z.string(),
-	city: z.string(),
+	name: z.string().max(15, { message: "Invalid " }),
+	addl1: z.string().max(20),
+	addl2: z.string().max(20),
+	city: z.string().max(10),
 	state: z.string(),
-	postalCode: z.string(),
-	phone: z.string(),
+	postalCode: z
+		.string()
+		.min(6, { message: "Invalid Postal Code" })
+		.max(10, { message: "Invalid Postal Code" }),
+	phone: z
+		.string()
+		.min(10, { message: "Invalid Phone" })
+		.max(11, { message: "Invalid Phone" }),
 });
 
 export type CheckoutType = z.infer<typeof CheckoutSchema>;

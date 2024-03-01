@@ -18,6 +18,7 @@ import { S3ImageUpload } from "@/server-actions/Upload-Image-Action";
 import Loader from "./Loader";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
+import Image from "next/image";
 
 const MAX_FILE_UPLOAD_SUPPORTED = 5;
 type ImageUploadProps = {
@@ -115,9 +116,11 @@ const ImageUploader = ({ onChange }: ImageUploadProps) => {
 					</label>
 					<div className="grid grid-cols-3 mt-8 gap-3 max-h-[400px] overflow-auto">
 						{selectedImages?.map((img, key) => (
-							<img
+							<Image
 								alt="preview image"
-								className="w-full object-contain object-center"
+								className="object-contain"
+								height={500}
+								width={500}
 								src={img}
 								key={key}
 							/>

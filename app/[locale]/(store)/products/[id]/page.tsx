@@ -26,19 +26,18 @@ const getProduct = cache(async (id: string) => {
 });
 
 export async function generateMetadata({
-	params: { id },
+	params: { id, locale },
 }: {
-	params: { id: string };
+	params: { id: string; locale: string };
 }) {
 	const product = await getProduct(id);
 
 	return {
-		title: product?.title,
+		title: locale === "en" ? product?.title : product?.ar_title,
 	};
 }
 
-const page = async ({ params }: { params: { id: string; locale: string } }) => {
-	console.log("I am Locale", params.locale);
+const Page = async ({ params }: { params: { id: string; locale: string } }) => {
 	const locale = params.locale;
 	const product: StoreProduct | undefined = await getProduct(params.id);
 	if (!product) {
@@ -63,18 +62,21 @@ const page = async ({ params }: { params: { id: string; locale: string } }) => {
 
 						{/* PRODUCT CATEGORY */}
 						<div className="text-lg font-semibold mb-5">
-							{product && (product as any).category.name}
+							{product && locale === "en"
+								? (product as any).category.name
+								: (product as any).category.ar_name}
 						</div>
 
 						{/* PRODUCT PRICE */}
-						<div className="flex items-center">
-							<p className="mr-2 text-lg font-semibold">
-								SAR :{product?.isOnOffer ? product?.offerPrice : product?.price}
+						<div className="flex items-center gap-4">
+							<p className="text-lg font-semibold">
+								SAR :{" "}
+								{product?.isOnOffer ? product?.offerPrice : product?.price}
 							</p>
 							{product?.isOnOffer && (
 								<>
-									<p className="text-base  font-medium line-through">
-										{product.price}
+									<p className="text-sm font-medium line-through text-red-400">
+										SAR : {product.price}
 									</p>
 									<p className="ml-auto text-base font-medium text-green-500">
 										{getDiscountedPricePercentage(
@@ -105,9 +107,15 @@ const page = async ({ params }: { params: { id: string; locale: string } }) => {
 						)}
 
 						<div>
-							<div className="text-lg font-bold mb-5">Product Details</div>
+							<div className="text-lg font-bold mb-5">
+								{locale === "en" ? "Product Details" : "تفاصيل المنتج"}
+							</div>
 							<div className="markdown text-md mb-5 display-linebreak">
-								<p>{product?.description}</p>
+								<p>
+									{locale === "en"
+										? product?.description
+										: product.ar_description}
+								</p>
 							</div>
 						</div>
 					</div>
@@ -118,4 +126,4 @@ const page = async ({ params }: { params: { id: string; locale: string } }) => {
 	);
 };
 
-export default page;
+export default Page;
