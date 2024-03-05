@@ -7,6 +7,7 @@ import ReduxProvider from "@/components/store/ReduxProvider";
 import NavBar from "@/components/store/NavBar";
 import Script from "next/script";
 import { NextIntlClientProvider, useMessages } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,6 @@ export default function RootLayout({
 	children: React.ReactNode;
 	params: { locale: string };
 }) {
-	const messages = useMessages();
 	return (
 		<ClerkProvider>
 			<ReduxProvider>

@@ -12,7 +12,8 @@ export default authMiddleware({
 		// Execute next-intl middleware before Clerk's auth middleware
 		if (
 			req.nextUrl.pathname.startsWith("/_next") ||
-			req.nextUrl.pathname.includes("/api/")
+			req.nextUrl.pathname.includes("/api/") ||
+			req.nextUrl.pathname.startsWith("/cms")
 		) {
 			return NextResponse.next();
 		}

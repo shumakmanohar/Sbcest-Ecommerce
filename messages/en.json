@@ -80,8 +80,9 @@
 	},
 	"Checkout": {
 		"Checkout": "Check out",
+		"name": "Name",
 		"email": "Email",
-		"Phone": "Phone no.",
+		"Phone": "Phone no:",
 		"Shipping Address": "Shipping Address",
 		"add 1": "Address line 1",
 		"add 2": "Address line 2",

@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { isAdmin } from "@/lib/isAdmin";
 import SideNavBar from "@/components/cms/SideNavBar";
 
@@ -9,7 +9,9 @@ export default async function layout({
 	children: React.ReactNode;
 }) {
 	if (!(await isAdmin())) {
-		redirect("/");
+		// Throwing a notFoundPage for notSigned Users
+		notFound();
+		//redirect("/");
 	}
 	return (
 		<div className="">

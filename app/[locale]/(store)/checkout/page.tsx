@@ -3,8 +3,11 @@ import Invoice from "@/components/store/Invoice";
 import InvoiceContainer from "@/components/store/InvoiceContainer";
 import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const Page = () => {
+const Page = ({ params }: { params: { locale: string } }) => {
+	console.log("LOCALE HERE : [checkout]", params.locale);
+	unstable_setRequestLocale(params.locale);
 	const t = useTranslations("Checkout");
 	return (
 		<div className="min-h-[90vh]">

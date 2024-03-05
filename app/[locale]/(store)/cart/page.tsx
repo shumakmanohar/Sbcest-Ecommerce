@@ -1,7 +1,10 @@
 import CartContainer from "@/components/store/CartContainer";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const Page = () => {
+const Page = ({ params }: { params: { locale: string } }) => {
+	console.log("LOCALE HERE : [cart]", params.locale);
+	unstable_setRequestLocale(params.locale);
 	const t = useTranslations("Cart");
 	return (
 		<div>
