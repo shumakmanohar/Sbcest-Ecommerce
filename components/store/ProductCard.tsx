@@ -9,7 +9,7 @@ import Link from "next/link";
 const ProductCard = ({ product }: { product: StoreProduct }) => {
 	const localeActive = useLocale();
 	return (
-		<Link href={`/products/${product?.id}`}>
+		<a href={`/products/${product?.id}`}>
 			<div className="relative flex flex-col bg-white  z-30 p-5 h-[460px] min-h-[460px]  rounded-xl transform transition-transform duration-500 hover:scale-105 cursor-pointer">
 				{product?.isOnOffer && (
 					<p className="bg-green-600  p-2 text-center text-white absolute top-3 left-2 text-xs rounded-full">
@@ -49,26 +49,32 @@ const ProductCard = ({ product }: { product: StoreProduct }) => {
 						? product?.description
 						: product?.ar_description}
 				</p>
-				<p className="font-bold ">
-					SAR {product?.isOnOffer ? product?.offerPrice : product?.price}
-				</p>
-
-				{product?.isOnOffer && (
+				{product?.isArchived ? (
+					<></>
+				) : (
 					<>
-						<p className="font-bold text-xs line-through text-red-500">
-							SAR {product?.price}
+						<p className="font-bold ">
+							SAR {product?.isOnOffer ? product?.offerPrice : product?.price}
 						</p>
-						<p className="font-bold text-xs text-right text-green-500 ">
-							{getDiscountedPricePercentage(
-								product?.price || 0,
-								product?.offerPrice || 0
-							)}
-							%
-						</p>
+
+						{product?.isOnOffer && (
+							<>
+								<p className="font-bold text-xs line-through text-red-500">
+									SAR {product?.price}
+								</p>
+								<p className="font-bold text-xs text-right text-green-500 ">
+									{getDiscountedPricePercentage(
+										product?.price || 0,
+										product?.offerPrice || 0
+									)}
+									%
+								</p>
+							</>
+						)}
 					</>
 				)}
 			</div>
-		</Link>
+		</a>
 	);
 };
 

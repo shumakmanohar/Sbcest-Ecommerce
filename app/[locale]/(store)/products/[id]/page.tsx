@@ -3,6 +3,12 @@ import prisma from "@/lib/prisma";
 import { cache } from "react";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { Metadata } from "next";
+import AddToCart from "@/components/store/AddToCart";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Info } from "lucide-react";
+import ProductDetailsCarousel from "@/components/store/ProductDetailsCarousel";
+import { getDiscountedPricePercentage } from "@/util/Price";
+import Wrapper from "@/components/store/Wrapper";
 
 const getProduct = cache(async (id: string) => {
 	try {
@@ -21,7 +27,7 @@ const getProduct = cache(async (id: string) => {
 
 export async function generateStaticParams() {
 	const products = await prisma.product.findMany({
-		take: 5,
+		take: 10,
 		orderBy: { createdAt: "desc" },
 	});
 	const locales = ["en", "ar"];
@@ -51,15 +57,79 @@ export async function generateMetadata({
 }
 
 const Page = async ({ params }: { params: { id: string; locale: string } }) => {
-	console.log("LOCALE HERE : [Single PAge]", params.locale);
+	const locale = params.locale;
 	unstable_setRequestLocale(params.locale);
-	console.log("Single Product Page Rendering", params.id);
 	const product = await getProduct(params.id);
 	return (
-		<div>
-			Single Product page {params.id}
-			<div>Product Details:</div>
-			<div>{JSON.stringify(product)}</div>
+		<div className="min-h-[90vh]">
+			<Wrapper>
+				<div className="flex flex-col lg:flex-row md:px-10 gap-[50px] lg:gap-[100px]">
+					{/* left column start */}
+					<div className="w-full md:w-auto flex flex-[1.5] max-w-[500px] lg:max-w-full mx-auto lg:mx-0">
+						<ProductDetailsCarousel images={product?.images || [""]} />
+					</div>
+					{/* left column end */}
+
+					{/* right column start */}
+					<div className="flex-[1] py-3">
+						{/* PRODUCT TITLE */}
+						<div className="text-[34px] font-semibold mb-2 leading-tight">
+							{locale === "ar" ? product?.ar_title : product.title}
+						</div>
+
+						{/* PRODUCT CATEGORY */}
+						<div className="text-lg font-semibold mb-5">
+							{product && (product as any).category.name}
+						</div>
+
+						{/* PRODUCT PRICE */}
+						<div className="flex items-center">
+							<p className="mr-2 text-lg font-semibold">
+								SAR :{product?.isOnOffer ? product?.offerPrice : product?.price}
+							</p>
+							{product?.isOnOffer && (
+								<>
+									<p className="text-base  font-medium line-through">
+										{product.price}
+									</p>
+									<p className="ml-auto text-base font-medium text-green-500">
+										{getDiscountedPricePercentage(
+											product?.price || 0,
+											product?.offerPrice || 0
+										)}
+										% off
+									</p>
+								</>
+							)}
+						</div>
+
+						{/* ADD TO CART BUTTON */}
+						{product?.isArchived ? (
+							<Alert className="my-16">
+								<Info className="h-4 w-4" />
+
+								<AlertTitle>Out Of Stock</AlertTitle>
+								<AlertDescription>
+									Due to an unexpectedly high number of orders, we no longer
+									have this product in stock. We know how disappointing this
+									news is, and we sincerely apologize for the inconvenience it
+									has caused.
+								</AlertDescription>
+							</Alert>
+						) : (
+							<AddToCart product={product} />
+						)}
+
+						<div>
+							<div className="text-lg font-bold mb-5">Product Details</div>
+							<div className="markdown text-md mb-5 display-linebreak">
+								<p>{product?.description}</p>
+							</div>
+						</div>
+					</div>
+					{/* right column end */}
+				</div>
+			</Wrapper>
 		</div>
 	);
 };

@@ -32,7 +32,7 @@ const Moyasar = ({
 				language: activeLocale === "en" ? "en" : "ar",
 				description: `Sbcest , payment of amount ${order.orderAmount}`,
 				publishable_api_key: "pk_test_GNLZsbL9QPjzk37YQYeKwSrSTUAhoah1KVxC3vWp",
-				callback_url: `http://localhost:3000/en/order-complete`,
+				callback_url: `https://sbcest-ecommerce.vercel.app/en/order-complete`,
 				methods: ["creditcard", "stcpay", "applepay"],
 				apple_pay: {
 					country: "SA",

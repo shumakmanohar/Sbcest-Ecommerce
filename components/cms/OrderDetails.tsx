@@ -8,6 +8,10 @@ import { DeleteOrder } from "@/server-actions/Order-Actions";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Loader from "./Loader";
+import Image from "next/image";
+import { Card } from "../ui/card";
+import Link from "next/link";
+import { CMS_CONFIG } from "@/cms.config";
 
 const OrderDetails = ({ order }: { order: Order | null }) => {
 	const [mounted, setMounted] = useState(false);
@@ -117,6 +121,43 @@ const OrderDetails = ({ order }: { order: Order | null }) => {
 							mounted &&
 							renderKeyValuePairs(order?.shippingInformation)}
 					</p>
+				</div>
+				<div className="order-label mt-8">
+					<p className="order-value">Ordered Products :</p>
+					<div className="flex flex-col gap-8">
+						{order?.orderedProducts.map((product) => (
+							<Card className="p-4" key={product.productId}>
+								<div className="flex items-start gap-4">
+									<Image
+										src={
+											product?.previewImg
+												? `${CMS_CONFIG.cdn.location}/${product?.previewImg}`
+												: "/sblogo.png"
+										}
+										alt=""
+										className="relative mx-auto mt-8"
+										width={60}
+										height={80}
+										objectFit="contain"
+									/>
+
+									<div className="flex-1">
+										<h3 className=" font-semibold ">{product.title}</h3>
+
+										<p className="text-sm font-semibold">SAR {product.price}</p>
+										<p className="text-xs mt-2">
+											Quantity : {`${product.quantity}`}
+										</p>
+									</div>
+								</div>
+								<div className="flex justify-end mt-2">
+									<div className="px-4 text-sm text-[#00adb5] font-bold">
+										<a href={`/products/${product.productId}`}>View Product</a>
+									</div>
+								</div>
+							</Card>
+						))}
+					</div>
 				</div>
 			</div>
 			<Button variant="destructive" className="mt" onClick={deleteOrder}>

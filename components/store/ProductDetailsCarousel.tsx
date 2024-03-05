@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { CMS_CONFIG } from "@/cms.config";
 
-const ProductCarousel = ({ images }: { images: string[] }) => {
+const ProductDetailsCarousel = ({ images }: { images: string[] }) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 	const [activeIndex, setActiveIndex] = useState<number>(0); // State to track active index
 
@@ -92,4 +92,4 @@ const ProductCarousel = ({ images }: { images: string[] }) => {
 	);
 };
 
-export default ProductCarousel;
+export default ProductDetailsCarousel;

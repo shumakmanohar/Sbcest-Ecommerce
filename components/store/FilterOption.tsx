@@ -8,6 +8,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import { IoIosArrowDown } from "react-icons/io";
 import type { Categories } from "@prisma/client";
 import { FilterType } from "@/util/Types";
+import { useLocale } from "next-intl";
 
 const FilterOption = ({
 	categoriesList,
@@ -24,11 +25,12 @@ const FilterOption = ({
 	handleChangeCategory: (category: Categories) => void;
 	handleChangeFilter: (filter: FilterType) => void;
 }) => {
+	const activeLocale = useLocale();
 	return (
 		<div className="flex items-center gap-4 mb-4 ">
 			<DropdownMenu>
 				<DropdownMenuTrigger className="filter-btn">
-					<span>Filter</span>
+					<span>{activeLocale === "ar" ? "مرشح المنتج" : "Filter"}</span>
 					<IoIosArrowDown size={20} />
 				</DropdownMenuTrigger>
 				<DropdownMenuContent>
@@ -60,7 +62,7 @@ const FilterOption = ({
 			</DropdownMenu>
 			<DropdownMenu>
 				<DropdownMenuTrigger className="filter-btn">
-					<span>Categories</span>
+					<span> {activeLocale == "en" ? "Categories" : "فئات المنتجات"}</span>
 					<IoIosArrowDown size={20} />
 				</DropdownMenuTrigger>
 
@@ -75,7 +77,7 @@ const FilterOption = ({
 								}}
 							>
 								<label htmlFor="css" className="text-[0.875rem]">
-									{category.name}
+									{activeLocale === "en" ? category.name : category.ar_name}
 								</label>
 								<input
 									type="radio"

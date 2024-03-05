@@ -12,6 +12,7 @@ import { FetchStoreProducts } from "@/server-actions/Product-Actions";
 import { EnumPriceFilter } from "@/util/Enums";
 import SkeletonProductList from "./SkeletonProductList";
 import { Skeleton } from "../ui/skeleton";
+import { useLocale } from "next-intl";
 
 const ProductList = ({
 	initialProducts,
@@ -39,6 +40,7 @@ const ProductList = ({
 	const [loading, setLoading] = useState(false);
 	const [page, setPage] = useState(1);
 	const [ref, inView] = useInView();
+	const activeLocale = useLocale();
 
 	const filterAndSortProducts = useCallback(
 		(category?: Categories | null, filter?: FilterType | null) => {
@@ -137,7 +139,7 @@ const ProductList = ({
 	}, [filterAndSortProducts, selectedCategory, selectedPriceFilter]);
 
 	return (
-		<div className="">
+		<div className="min-h-[100vh]">
 			{/* Filter Option */}
 			<div>
 				<FilterOption
@@ -180,18 +182,29 @@ const ProductList = ({
 				</div>
 			</div>
 			{/* Main Product List  */}
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-5 my-7 px-5 md:px-0">
-				{products?.map((product: StoreProduct) => (
-					<ProductCard key={product?.id} product={product} />
-				))}
-				{loading && (
-					<>
-						<Skeleton className=" h-[400px]  bg-gray-200" />
-						<Skeleton className=" h-[400px]  bg-gray-200" />
-						<Skeleton className=" h-[400px]  bg-gray-200" />
-					</>
-				)}
-			</div>
+			{products?.length === 0 ? (
+				<div>
+					<p className="font-semibold text-lg">
+						{activeLocale === "en"
+							? "Sorry no products found"
+							: "لم يتم العثور على نتائج"}
+					</p>
+				</div>
+			) : (
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-5 my-7 px-5 md:px-0">
+					{products?.map((product: StoreProduct) => (
+						<ProductCard key={product?.id} product={product} />
+					))}
+					{loading && (
+						<>
+							<Skeleton className=" h-[400px]  bg-gray-200" />
+							<Skeleton className=" h-[400px]  bg-gray-200" />
+							<Skeleton className=" h-[400px]  bg-gray-200" />
+						</>
+					)}
+				</div>
+			)}
+
 			{/* Infinite Scroll Trigger */}
 			{!stopLoading && (
 				<div ref={ref} className=" flex items-center justify-center"></div>
