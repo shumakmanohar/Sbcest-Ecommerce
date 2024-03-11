@@ -48,6 +48,9 @@ model Order {
   userID String
   name String
   shippingInformation   Address
+  shippingCost Float
+  BeforeTaxPrice Float
+  ApplicableVat Float
   moyasarID String @unique
   moyasarFee Float
   currency String
@@ -68,7 +71,8 @@ type Address {
   addl1 String
   addl2   String
   city   String
-  state String
+  district String
+  region String
   name String
   email String
   phone String

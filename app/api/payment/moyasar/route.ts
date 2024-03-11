@@ -27,6 +27,9 @@ export async function PUT(req: Request) {
 				moyasarID: moyasarData.payment.id as string,
 				moyasarFee: moyasarData.payment.fee as number,
 				currency: moyasarData.payment.currency as string,
+				ApplicableVat: moyasarData.metadata.applicableVat as number,
+				BeforeTaxPrice: moyasarData.metadata.beforeTaxPrice as number,
+				shippingCost: moyasarData.metadata.shippingCost as number,
 				orderedProducts: moyasarData.metadata
 					.orderedProducts as OrderedProducts[],
 			},

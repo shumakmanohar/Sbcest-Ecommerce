@@ -84,18 +84,22 @@
 		"email": "Email",
 		"Phone": "Phone no:",
 		"Shipping Address": "Shipping Address",
-		"add 1": "Address line 1",
-		"add 2": "Address line 2",
+		"add 1": "Building No / Building Name",
+		"add 2": "Street Name",
+		"district": "District",
 		"city": "City",
-		"state": "State",
-		"pin": " Zip Code",
+		"region": "Region",
+		"pin": "Zip Code",
 		"CA": "SAR",
 		"pay": "Pay",
 		"quantity": "Quantity",
 		"st": "SUBTOTAL",
 		"shp": "Shipping",
-		"vat": "VAT",
-		"total": "Total Due"
+		"vat": "Applicable to VAT @ 15%",
+		"total": "Total Due",
+		"bt": "Before Tax",
+		"at": "After Tax",
+		"vatSummary": "VAT Summary"
 	},
 
 	"Dashboard": {

@@ -9,7 +9,6 @@ import Support from "@/components/store/Support";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function Home({ params }: { params: { locale: string } }) {
-	console.log("LOCALE HERE : [Home]", params.locale);
 	unstable_setRequestLocale(params.locale);
 	return (
 		<main>

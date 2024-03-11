@@ -52,7 +52,7 @@ const LanguageSwitcher = () => {
 					</Select>
 					<p className="text-xs text-gray-600 font-bold mt-5">
 						Your shopping cart will not be emptied when you change the store
-						language. Translation won&apos;t applied in some pages.
+						language.
 					</p>
 				</div>
 			</SheetContent>

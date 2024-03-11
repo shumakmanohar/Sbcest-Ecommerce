@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 const intlMiddleware = createMiddleware({
 	locales: ["en", "ar"],
-	defaultLocale: "en",
+	defaultLocale: "ar",
 });
 
 export default authMiddleware({

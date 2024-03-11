@@ -26,7 +26,7 @@ const OrderDetails = ({ order }: { order: Order | null }) => {
 		// delete the Images related as Well
 		const response = await DeleteOrder(order?.id);
 		response.status == ServerResponse.Success
-			? (toast.success("Product Deleted  Successfully"),
+			? (toast.success("Order Deleted  Successfully"),
 			  router.push("/cms/orders/"))
 			: toast.error("Something Went Wrong. Check Console");
 	};
@@ -112,6 +112,18 @@ const OrderDetails = ({ order }: { order: Order | null }) => {
 				<div className="order-label">
 					<p className="order-value">Moyasar Fee :</p>
 					<p>{order?.moyasarFee}</p>
+				</div>
+				<div className="order-label">
+					<p className="order-value">Shipping Cost :</p>
+					<p>{order?.shippingCost === 0 ? "FREE" : order?.shippingCost}</p>
+				</div>
+				<div className="order-label">
+					<p className="order-value">Applied VAT:</p>
+					<p>{order?.ApplicableVat}</p>
+				</div>
+				<div className="order-label">
+					<p className="order-value">Before Tax</p>
+					<p>{order?.BeforeTaxPrice}</p>
 				</div>
 				<div className="order-label">
 					<p className="order-value">Shipping Address :</p>

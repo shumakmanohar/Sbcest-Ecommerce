@@ -266,6 +266,7 @@ export default function ProductForm({
 									type="number"
 									placeholder="Product Price"
 									disabled={loading}
+									onWheel={(e: any) => e.target.blur()}
 									{...field}
 								/>
 							</FormControl>

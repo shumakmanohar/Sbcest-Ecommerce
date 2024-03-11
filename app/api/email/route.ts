@@ -12,7 +12,10 @@ export async function POST(request: Request, res: Response) {
 	try {
 		const origin = request.headers.get("origin");
 		const moyasarWebHook: MoyasarWebHook = await request.json();
-		if (moyasarWebHook.secret_token === process.env.MOYASAR_SECRET) {
+		if (
+			moyasarWebHook.secret_token === process.env.MOYASAR_SECRET &&
+			moyasarWebHook.type === "payment_paid"
+		) {
 			//Find Order
 			const order = await prisma.order.findFirst({
 				where: {
@@ -23,8 +26,8 @@ export async function POST(request: Request, res: Response) {
 			if (order) {
 				const { data, error } = await resend.emails.send({
 					from: "no-reply@store.sbcest.com",
-					to: [order.email],
-					subject: `Thank you . Your order #${order.id} has been successfully placed.`,
+					to: [order.email, "Sbcest@hotmail.com"],
+					subject: `Thank you . Your order #${order.id} has been successfully placed. Sbcest`,
 					html: render(
 						SbcestReceiptEmail({
 							amount: order.amount,
@@ -32,6 +35,9 @@ export async function POST(request: Request, res: Response) {
 							id: order.id,
 							orderedProducts: order.orderedProducts,
 							shippingInformation: order.shippingInformation,
+							ApplicableVat: order.ApplicableVat,
+							BeforeTaxPrice: order.BeforeTaxPrice,
+							shippingCost: order.shippingCost,
 						})
 					),
 				});

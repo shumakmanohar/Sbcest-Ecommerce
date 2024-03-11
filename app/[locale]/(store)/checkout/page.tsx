@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 const Page = ({ params }: { params: { locale: string } }) => {
-	console.log("LOCALE HERE : [checkout]", params.locale);
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations("Checkout");
 	return (
@@ -20,8 +19,9 @@ const Page = ({ params }: { params: { locale: string } }) => {
 						shippingAddress: `${t("Shipping Address")}`,
 						addl1: `${t("add 1")}`,
 						addl2: `${t("add 2")}`,
+						district: `${t("district")}`,
 						city: `${t("city")}`,
-						state: `${t("state")}`,
+						region: `${t("region")}`,
 						pincode: `${t("pin")}`,
 						pay: `${t("pay")}`,
 						currency: `${t("CA")}`,
@@ -30,6 +30,9 @@ const Page = ({ params }: { params: { locale: string } }) => {
 						shippingCost: `${t("shp")}`,
 						total: `${t("total")}`,
 						checkout: `${t("Checkout")}`,
+						vatSummary: `${t("vatSummary")}`,
+						at: `${t("at")}`,
+						bt: `${t("bt")}`,
 					}}
 				/>
 			</div>

@@ -30,8 +30,12 @@ export const SbcestReceiptEmail = ({
 		name: "test",
 		phone: "",
 		postalCode: "test",
-		state: "",
+		district: "",
+		region: "",
 	},
+	shippingCost = 0,
+	ApplicableVat = 0,
+	BeforeTaxPrice = 0,
 	orderedProducts = [
 		{
 			previewImg: "https://mediacdn.sbcest.com/static/sblogo.png",
@@ -46,6 +50,9 @@ export const SbcestReceiptEmail = ({
 	email: string;
 	amount: number;
 	shippingInformation: Address;
+	shippingCost: number;
+	BeforeTaxPrice: number;
+	ApplicableVat: number;
 	orderedProducts: OrderedProducts[];
 }) => (
 	<Html>
@@ -59,8 +66,8 @@ export const SbcestReceiptEmail = ({
 						<Column>
 							<Img
 								src={`${baseUrl}/static/sblogo.png`}
-								width="50"
-								height="50"
+								width="80"
+								height="80"
 								alt="Apple Logo"
 							/>
 						</Column>
@@ -108,7 +115,10 @@ export const SbcestReceiptEmail = ({
 								{shippingInformation.addl2}
 							</Text>
 							<Text style={informationTableValue}>
-								{shippingInformation.city},{shippingInformation.state}
+								{shippingInformation.city},{shippingInformation.district}
+							</Text>
+							<Text style={informationTableValue}>
+								{shippingInformation.region}
 							</Text>
 							<Text style={informationTableValue}>
 								{shippingInformation.postalCode}
@@ -143,7 +153,7 @@ export const SbcestReceiptEmail = ({
 									Quantity : {product.quantity}
 								</Text>
 								<Link
-									href={`https://store.sbcest.com/ar/products/${product.productId}`}
+									href={`https://store.sbcest.com/products/${product.productId}`}
 									style={productLink}
 								>
 									View Product
@@ -161,7 +171,35 @@ export const SbcestReceiptEmail = ({
 				<Section align="right">
 					<Row>
 						<Column style={tableCell} align="right">
-							<Text style={productPriceTotal}>TOTAL</Text>
+							<Text style={productPriceTotal}>Before TAX</Text>
+						</Column>
+						<Column style={productPriceVerticalLine}></Column>
+						<Column style={productPriceLargeWrapper}>
+							<Text style={productPriceLarge}>SAR {BeforeTaxPrice}</Text>
+						</Column>
+						<Column style={tableCell} align="right">
+							<Text style={productPriceTotal}>Appilied VAT 15%</Text>
+						</Column>
+						<Column style={productPriceVerticalLine}></Column>
+						<Column style={productPriceLargeWrapper}>
+							<Text style={productPriceLarge}>SAR {ApplicableVat}</Text>
+						</Column>
+						<Column style={tableCell} align="right">
+							<Text style={productPriceTotal}>Delivery</Text>
+						</Column>
+						<Column style={productPriceVerticalLine}></Column>
+						<Column style={productPriceLargeWrapper}>
+							<Text style={productPriceLarge}>SAR {shippingCost}</Text>
+						</Column>
+					</Row>
+				</Section>
+
+				<Hr style={walletBottomLine} />
+				<Hr style={productPriceLine} />
+				<Section align="right">
+					<Row>
+						<Column style={tableCell} align="right">
+							<Text style={productPriceTotal}>Grand Total</Text>
 						</Column>
 						<Column style={productPriceVerticalLine}></Column>
 						<Column style={productPriceLargeWrapper}>

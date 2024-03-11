@@ -5,7 +5,6 @@ import ProductForm from "@/components/cms/ProductForm";
 import ErrorCms from "@/components/cms/ErrorCms";
 
 const page = async ({ params }: { params: { id: string } }) => {
-	console.log("I am rendered for CMS", params.id);
 	try {
 		const categories = await prisma.categories.findMany();
 		const product = await prisma.product.findFirst({

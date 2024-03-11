@@ -31,7 +31,6 @@ const CartContainer = ({
 	quantityText: string;
 }) => {
 	const router = useRouter();
-	// console.log(router.locale)
 	const cartItems = useSelector((state: RootState) => state.cart.items);
 
 	const totalPrice = useMemo(() => {

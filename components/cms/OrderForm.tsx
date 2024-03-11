@@ -51,7 +51,7 @@ const OrderForm = ({ orderID }: { orderID: string | undefined }) => {
 		);
 
 		response.status == ServerResponse.Success
-			? toast.success("Product Updated Successfully")
+			? toast.success("Order  Updated Successfully")
 			: (toast.error("Something Went Wrong. Check Console"),
 			  console.log(response.message));
 

@@ -78,8 +78,6 @@ const ImageUploader = ({ onChange }: ImageUploadProps) => {
 			  onChange(response.UploadedFiles!),
 			  setSelectedImages(null))
 			: toast.error("Something Went Wrong. Check Console");
-		console.log("Server Return ", response.message);
-		console.log("Uploaded Files", response.UploadedFiles);
 	};
 
 	return (

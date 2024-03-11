@@ -7,8 +7,6 @@ declare global {
 import { CheckoutType } from "@/util/Types";
 import { Order, OrderedProducts } from "@prisma/client";
 import { useLocale } from "next-intl";
-import Head from "next/head";
-import Script from "next/script";
 import { useEffect, useState } from "react";
 
 const Moyasar = ({
@@ -18,6 +16,9 @@ const Moyasar = ({
 		orderAmount: number;
 		shippingInformation: CheckoutType;
 		orderedProducts: OrderedProducts[];
+		applicableVat: number;
+		shippingCost: number;
+		beforeTaxPrice: number;
 	};
 }) => {
 	const [mounted, setMounted] = useState(false);
@@ -32,7 +33,7 @@ const Moyasar = ({
 				language: activeLocale === "en" ? "en" : "ar",
 				description: `Sbcest , payment of amount ${order.orderAmount}`,
 				publishable_api_key: "pk_test_GNLZsbL9QPjzk37YQYeKwSrSTUAhoah1KVxC3vWp",
-				callback_url: `https://sbcest-ecommerce.vercel.app/en/order-complete`,
+				callback_url: `https://store.sbcest.com/en/order-complete`,
 				methods: ["creditcard", "stcpay", "applepay"],
 				apple_pay: {
 					country: "SA",
@@ -49,6 +50,9 @@ const Moyasar = ({
 								metadata: {
 									orderedProducts: order.orderedProducts,
 									shippingInformation: order.shippingInformation,
+									applicableVat: order.applicableVat,
+									shippingCost: order.shippingCost,
+									beforeTaxPrice: order.beforeTaxPrice,
 								},
 							}),
 						};

@@ -6,8 +6,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import ReduxProvider from "@/components/store/ReduxProvider";
 import NavBar from "@/components/store/NavBar";
 import Script from "next/script";
-import { NextIntlClientProvider, useMessages } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,23 @@ export default function RootLayout({
 					</head>
 					<body className={`${inter.className} `}>
 						<Toaster position="top-right" reverseOrder={false} />
+						<div className="flex items-center justify-center p-4 bg-gray-100 ">
+							<Alert variant="destructive" className="w-full max-w-xl text-sm">
+								<ExclamationTriangleIcon className="h-4 w-4" />
+								<AlertTitle>
+									Website Under Testing Stage الموقع تحت مرحلة الاختبار
+								</AlertTitle>
+								<AlertDescription>
+									Website is under testing period,Only temporary order would be
+									placed. Feel free to test our website.
+									<br />
+									الموقع تحت فترة الاختبار، سيكون الأمر مؤقتًا فقط وضعت. لا
+									تتردد في اختبار موقعنا.
+									<br />
+									Ring us for any Queries : +966 539740365
+								</AlertDescription>
+							</Alert>
+						</div>
 						{children}
 					</body>
 				</html>

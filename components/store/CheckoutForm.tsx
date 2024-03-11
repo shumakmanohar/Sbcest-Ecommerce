@@ -24,14 +24,28 @@ import { ServerResponse } from "@/util/Enums";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Moyasar from "./Moyasar";
+import { Select } from "@radix-ui/react-select";
+import {
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "../ui/select";
+import { useLocale } from "next-intl";
 
 const CheckoutForm = ({
 	orderAmount,
 	orderedProducts,
+	applicableVat,
+	shippingCost,
+	beforeTaxPrice,
 	translations,
 }: {
 	orderAmount: number;
 	orderedProducts: OrderedProducts[];
+	applicableVat: number;
+	shippingCost: number;
+	beforeTaxPrice: number;
 	translations: {
 		email: string;
 		name: string;
@@ -40,19 +54,24 @@ const CheckoutForm = ({
 		addl1: string;
 		addl2: string;
 		city: string;
-		state: string;
+		district: string;
 		pincode: string;
 		pay: string;
+		region: string;
 		currency: string;
 	};
 }) => {
 	const [loading, setLoading] = useState(false);
 	const { isLoaded, isSignedIn, user } = useUser();
 	const [paymentLoading, setPaymentLoading] = useState(false);
+	const activeLocale = useLocale();
 	const [tempOrder, setTempOrder] = useState<{
 		orderAmount: number;
 		shippingInformation: CheckoutType;
 		orderedProducts: OrderedProducts[];
+		applicableVat: number;
+		shippingCost: number;
+		beforeTaxPrice: number;
 	} | null>(null);
 	const router = useRouter();
 	const form = useForm<CheckoutType>({
@@ -73,6 +92,9 @@ const CheckoutForm = ({
 			orderAmount,
 			orderedProducts,
 			shippingInformation: data,
+			applicableVat,
+			beforeTaxPrice,
+			shippingCost,
 		});
 	}
 
@@ -145,6 +167,25 @@ const CheckoutForm = ({
 											{...field}
 											defaultValue={field.value}
 											disabled={loading}
+											onKeyDown={(e) => {
+												if (
+													!(
+														// Allow backspace, delete, arrow keys, and numeric keys
+														(
+															e.key === "Backspace" ||
+															e.key === "Delete" ||
+															e.key === "ArrowLeft" ||
+															e.key === "ArrowRight" ||
+															e.key === "ArrowUp" ||
+															e.key === "ArrowDown" ||
+															e.key === "Tab" ||
+															(e.key.length === 1 && /[0-9]/.test(e.key))
+														)
+													)
+												) {
+													e.preventDefault();
+												}
+											}}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -209,15 +250,63 @@ const CheckoutForm = ({
 									</FormItem>
 								)}
 							/>
-							{/* State */}
+							{/* Region  */}
 							<FormField
 								control={form.control}
-								name="state"
+								name="region"
+								render={({ field }) => (
+									<FormItem>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+										>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder={translations.region} />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												<SelectItem value="central">
+													{activeLocale === "en"
+														? "Central Region"
+														: " المنطقة الوسطى"}
+												</SelectItem>
+												<SelectItem value="northern">
+													{activeLocale === "en"
+														? "Northern Region"
+														: " المنطقة الشمالية"}
+												</SelectItem>
+												<SelectItem value="southern">
+													{activeLocale === "en"
+														? "Southern Region"
+														: "المنطقة الجنوبية"}
+												</SelectItem>
+												<SelectItem value="eastern">
+													{activeLocale === "en"
+														? "Easterm Region"
+														: " المنطقة الشرقية"}
+												</SelectItem>
+												<SelectItem value="western">
+													{activeLocale === "en"
+														? "Western Region"
+														: " المنطقة الغربية"}
+												</SelectItem>
+											</SelectContent>
+										</Select>
+
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							{/* District */}
+							<FormField
+								control={form.control}
+								name="district"
 								render={({ field }) => (
 									<FormItem>
 										<FormControl>
 											<Input
-												placeholder={translations.state}
+												placeholder={translations.district}
 												{...field}
 												disabled={loading}
 											/>
@@ -237,6 +326,25 @@ const CheckoutForm = ({
 												placeholder={translations.pincode}
 												{...field}
 												disabled={loading}
+												onKeyDown={(e) => {
+													if (
+														!(
+															// Allow backspace, delete, arrow keys, and numeric keys
+															(
+																e.key === "Backspace" ||
+																e.key === "Delete" ||
+																e.key === "ArrowLeft" ||
+																e.key === "ArrowRight" ||
+																e.key === "ArrowUp" ||
+																e.key === "ArrowDown" ||
+																e.key === "Tab" ||
+																(e.key.length === 1 && /[0-9]/.test(e.key))
+															)
+														)
+													) {
+														e.preventDefault();
+													}
+												}}
 											/>
 										</FormControl>
 										<FormMessage />

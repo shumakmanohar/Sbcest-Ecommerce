@@ -25,7 +25,7 @@ async function uploadFileToS3(
 ) {
 	const fileBuffer = await sharp(file)
 		.jpeg({ quality: 70 })
-		.resize(500, 500)
+		.resize(500, 500, { fit: "contain" })
 		.toBuffer();
 
 	const params = {

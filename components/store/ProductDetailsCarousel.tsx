@@ -15,11 +15,9 @@ const ProductDetailsCarousel = ({ images }: { images: string[] }) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 	const [activeIndex, setActiveIndex] = useState<number>(0); // State to track active index
 
-	console.log(" i am being rendered for Product Carousel");
 	const handleSlideChange = (swiper: SwiperType) => {
 		const realIndex = swiper.realIndex;
 		const slidesLength = swiper.slides.length;
-		console.log(" i am being rendered for handleSlide Change");
 		// Calculate the active index based on the direction of the swipe
 		const newIndex =
 			realIndex < 0
@@ -32,7 +30,7 @@ const ProductDetailsCarousel = ({ images }: { images: string[] }) => {
 	};
 
 	return (
-		<div className="w-full max-w-[510px] mx-auto sticky top-[50px]  ">
+		<div className="w-full max-w-[510px] mx-auto  lg:sticky lg:top-[50px]">
 			{/* Main Image Carousel */}
 			<Swiper
 				loop={true}
@@ -42,7 +40,7 @@ const ProductDetailsCarousel = ({ images }: { images: string[] }) => {
 					swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
 				}}
 				modules={[FreeMode, Navigation, Thumbs]}
-				className="h-96 w-auto rounded-lg"
+				className="h-96 w-auto rounded-lg "
 				onSlideChange={(swiper) => handleSlideChange(swiper)}
 			>
 				{images.map((imageUrl, index) => (

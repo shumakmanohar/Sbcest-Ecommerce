@@ -17,7 +17,6 @@ export default async function layout({
 		locale: string;
 	};
 }) {
-	console.log("LOCALE HERE : [layout]", params.locale);
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations("Index");
 	return (
