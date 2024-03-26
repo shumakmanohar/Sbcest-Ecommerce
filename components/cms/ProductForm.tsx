@@ -202,7 +202,8 @@ export default function ProductForm({
 									placeholder="عنوان المنتج العربي"
 									{...field}
 									disabled={loading}
-									style={{ textAlign: "right" }}
+									dir="rtl"
+									
 								/>
 							</FormControl>
 							<FormMessage />
@@ -221,8 +222,9 @@ export default function ProductForm({
 									placeholder="وصف المنتج باللغة العربية"
 									{...field}
 									disabled={loading}
+									dir="rtl"
 									rows={10}
-									style={{ textAlign: "right" }}
+									
 								/>
 							</FormControl>
 							<FormMessage />
